@@ -2,7 +2,6 @@ const path = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const Dotenv = require('dotenv-webpack');
 
 const DEVELOPMENT_ENV = 'development';
 const PRODUCTION_ENV = 'production';
@@ -21,7 +20,7 @@ module.exports = {
   output: {
     path: appBuild,
     filename: mode === PRODUCTION_ENV
-      ? 'static/js/[name].[contenthash:8].js'
+      ? '../static/js/[name].[contenthash:8].js'
       : mode === DEVELOPMENT_ENV && 'static/js/bundle.js',
     publicPath: '/',
   },
@@ -58,6 +57,5 @@ module.exports = {
       },
     }),
     new CleanWebpackPlugin(),
-    new Dotenv(),
   ],
 };

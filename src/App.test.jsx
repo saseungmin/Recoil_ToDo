@@ -10,6 +10,6 @@ describe('App', () => {
   it('renders App text', () => {
     const { container } = renderApp();
 
-    expect(container).toHaveTextContent('Hello!!');
+    expect(container).toHaveTextContent('Hello!');
   });
 });

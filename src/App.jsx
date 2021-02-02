@@ -1,8 +1,9 @@
 import React from 'react';
+import TodoPage from './pages/TodoPage';
 
 const App = () => (
   <div>
-    Hello!
+    <TodoPage />
   </div>
 );
 

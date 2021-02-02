@@ -13,7 +13,7 @@ const TodoList = ({ tasks }) => {
 
   return (
     <div>
-      {tasks.map(({ id, task }) => (
+      {tasks && tasks.map(({ id, task }) => (
         <Todo
           task={task}
           key={id}

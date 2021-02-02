@@ -1,8 +1,9 @@
 import React from 'react';
 
+import { RecoilRoot } from 'recoil';
+
 import { render, fireEvent } from '@testing-library/react';
 
-import { RecoilRoot } from 'recoil';
 import TodoInput from './TodoInput';
 
 describe('TodoInput', () => {

@@ -12,6 +12,7 @@ const TodoInput = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     setTodo((oldTodoList) => [
       ...oldTodoList,
       {

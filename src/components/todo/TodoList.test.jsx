@@ -2,31 +2,38 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
+import { RecoilRoot } from 'recoil';
+
+import InjectTestingRecoilState from '../common/recoilTest';
+
 import TodoList from './TodoList';
 
 describe('TodoList', () => {
-  const renderTodoList = (tasks) => render((
-    <TodoList tasks={tasks} />
+  const renderTodoList = (state) => render((
+    <RecoilRoot>
+      <InjectTestingRecoilState state={state} />
+      <TodoList />
+    </RecoilRoot>
   ));
 
   context('with tasks', () => {
-    const tasks = [
-      { id: 1, task: '할 일1' },
-      { id: 2, task: '할 일2' },
+    const initialState = [
+      { id: 1, task: '할 일1', isComplete: false },
+      { id: 2, task: '할 일2', isComplete: true },
     ];
     it('render todo list contents', () => {
-      const { container } = renderTodoList(tasks);
+      const { container } = renderTodoList(initialState);
 
-      tasks.forEach(({ task }) => {
+      initialState.forEach(({ task }) => {
         expect(container).toHaveTextContent(task);
       });
     });
   });
 
   context('without tasks', () => {
-    const tasks = [];
+    const initialState = [];
     it('renders message "할 일이 없어요!"', () => {
-      const { container } = renderTodoList(tasks);
+      const { container } = renderTodoList(initialState);
 
       expect(container).toHaveTextContent('할 일이 없어요!');
     });

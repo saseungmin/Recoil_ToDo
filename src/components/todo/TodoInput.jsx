@@ -4,11 +4,11 @@ import { useSetRecoilState } from 'recoil';
 
 import { v4 as uuidv4 } from 'uuid';
 
-import { initialTodoState } from '../../utils/recoil/atomState';
+import todosAtom from '../../recoil/todos/atom';
 
 const TodoInput = () => {
   const [input, setInput] = useState('');
-  const setTodo = useSetRecoilState(initialTodoState);
+  const setTodo = useSetRecoilState(todosAtom);
 
   const handleSubmit = (e) => {
     e.preventDefault();

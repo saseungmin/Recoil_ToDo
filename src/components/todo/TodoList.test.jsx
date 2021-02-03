@@ -4,7 +4,7 @@ import { render } from '@testing-library/react';
 
 import { RecoilRoot } from 'recoil';
 
-import InjectTestingRecoilState from '../common/recoilTest';
+import InjectTestingRecoilState from '../common/InjectTestingRecoilState';
 
 import TodoList from './TodoList';
 

@@ -23,6 +23,7 @@
   },
   "homepage": "http://saseungmin.github.io/Recoil_ToDo",
   "dependencies": {
+    "lodash": "^4.17.20",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "recoil": "^0.1.2",

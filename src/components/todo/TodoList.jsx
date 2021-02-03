@@ -1,11 +1,19 @@
 import React from 'react';
 
+import { useRecoilValue } from 'recoil';
+
+import _ from 'lodash';
+
+import todosAtom from '../../recoil/todos/atom';
+
 import { NOTING_TO_DO } from '../../utils/constants/constants';
 
-import Todo from './Todo';
+import Todo from './TodoItem';
 
-const TodoList = ({ tasks }) => {
-  if (!tasks || tasks.length === 0) {
+const TodoList = () => {
+  const todos = useRecoilValue(todosAtom);
+
+  if (_.isEmpty(todos)) {
     return (
       <div>{NOTING_TO_DO}</div>
     );
@@ -13,10 +21,10 @@ const TodoList = ({ tasks }) => {
 
   return (
     <div>
-      {tasks && tasks.map(({ id, task }) => (
+      {todos.map((todo) => (
         <Todo
-          task={task}
-          key={id}
+          key={todo.id}
+          item={todo}
         />
       ))}
     </div>

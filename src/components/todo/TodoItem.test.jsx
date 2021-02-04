@@ -34,29 +34,42 @@ describe('TodoItem', () => {
     expect(getByTestId('todo-item')).not.toBeNull();
   });
 
-  it('click remove button call handleRemove and remove todoItem', () => {
-    const state = [{
-      id: '1',
-      task: '할 일1',
-      isComplete: false,
-    }];
+  describe('Change focus for edit when double clicking todo text', () => {
+    it('Call onDoubleClick', () => {
+      const state = [{
+        id: '1',
+        task: '할 일1',
+        isComplete: true,
+      }];
 
-    const { getByText } = renderTodoItem(state);
+      const { getByTestId } = renderTodoItem(state);
 
-    fireEvent.click(getByText('X'));
+      fireEvent.doubleClick(getByTestId('todo-span'));
+
+      expect(getByTestId('todo-edit-input')).toHaveFocus();
+    });
   });
 
-  it('should todo completed checked checkbox', () => {
+  it('Call handleChangeEdit and then Call handleSubmitEdit', () => {
     const state = [{
       id: '1',
       task: '할 일1',
       isComplete: true,
     }];
+    const value = 'some task';
 
     const { getByTestId } = renderTodoItem(state);
 
-    const checkbox = getByTestId('todo-item');
+    const input = getByTestId('todo-edit-input');
 
-    fireEvent.click(checkbox);
+    fireEvent.change(input, {
+      target: { value },
+    });
+
+    fireEvent.keyPress(input, {
+      key: 'Enter',
+      code: 13,
+      charCode: 13,
+    });
   });
 });

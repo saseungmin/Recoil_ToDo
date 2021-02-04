@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 export const toggleTodo = (todo) => (id) => {
   if (todo.id === id) {
     return {
@@ -9,4 +11,4 @@ export const toggleTodo = (todo) => (id) => {
   return todo;
 };
 
-export const temp = [];
+export const isCheckInputTrim = (value) => _.trim(value).length > 0;

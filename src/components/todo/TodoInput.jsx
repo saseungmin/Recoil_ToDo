@@ -8,12 +8,12 @@ import todosAtom from '../../recoil/todos/atom';
 
 const TodoInput = () => {
   const [input, setInput] = useState('');
-  const setTodo = useSetRecoilState(todosAtom);
+  const setTodos = useSetRecoilState(todosAtom);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    setTodo((oldTodoList) => [
+    setTodos((oldTodoList) => [
       ...oldTodoList,
       {
         id: uuidv4(),

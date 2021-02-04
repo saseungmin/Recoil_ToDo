@@ -15,12 +15,6 @@ const TodoItem = ({ item }) => {
   const [editToggleState, setEditToggleState] = useState(false);
   const [todos, setTodos] = useRecoilState(todosAtom);
 
-  useEffect(() => {
-    if (_.eq(editToggleState, true) && !_.isNull(editInput.current)) {
-      editInput.current.focus();
-    }
-  }, [editToggleState, editInput]);
-
   const handleRemove = (nowId) => {
     setTodos(todos.filter((todo) => todo.id !== nowId));
   };
@@ -69,6 +63,12 @@ const TodoItem = ({ item }) => {
       isCheckInputTrim(currentTarget.value) && setEditToggleState(false);
     }
   };
+
+  useEffect(() => {
+    if (_.eq(editToggleState, true) && !_.isNull(editInput.current)) {
+      editInput.current.focus();
+    }
+  }, [editToggleState, editInput]);
 
   return (
     <li>

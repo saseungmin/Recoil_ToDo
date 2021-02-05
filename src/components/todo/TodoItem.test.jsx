@@ -20,18 +20,31 @@ describe('TodoItem', () => {
     </RecoilRoot>
   ));
 
-  it('render todo contents', () => {
+  describe('renders todo item contents', () => {
     const state = [{
       id: '1',
       task: '할 일1',
       isComplete: false,
     }];
+    context('with visible todo contents', () => {
+      it("doesn't span double click", () => {
+        const { container, getByText, getByTestId } = renderTodoItem(state);
 
-    const { container, getByText, getByTestId } = renderTodoItem(state);
+        expect(container).toHaveTextContent(state[0].task);
+        expect(getByText('X')).not.toBeNull();
+        expect(getByTestId('todo-item')).not.toBeNull();
+      });
+    });
 
-    expect(container).toHaveTextContent(state[0].task);
-    expect(getByText('X')).not.toBeNull();
-    expect(getByTestId('todo-item')).not.toBeNull();
+    context('without visible todo contents', () => {
+      it('span double click so, renders edit input', () => {
+        const { getByTestId } = renderTodoItem(state);
+
+        fireEvent.doubleClick(getByTestId('todo-span'));
+
+        expect(getByTestId('todo-edit-input')).not.toBeNull();
+      });
+    });
   });
 
   describe('Change focus for edit when double clicking todo text', () => {
@@ -47,29 +60,6 @@ describe('TodoItem', () => {
       fireEvent.doubleClick(getByTestId('todo-span'));
 
       expect(getByTestId('todo-edit-input')).toHaveFocus();
-    });
-  });
-
-  it('Call handleChangeEdit and then Call handleSubmitEdit', () => {
-    const state = [{
-      id: '1',
-      task: '할 일1',
-      isComplete: true,
-    }];
-    const value = 'some task';
-
-    const { getByTestId } = renderTodoItem(state);
-
-    const input = getByTestId('todo-edit-input');
-
-    fireEvent.change(input, {
-      target: { value },
-    });
-
-    fireEvent.keyPress(input, {
-      key: 'Enter',
-      code: 13,
-      charCode: 13,
     });
   });
 });

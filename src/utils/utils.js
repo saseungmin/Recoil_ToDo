@@ -1,14 +1,14 @@
 import _ from 'lodash';
 
-export const toggleTodo = (todo) => (id) => {
+export const newTodos = (todos) => ({ id, key, value }) => todos.map((todo) => {
   if (todo.id === id) {
     return {
       ...todo,
-      isComplete: !todo.isComplete,
+      [key]: value,
     };
   }
 
   return todo;
-};
+});
 
 export const isCheckInputTrim = (value) => _.trim(value).length > 0;

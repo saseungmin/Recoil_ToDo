@@ -50,43 +50,75 @@ describe('TodoList', () => {
     });
 
     describe('Change edit todo span text', () => {
-      const value = [
-        { task: 'some task', key: 'Enter' },
-        { task: '', key: '1' },
+      const state = [
+        { id: '1', task: 'some task', isComplete: true },
       ];
-      it('Call handleChangeEdit and then Call handleSubmitEdit', () => {
-        const { getAllByTestId } = renderTodoList(initialState);
 
-        getAllByTestId('todo-edit-input').forEach((input, index) => {
+      context('with Enter key', () => {
+        const value = 'tasks';
+        it('Call handleChangeEdit and then Call handleSubmitEdit', () => {
+          const { container, getByTestId } = renderTodoList(state);
+
+          fireEvent.doubleClick(getByTestId('todo-span'));
+
+          const input = getByTestId('todo-edit-input');
+
           fireEvent.change(input, {
-            target: { value: value[index].task },
+            target: { value },
           });
 
           fireEvent.keyPress(input, {
-            key: value[index].key,
+            key: 'Enter',
             code: 13,
             charCode: 13,
           });
-        });
 
-        getAllByTestId('todo-span').forEach((span, index) => {
-          expect(span).toHaveTextContent(value[index].task);
+          expect(container).toHaveTextContent(value);
+        });
+      });
+
+      context('without Enter Key', () => {
+        const value = 'tasks';
+        it('Call handleChangeEdit and then Call handleSubmitEdit', () => {
+          const { container, getByTestId } = renderTodoList(state);
+
+          fireEvent.doubleClick(getByTestId('todo-span'));
+
+          const input = getByTestId('todo-edit-input');
+
+          fireEvent.change(input, {
+            target: { value },
+          });
+
+          fireEvent.keyPress(input, {
+            key: 'space',
+            code: 32,
+            charCode: 32,
+          });
+
+          expect(container).not.toHaveTextContent(value);
         });
       });
     });
 
     describe('When the edit input loses focus', () => {
+      const state = (task) => ([{
+        id: '1',
+        task,
+        isComplete: true,
+      }]);
+
       context('without task in edit input', () => {
         it('remove to todo', () => {
-          const state = [{
-            id: '1',
-            task: '',
-            isComplete: true,
-          }];
+          const { container, getByTestId } = renderTodoList(state(''));
 
-          const { container, getByTestId } = renderTodoList(state);
+          fireEvent.doubleClick(getByTestId('todo-span'));
 
-          fireEvent.blur(getByTestId('todo-edit-input'));
+          const input = getByTestId('todo-edit-input');
+
+          expect(input).toHaveFocus();
+
+          fireEvent.blur(input);
 
           expect(container).toHaveTextContent('할 일이 없어요!');
         });
@@ -94,13 +126,19 @@ describe('TodoList', () => {
 
       context('with task in edit input', () => {
         it('call edit blur event', () => {
-          const { getAllByTestId } = renderTodoList(initialState);
+          const { container, getByTestId } = renderTodoList(state('some task'));
 
-          getAllByTestId('todo-edit-input').forEach((input) => {
-            fireEvent.blur(input);
+          fireEvent.doubleClick(getByTestId('todo-span'));
 
-            expect(input).not.toHaveFocus();
-          });
+          const input = getByTestId('todo-edit-input');
+
+          expect(input).toHaveFocus();
+
+          fireEvent.blur(input);
+
+          expect(input).not.toHaveFocus();
+
+          expect(container).toHaveTextContent('some task');
         });
       });
     });

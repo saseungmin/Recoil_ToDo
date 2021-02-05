@@ -1,23 +1,21 @@
-import { toggleTodo } from './utils';
+import { newTodos } from './utils';
 
-describe('toggleTodo', () => {
-  context('is Correct ID', () => {
-    const todo = { id: '1', task: 'task', isComplete: false };
+describe('newTodos', () => {
+  const initialState = [
+    { id: '1', task: 'task', isComplete: false },
+    { id: '2', task: 'task', isComplete: false },
+  ];
 
-    it('change isComplete', () => {
-      const { isComplete } = toggleTodo(todo)('1');
-
-      expect(isComplete).toBe(true);
+  it('Change the value of the key of the array', () => {
+    const todos = newTodos(initialState)({
+      id: '1',
+      key: 'task',
+      value: 'some task',
     });
-  });
 
-  context('is not Correct ID', () => {
-    const todo = { id: '1', task: 'task', isComplete: false };
-
-    it("doesn't change isComplete", () => {
-      const { isComplete } = toggleTodo(todo)('2');
-
-      expect(isComplete).toBe(false);
-    });
+    expect(todos).toEqual([
+      { ...initialState[0], task: 'some task' },
+      { ...initialState[1] },
+    ]);
   });
 });

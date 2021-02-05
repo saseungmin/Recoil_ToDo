@@ -23,6 +23,10 @@
   },
   "homepage": "http://saseungmin.github.io/Recoil_ToDo",
   "dependencies": {
+    "@emotion/core": "^11.0.0",
+    "@emotion/react": "^11.1.4",
+    "@emotion/styled": "^11.0.0",
+    "emotion": "^11.0.0",
     "lodash": "^4.17.20",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",

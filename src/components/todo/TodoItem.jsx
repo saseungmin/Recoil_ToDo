@@ -4,8 +4,14 @@ import { useRecoilState } from 'recoil';
 
 import _ from 'lodash';
 
+import styled from '@emotion/styled';
+
 import todosAtom from '../../recoil/todos/atom';
-import { toggleTodo, isCheckInputTrim } from '../../utils/utils';
+import { isCheckInputTrim, newTodos } from '../../utils/utils';
+
+const ViewItemWrapper = styled.div``;
+
+const EditItemWrapper = styled.input``;
 
 const TodoItem = ({ item }) => {
   const { id, task, isComplete } = item;
@@ -15,12 +21,18 @@ const TodoItem = ({ item }) => {
   const [editToggleState, setEditToggleState] = useState(false);
   const [todos, setTodos] = useRecoilState(todosAtom);
 
+  const settingTodos = newTodos(todos);
+
   const handleRemove = (nowId) => {
     setTodos(todos.filter((todo) => todo.id !== nowId));
   };
 
-  const handleToggle = (nowId) => {
-    setTodos(todos.map((todo) => toggleTodo(todo)(nowId)));
+  const handleToggle = (nowId, toggle) => {
+    setTodos(settingTodos({
+      id: nowId,
+      key: 'isComplete',
+      value: !toggle,
+    }));
   };
 
   const onDoubleClick = () => {
@@ -41,18 +53,11 @@ const TodoItem = ({ item }) => {
   const handleChangeEdit = (e, nowId) => {
     const { value } = e.target;
 
-    const newTodos = todos.map((todo) => {
-      if (todo.id === nowId) {
-        return {
-          ...todo,
-          task: value,
-        };
-      }
-
-      return todo;
-    });
-
-    setTodos(newTodos);
+    setTodos(settingTodos({
+      id: nowId,
+      key: 'task',
+      value,
+    }));
   };
 
   const handleSubmitEdit = (e) => {
@@ -72,34 +77,38 @@ const TodoItem = ({ item }) => {
 
   return (
     <li>
-      <div>
-        <input
-          type="checkbox"
-          data-testid="todo-item"
-          checked={isComplete}
-          onChange={() => handleToggle(id)}
-        />
-        <span
-          data-testid="todo-span"
-          onDoubleClick={onDoubleClick}
-        >
-          {task}
-        </span>
-        <button
-          type="button"
-          onClick={() => handleRemove(id)}
-        >
-          X
-        </button>
-      </div>
-      <input
-        value={task}
-        ref={editInput}
-        onBlur={handleBlurEdit}
-        data-testid="todo-edit-input"
-        onKeyPress={handleSubmitEdit}
-        onChange={(e) => handleChangeEdit(e, id)}
-      />
+      {!editToggleState ? (
+        <ViewItemWrapper>
+          <input
+            type="checkbox"
+            data-testid="todo-item"
+            checked={isComplete}
+            onChange={() => handleToggle(id, isComplete)}
+          />
+          <span
+            data-testid="todo-span"
+            onDoubleClick={onDoubleClick}
+          >
+            {task}
+          </span>
+          <button
+            type="button"
+            onClick={() => handleRemove(id)}
+          >
+            X
+          </button>
+        </ViewItemWrapper>
+      )
+        : (
+          <EditItemWrapper
+            value={task}
+            ref={editInput}
+            onBlur={handleBlurEdit}
+            data-testid="todo-edit-input"
+            onKeyPress={handleSubmitEdit}
+            onChange={(e) => handleChangeEdit(e, id)}
+          />
+        )}
     </li>
   );
 };

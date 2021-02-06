@@ -9,7 +9,7 @@ import styled from '@emotion/styled';
 import todosAtom from '../../recoil/todos/atom';
 import { isCheckInputTrim, newTodos } from '../../utils/utils';
 
-const ViewItemWrapper = styled.div``;
+import TodoItemView from './TodoItemView';
 
 const EditItemWrapper = styled.input``;
 
@@ -35,7 +35,7 @@ const TodoItem = ({ item }) => {
     }));
   };
 
-  const onDoubleClick = () => {
+  const handleDoubleClick = () => {
     setEditToggleState(true);
   };
 
@@ -78,26 +78,12 @@ const TodoItem = ({ item }) => {
   return (
     <li>
       {!editToggleState ? (
-        <ViewItemWrapper>
-          <input
-            type="checkbox"
-            data-testid="todo-item"
-            checked={isComplete}
-            onChange={() => handleToggle(id, isComplete)}
-          />
-          <span
-            data-testid="todo-span"
-            onDoubleClick={onDoubleClick}
-          >
-            {task}
-          </span>
-          <button
-            type="button"
-            onClick={() => handleRemove(id)}
-          >
-            X
-          </button>
-        </ViewItemWrapper>
+        <TodoItemView
+          item={item}
+          onDoubleClick={handleDoubleClick}
+          onRemove={() => handleRemove(id)}
+          onToggle={() => handleToggle(id, isComplete)}
+        />
       )
         : (
           <EditItemWrapper

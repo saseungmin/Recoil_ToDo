@@ -1,9 +1,16 @@
 import React from 'react';
 
-import TodoPage from './pages/TodoPage';
+import { MAIN_TITLE } from './utils/constants/constants';
+
+import TodoList from './components/todo/TodoList';
+import TodoInput from './components/input/TodoInput';
 
 const App = () => (
-  <TodoPage />
+  <>
+    <h1>{MAIN_TITLE}</h1>
+    <TodoInput />
+    <TodoList />
+  </>
 );
 
 export default App;

@@ -5,4 +5,9 @@ const todosAtom = atom({
   default: [],
 });
 
+export const filterAtom = atom({
+  key: 'filterAtom',
+  default: 'All',
+});
+
 export default todosAtom;

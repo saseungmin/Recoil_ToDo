@@ -4,15 +4,14 @@ import { RecoilRoot } from 'recoil';
 
 import { render, fireEvent } from '@testing-library/react';
 
-import InjectTestingRecoilState from '../common/InjectTestingRecoilState';
-
 import TodoItem from './TodoItem';
+import InjectTestingRecoilState from '../common/InjectTestingRecoilState';
 
 describe('TodoItem', () => {
   const renderTodoItem = (state) => render((
     <RecoilRoot>
       <InjectTestingRecoilState
-        state={state}
+        todos={state}
       />
       <TodoItem
         item={state[0]}
@@ -26,6 +25,7 @@ describe('TodoItem', () => {
       task: '할 일1',
       isComplete: false,
     }];
+
     context('with visible todo contents', () => {
       it("doesn't span double click", () => {
         const { container, getByText, getByTestId } = renderTodoItem(state);

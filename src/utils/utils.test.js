@@ -1,4 +1,4 @@
-import { newTodos } from './utils';
+import { newTodos, filteredTodos } from './utils';
 
 describe('newTodos', () => {
   const initialState = [
@@ -17,5 +17,30 @@ describe('newTodos', () => {
       { ...initialState[0], task: 'some task' },
       { ...initialState[1] },
     ]);
+  });
+});
+
+describe('filteredTodos', () => {
+  const initialState = [
+    { id: '1', task: 'task', isComplete: false },
+    { id: '2', task: 'task', isComplete: true },
+  ];
+
+  it('When All todos', () => {
+    const result = filteredTodos.All(initialState);
+
+    expect(result).toEqual(initialState);
+  });
+
+  it('When is completed todos', () => {
+    const result = filteredTodos.Completed(initialState);
+
+    expect(result).toEqual([initialState[1]]);
+  });
+
+  it("When isn't completed todos", () => {
+    const result = filteredTodos.Active(initialState);
+
+    expect(result).toEqual([initialState[0]]);
   });
 });

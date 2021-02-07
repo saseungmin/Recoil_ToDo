@@ -4,14 +4,15 @@ import { render, fireEvent } from '@testing-library/react';
 
 import { RecoilRoot } from 'recoil';
 
-import InjectTestingRecoilState from '../common/InjectTestingRecoilState';
-
 import TodoList from './TodoList';
+import InjectTestingRecoilState from '../common/InjectTestingRecoilState';
 
 describe('TodoList', () => {
   const renderTodoList = (state) => render((
     <RecoilRoot>
-      <InjectTestingRecoilState state={state} />
+      <InjectTestingRecoilState
+        todos={state}
+      />
       <TodoList />
     </RecoilRoot>
   ));

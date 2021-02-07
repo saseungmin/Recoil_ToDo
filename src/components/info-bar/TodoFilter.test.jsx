@@ -4,8 +4,8 @@ import { RecoilRoot } from 'recoil';
 
 import { render, fireEvent } from '@testing-library/react';
 
-import InjectTestingRecoilState from '../components/common/InjectTestingRecoilState';
 import TodoFilter from './TodoFilter';
+import InjectTestingRecoilState from '../common/InjectTestingRecoilState';
 
 describe('TodoFilter', () => {
   const renderTodoFilter = ({ state }) => render((

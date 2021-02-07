@@ -2,8 +2,8 @@ import React from 'react';
 
 import { useSetRecoilState } from 'recoil';
 
-import { filterAtom } from '../recoil/todos';
-import { FILTER_TYPE_BUTTON } from '../utils/constants/constants';
+import { filterAtom } from '../../recoil/todos/atom';
+import { FILTER_TYPE_BUTTON } from '../../utils/constants/constants';
 
 import TodoFilterButton from './TodoFilterButton';
 

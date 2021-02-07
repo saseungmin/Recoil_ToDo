@@ -2,13 +2,15 @@ import { useEffect } from 'react';
 
 import { useSetRecoilState } from 'recoil';
 
-import todosAtom from '../../recoil/todos/atom';
+import todosAtom, { filterAtom } from '../../recoil/todos';
 
-const InjectTestingRecoilState = ({ state }) => {
-  const setState = useSetRecoilState(todosAtom);
+const InjectTestingRecoilState = ({ todos, filter = 'All' }) => {
+  const setTodosState = useSetRecoilState(todosAtom);
+  const setFilterState = useSetRecoilState(filterAtom);
 
   useEffect(() => {
-    setState(state);
+    setTodosState(todos);
+    setFilterState(filter);
   }, []);
 
   return null;

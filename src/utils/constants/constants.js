@@ -9,3 +9,5 @@ export const FILTER_TYPE_BUTTON = {
 };
 
 export const INPUT_ERROR_MESSAGE = '할 일을 입력해주세요!';
+
+export const COMPLETED_CLEAR_BUTTON = 'Clear completed';

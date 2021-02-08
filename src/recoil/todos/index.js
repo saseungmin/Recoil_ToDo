@@ -1,7 +1,7 @@
 import atom, { filterAtom } from './atom';
 
-import filterWithTodos from './withTodos';
+import todosWithFilter from './withFilter';
 
-export { filterAtom, filterWithTodos };
+export { filterAtom, todosWithFilter };
 
 export default atom;

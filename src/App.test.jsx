@@ -19,7 +19,7 @@ describe('App', () => {
 
   it('renders App text', () => {
     const initialState = [
-      { id: 1, task: '할 일1', isComplete: false },
+      { id: 1, task: '할 일1', isComplete: true },
     ];
 
     const { container } = renderApp(initialState);
@@ -27,11 +27,12 @@ describe('App', () => {
     expect(container).toHaveTextContent('What are your plans for today?');
     expect(container).toHaveTextContent('All');
     expect(container).toHaveTextContent('할 일1');
+    expect(container).toHaveTextContent('Clear completed');
   });
 
   describe("render according to todo's filter state", () => {
     const initialState = [
-      { id: 1, task: '할 일1', isComplete: false },
+      { id: 1, task: 'some task', isComplete: false },
       { id: 2, task: '할 일2', isComplete: true },
     ];
     it('When the filter is All', () => {
@@ -39,7 +40,7 @@ describe('App', () => {
 
       fireEvent.click(getByText('All'));
 
-      expect(container).toHaveTextContent('할 일1');
+      expect(container).toHaveTextContent('some task');
       expect(container).toHaveTextContent('할 일2');
     });
 
@@ -48,7 +49,7 @@ describe('App', () => {
 
       fireEvent.click(getByText('Active'));
 
-      expect(container).toHaveTextContent('할 일1');
+      expect(container).toHaveTextContent('some task');
       expect(container).not.toHaveTextContent('할 일2');
     });
 
@@ -57,8 +58,22 @@ describe('App', () => {
 
       fireEvent.click(getByText('Completed'));
 
-      expect(container).not.toHaveTextContent('할 일1');
+      expect(container).not.toHaveTextContent('some task');
       expect(container).toHaveTextContent('할 일2');
     });
+  });
+
+  it('When you click the Clear completed button, the completed todo is deleted.', () => {
+    const initialState = [
+      { id: 1, task: '할 일1', isComplete: true },
+    ];
+
+    const { container, getByText } = renderApp(initialState);
+
+    expect(container).toHaveTextContent('할 일1');
+
+    fireEvent.click(getByText('Clear completed'));
+
+    expect(container).toHaveTextContent('할 일이 없어요!');
   });
 });

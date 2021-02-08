@@ -4,16 +4,16 @@ import { RecoilRoot } from 'recoil';
 
 import { render, fireEvent } from '@testing-library/react';
 
-import TodoFilter from './TodoFilter';
+import TodoSubInfo from './TodoSubInfo';
 import InjectTestingRecoilState from '../common/InjectTestingRecoilState';
 
-describe('TodoFilter', () => {
-  const renderTodoFilter = ({ state }) => render((
+describe('TodoSubInfo', () => {
+  const renderTodoSubInfo = (state) => render((
     <RecoilRoot>
       <InjectTestingRecoilState
-        state={state}
+        todos={state}
       />
-      <TodoFilter />
+      <TodoSubInfo />
     </RecoilRoot>
   ));
 
@@ -22,16 +22,17 @@ describe('TodoFilter', () => {
     { id: 2, task: '할 일2', isComplete: true },
   ];
 
-  it('render filter bar content', () => {
-    const { container } = renderTodoFilter(initialState);
+  it('render sub info bar content', () => {
+    const { container } = renderTodoSubInfo(initialState);
 
     expect(container).toHaveTextContent('All');
     expect(container).toHaveTextContent('Active');
     expect(container).toHaveTextContent('Completed');
+    expect(container).toHaveTextContent('Clear completed');
   });
 
   it('Click filter buttons call event set value', () => {
-    const { getByText } = renderTodoFilter(initialState);
+    const { getByText } = renderTodoSubInfo(initialState);
 
     fireEvent.click(getByText('Active'));
   });

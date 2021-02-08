@@ -4,8 +4,8 @@ import todosAtom, { filterAtom } from './atom';
 
 import { filteredTodos } from '../../utils/utils';
 
-const filterWithTodos = selector({
-  key: 'filterWithTodos',
+const todosWithFilter = selector({
+  key: 'todosWithFilter',
   get: ({ get }) => {
     const filter = get(filterAtom);
     const todos = get(todosAtom);
@@ -14,4 +14,4 @@ const filterWithTodos = selector({
   },
 });
 
-export default filterWithTodos;
+export default todosWithFilter;

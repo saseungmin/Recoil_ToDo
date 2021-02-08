@@ -19,16 +19,39 @@ describe('TodoInput', () => {
     expect(getByPlaceholderText('오늘의 할 일을 입력하세요!')).not.toBeNull();
   });
 
-  it('listen event form submit', () => {
-    const { getByPlaceholderText } = renderTodoInput();
-    const input = getByPlaceholderText('오늘의 할 일을 입력하세요!');
+  describe('Listen event form submit', () => {
+    context('With input value', () => {
+      const value = '할 일1';
+      it('The input value disappears', () => {
+        const { getByPlaceholderText } = renderTodoInput();
+        const input = getByPlaceholderText('오늘의 할 일을 입력하세요!');
 
-    fireEvent.submit(
-      input,
-      { key: 'Enter', code: '13' },
-    );
+        fireEvent.change(input, { target: { value } });
 
-    expect(input).toHaveValue('');
+        expect(input).toHaveValue(value);
+
+        fireEvent.submit(
+          input,
+          { key: 'Enter', code: '13' },
+        );
+
+        expect(input).toHaveValue('');
+      });
+    });
+
+    context('Without input value', () => {
+      it('renders input error message "할 일을 입력하세요!"', () => {
+        const { getByPlaceholderText, container } = renderTodoInput();
+        const input = getByPlaceholderText('오늘의 할 일을 입력하세요!');
+
+        fireEvent.submit(
+          input,
+          { key: 'Enter', code: '13' },
+        );
+
+        expect(container).toHaveTextContent('할 일을 입력해주세요!');
+      });
+    });
   });
 
   it('listens event call input change', () => {

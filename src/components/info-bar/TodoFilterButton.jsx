@@ -1,13 +1,27 @@
 import React from 'react';
 
-const TodoFilterButton = ({ onClick, type }) => (
-  <button
-    value={type}
-    type="button"
-    onClick={onClick}
-  >
-    {type}
-  </button>
-);
+import { useSetRecoilState } from 'recoil';
+
+import { filterAtom } from '../../recoil/todos';
+
+const TodoFilterButton = ({ type }) => {
+  const setFilter = useSetRecoilState(filterAtom);
+
+  const handleClick = (e) => {
+    const { value } = e.target;
+
+    setFilter(value);
+  };
+
+  return (
+    <button
+      value={type}
+      type="button"
+      onClick={handleClick}
+    >
+      {type}
+    </button>
+  );
+};
 
 export default TodoFilterButton;

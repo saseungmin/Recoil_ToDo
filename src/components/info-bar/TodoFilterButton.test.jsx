@@ -5,16 +5,9 @@ import { render } from '@testing-library/react';
 import TodoFilterButton from './TodoFilterButton';
 
 describe('TodoFilterButton', () => {
-  const handleClick = jest.fn();
-
-  beforeEach(() => {
-    handleClick.mockClear();
-  });
-
   const renderTodoFilterButton = (type) => render((
     <TodoFilterButton
       type={type}
-      onClick={handleClick}
     />
   ));
 

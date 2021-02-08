@@ -4,13 +4,14 @@ import { useRecoilValue } from 'recoil';
 
 import _ from 'lodash';
 
-import { filterWithTodos } from '../../recoil/todos';
+import todosAtom, { filterWithTodos } from '../../recoil/todos';
 import { NOTING_TO_DO } from '../../utils/constants/constants';
 
 import Todo from './TodoItem';
 
 const TodoList = () => {
-  const todos = useRecoilValue(filterWithTodos);
+  const filteredTodos = useRecoilValue(filterWithTodos);
+  const todos = useRecoilValue(todosAtom);
 
   if (_.isEmpty(todos)) {
     return (
@@ -20,7 +21,7 @@ const TodoList = () => {
 
   return (
     <ul>
-      {todos.map((todo) => (
+      {filteredTodos.map((todo) => (
         <Todo
           key={todo.id}
           item={todo}

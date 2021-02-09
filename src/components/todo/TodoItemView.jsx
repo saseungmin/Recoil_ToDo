@@ -3,13 +3,18 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
-const TodoItemViewWrapper = styled.div``;
+const TodoItemViewWrapper = styled.div`
+  line-height: 1.2;
+  word-break: break-all;
+  display: block;
+`;
 
 const TodoItemTextWrapper = styled.span`
   ${({ isComplete }) => isComplete && css`
-    text-decoration: line-through;
     color: gray;
+    text-decoration: line-through;
   `}
+  transition: color 0.5s;
 `;
 
 const TodoItemView = ({

@@ -41,7 +41,7 @@ describe('TodoInput', () => {
 
     context('Without input value', () => {
       it('renders input error message "할 일을 입력하세요!"', () => {
-        const { getByPlaceholderText, container } = renderTodoInput();
+        const { getByPlaceholderText } = renderTodoInput();
         const input = getByPlaceholderText('오늘의 할 일을 입력하세요!');
 
         fireEvent.submit(
@@ -49,7 +49,7 @@ describe('TodoInput', () => {
           { key: 'Enter', code: '13' },
         );
 
-        expect(container).toHaveTextContent('할 일을 입력해주세요!');
+        expect(input).toHaveStyle('border: 2px solid #ff8787;');
       });
     });
   });

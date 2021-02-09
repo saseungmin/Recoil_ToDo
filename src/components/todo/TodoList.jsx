@@ -20,14 +20,14 @@ const TodoList = () => {
   }
 
   return (
-    <ul>
+    <div>
       {filteredTodos.map((todo) => (
         <Todo
           key={todo.id}
           item={todo}
         />
       ))}
-    </ul>
+    </div>
   );
 };
 

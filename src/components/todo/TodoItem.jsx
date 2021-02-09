@@ -76,7 +76,7 @@ const TodoItem = ({ item }) => {
   }, [editToggleState, editInput]);
 
   return (
-    <li>
+    <>
       {!editToggleState ? (
         <TodoItemView
           item={item}
@@ -95,7 +95,7 @@ const TodoItem = ({ item }) => {
             onChange={(e) => handleChangeEdit(e, id)}
           />
         )}
-    </li>
+    </>
   );
 };
 

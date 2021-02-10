@@ -6,7 +6,7 @@ import { RecoilRoot } from 'recoil';
 
 import App from './App';
 
-import '../assets/global.css';
+import './assets/css/global.css';
 
 ReactDOM.render(
   (

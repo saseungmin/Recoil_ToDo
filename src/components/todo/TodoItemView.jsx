@@ -3,6 +3,8 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
+import Checkbox from '../../styles/Checkbox';
+
 const TodoItemViewWrapper = styled.div`
   line-height: 1.2;
   word-break: break-all;
@@ -24,15 +26,25 @@ const TodoItemView = ({
 
   return (
     <TodoItemViewWrapper>
-      <input
-        type="checkbox"
-        data-testid="todo-item"
-        checked={isComplete}
-        onChange={onToggle}
-      />
+      {isComplete
+        ? (
+          <Checkbox
+            click
+            checked
+            onClick={onToggle}
+            data-testid="todo-item"
+          />
+        )
+        : (
+          <Checkbox
+            click
+            onClick={onToggle}
+            data-testid="todo-item"
+          />
+        )}
       <TodoItemTextWrapper
         isComplete={isComplete}
-        data-testid="todo-span"
+        data-testid="todo-text"
         onDoubleClick={onDoubleClick}
       >
         {task}

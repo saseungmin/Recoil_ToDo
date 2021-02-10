@@ -39,6 +39,10 @@ module.exports = {
         use: 'babel-loader',
         include: appSrc,
       },
+      {
+        test: /\.svg$/,
+        use: ['@svgr/webpack'],
+      },
     ],
   },
   resolve: {

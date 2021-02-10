@@ -40,17 +40,19 @@ describe('TodoList', () => {
       expect(container).toHaveTextContent('할 일이 없어요!');
     });
 
-    it('should todo completed checked checkbox', () => {
+    it('should todo completed change style', () => {
       const { getAllByTestId } = renderTodoList(initialState);
 
       getAllByTestId('todo-item').forEach((checkbox) => {
         fireEvent.click(checkbox);
+      });
 
-        expect(checkbox).toBeChecked();
+      getAllByTestId('todo-text').forEach((todo) => {
+        expect(todo).toHaveStyle('text-decoration: line-through;');
       });
     });
 
-    describe('Change edit todo span text', () => {
+    describe('Change edit todo text', () => {
       const state = [
         { id: '1', task: 'some task', isComplete: true },
       ];
@@ -60,7 +62,7 @@ describe('TodoList', () => {
         it('Call handleChangeEdit and then Call handleSubmitEdit', () => {
           const { container, getByTestId } = renderTodoList(state);
 
-          fireEvent.doubleClick(getByTestId('todo-span'));
+          fireEvent.doubleClick(getByTestId('todo-text'));
 
           const input = getByTestId('todo-edit-input');
 
@@ -83,7 +85,7 @@ describe('TodoList', () => {
         it('Call handleChangeEdit and then Call handleSubmitEdit', () => {
           const { container, getByTestId } = renderTodoList(state);
 
-          fireEvent.doubleClick(getByTestId('todo-span'));
+          fireEvent.doubleClick(getByTestId('todo-text'));
 
           const input = getByTestId('todo-edit-input');
 
@@ -113,7 +115,7 @@ describe('TodoList', () => {
         it('remove to todo', () => {
           const { container, getByTestId } = renderTodoList(state(''));
 
-          fireEvent.doubleClick(getByTestId('todo-span'));
+          fireEvent.doubleClick(getByTestId('todo-text'));
 
           const input = getByTestId('todo-edit-input');
 
@@ -129,7 +131,7 @@ describe('TodoList', () => {
         it('call edit blur event', () => {
           const { container, getByTestId } = renderTodoList(state('some task'));
 
-          fireEvent.doubleClick(getByTestId('todo-span'));
+          fireEvent.doubleClick(getByTestId('todo-text'));
 
           const input = getByTestId('todo-edit-input');
 

@@ -37,10 +37,10 @@ describe('TodoItem', () => {
     });
 
     context('without visible todo contents', () => {
-      it('span double click so, renders edit input', () => {
+      it('todo double click so, renders edit input', () => {
         const { getByTestId } = renderTodoItem(state);
 
-        fireEvent.doubleClick(getByTestId('todo-span'));
+        fireEvent.doubleClick(getByTestId('todo-text'));
 
         expect(getByTestId('todo-edit-input')).not.toBeNull();
       });
@@ -57,7 +57,7 @@ describe('TodoItem', () => {
 
       const { getByTestId } = renderTodoItem(state);
 
-      fireEvent.doubleClick(getByTestId('todo-span'));
+      fireEvent.doubleClick(getByTestId('todo-text'));
 
       expect(getByTestId('todo-edit-input')).toHaveFocus();
     });

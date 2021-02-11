@@ -8,16 +8,17 @@ import TodoList from './TodoList';
 import InjectTestingRecoilState from '../common/InjectTestingRecoilState';
 
 describe('TodoList', () => {
-  const renderTodoList = (state) => render((
+  const renderTodoList = (state, filter = 'ALL') => render((
     <RecoilRoot>
       <InjectTestingRecoilState
         todos={state}
+        filter={filter}
       />
       <TodoList />
     </RecoilRoot>
   ));
 
-  context('with tasks', () => {
+  context('with todos', () => {
     const initialState = [
       { id: 1, task: '할 일1', isComplete: false },
       { id: 2, task: '할 일2', isComplete: false },
@@ -145,9 +146,21 @@ describe('TodoList', () => {
         });
       });
     });
+
+    describe('When filter todos is empty', () => {
+      const state = [
+        { id: '1', task: 'some task', isComplete: true },
+      ];
+
+      it('renders empty messages', () => {
+        const { container } = renderTodoList(state, 'ACTIVE');
+
+        expect(container).toHaveTextContent('모든 할 일을 완료했네요!');
+      });
+    });
   });
 
-  context('without tasks', () => {
+  context('without todos', () => {
     const initialState = [];
     it('renders message "할 일이 없어요!"', () => {
       const { container } = renderTodoList(initialState);

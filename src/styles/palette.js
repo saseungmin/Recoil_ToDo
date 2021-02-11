@@ -71,6 +71,10 @@ const palette = {
     '#A3CB38',
     '#6ab04c',
   ],
+  text: [
+    '#aaa69d',
+    '#84817a',
+  ],
 };
 
 export default palette;

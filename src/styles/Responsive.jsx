@@ -15,7 +15,7 @@ const ResponsiveWrapper = styled.div(() => mq({
   alignItems: 'center',
   marginLeft: 'auto',
   marginRight: 'auto',
-  width: ['calc(100% - 2rem)', '550px'],
+  width: ['calc(100% - 2rem)', '600px'],
   marginTop: '32px',
 }));
 

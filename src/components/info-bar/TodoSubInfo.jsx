@@ -15,7 +15,7 @@ const { ALL, ACTIVE, COMPLETED } = FILTER_TYPE_BUTTON;
 const TodoSubInfoWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 10px;
+  padding: 13px 10px;
   border-bottom: 2px solid ${palette.border[0]};
   align-items: center;
 `;

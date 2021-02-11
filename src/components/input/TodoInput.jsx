@@ -26,7 +26,7 @@ const NewTodoInputWrapper = styled.input`
   box-shadow: none;
   border: none;
   padding: 2px;
-  width: 550px;
+  width: 600px;
   text-align: center;
   transition-timing-function: ease-in-out;
   transition: all 0.2s cubic-bezier(.65,.33,.65,.33);

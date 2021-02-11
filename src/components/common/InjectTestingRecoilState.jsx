@@ -4,7 +4,7 @@ import { useSetRecoilState } from 'recoil';
 
 import todosAtom, { filterAtom } from '../../recoil/todos';
 
-const InjectTestingRecoilState = ({ todos, filter = 'ALL' }) => {
+const InjectTestingRecoilState = ({ todos = [], filter = 'ALL' }) => {
   const setTodosState = useSetRecoilState(todosAtom);
   const setFilterState = useSetRecoilState(filterAtom);
 

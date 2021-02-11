@@ -8,15 +8,23 @@ import todosAtom, { todosWithFilter } from '../../recoil/todos';
 import { NOTING_TO_DO } from '../../utils/constants/constants';
 
 import Todo from './TodoItem';
+import EmptyStatus from './EmptyStatus';
+import EmptyMessage from '../../styles/EmptyMessage';
 
 const TodoList = () => {
-  const filteredTodos = useRecoilValue(todosWithFilter);
   const todos = useRecoilValue(todosAtom);
+  const filteredTodos = useRecoilValue(todosWithFilter);
 
   if (_.isEmpty(todos)) {
     return (
-      <div>{NOTING_TO_DO}</div>
+      <EmptyMessage>
+        {NOTING_TO_DO}
+      </EmptyMessage>
     );
+  }
+
+  if (_.isEmpty(filteredTodos)) {
+    return <EmptyStatus />;
   }
 
   return (

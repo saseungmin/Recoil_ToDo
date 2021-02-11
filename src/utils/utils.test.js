@@ -27,19 +27,19 @@ describe('filteredTodos', () => {
   ];
 
   it('When All todos', () => {
-    const result = filteredTodos.All(initialState);
+    const result = filteredTodos.ALL(initialState);
 
     expect(result).toEqual(initialState);
   });
 
   it('When is completed todos', () => {
-    const result = filteredTodos.Completed(initialState);
+    const result = filteredTodos.COMPLETED(initialState);
 
     expect(result).toEqual([initialState[1]]);
   });
 
   it("When isn't completed todos", () => {
-    const result = filteredTodos.Active(initialState);
+    const result = filteredTodos.ACTIVE(initialState);
 
     expect(result).toEqual([initialState[0]]);
   });

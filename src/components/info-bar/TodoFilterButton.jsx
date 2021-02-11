@@ -1,11 +1,44 @@
 import React from 'react';
 
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
+
+import styled from '@emotion/styled';
+import { css } from '@emotion/react';
+
+import palette from '../../styles/palette';
+import { FILTER_TYPE_BUTTON } from '../../utils/constants/constants';
 
 import { filterAtom } from '../../recoil/todos';
 
+const { COMPLETED } = FILTER_TYPE_BUTTON;
+
+const FilterButtonWrapper = styled.button`
+  font-size: 1.1rem;
+  border: none;
+  padding: 0;
+  background: none;
+  transition: color 0.3s;
+
+  &:hover {
+    color: ${palette.active[0]};
+  };
+
+  ${({ value, status }) => value === status && css`
+    color: ${palette.active[1]};
+  `};
+
+  ${({ value }) => value !== COMPLETED && css`
+    &::after {
+      content: "";
+      border-right: 1px solid ${palette.gray[6]};
+      margin: 0px 10px;
+    }
+  `};
+
+`;
+
 const TodoFilterButton = ({ type }) => {
-  const setFilter = useSetRecoilState(filterAtom);
+  const [filter, setFilter] = useRecoilState(filterAtom);
 
   const handleClick = (e) => {
     const { value } = e.target;
@@ -14,13 +47,14 @@ const TodoFilterButton = ({ type }) => {
   };
 
   return (
-    <button
+    <FilterButtonWrapper
       value={type}
+      status={filter}
       type="button"
       onClick={handleClick}
     >
       {type}
-    </button>
+    </FilterButtonWrapper>
   );
 };
 

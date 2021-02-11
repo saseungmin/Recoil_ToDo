@@ -2,30 +2,41 @@ import React from 'react';
 
 import { useRecoilValue } from 'recoil';
 
+import styled from '@emotion/styled';
+
 import Checkbox from '../../styles/Checkbox';
 import todosWithStats from '../../recoil/todos/withStats';
+
+const StatsWrapper = styled.div`
+  display:flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+const StatsTextWrapper = styled.div`
+  font-size: 1.2rem;
+  margin: 5px 9px 0 5px;
+`;
 
 const TodoStats = () => {
   const { totalCompletedNum, totalUnCompletedNum } = useRecoilValue(todosWithStats);
 
   return (
-    <>
+    <StatsWrapper>
       <Checkbox checked />
-      <span
-        id="completed"
+      <StatsTextWrapper
         data-testid="completed"
       >
         {totalCompletedNum}
-      </span>
+      </StatsTextWrapper>
       <Checkbox />
-      <span
-        id="active"
+      <StatsTextWrapper
         data-testid="active"
       >
         {totalUnCompletedNum}
 
-      </span>
-    </>
+      </StatsTextWrapper>
+    </StatsWrapper>
   );
 };
 

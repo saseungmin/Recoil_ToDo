@@ -25,9 +25,9 @@ describe('App', () => {
     const { container } = renderApp(initialState);
 
     expect(container).toHaveTextContent('What are your plans for today?');
-    expect(container).toHaveTextContent('All');
+    expect(container).toHaveTextContent('ALL');
     expect(container).toHaveTextContent('할 일1');
-    expect(container).toHaveTextContent('Clear completed');
+    expect(container).toHaveTextContent('CLEAR COMPLETED');
   });
 
   describe("render according to todo's filter state", () => {
@@ -35,28 +35,28 @@ describe('App', () => {
       { id: 1, task: 'some task', isComplete: false },
       { id: 2, task: '할 일2', isComplete: true },
     ];
-    it('When the filter is All', () => {
+    it('When the filter is ALL', () => {
       const { container, getByText } = renderApp(initialState);
 
-      fireEvent.click(getByText('All'));
+      fireEvent.click(getByText('ALL'));
 
       expect(container).toHaveTextContent('some task');
       expect(container).toHaveTextContent('할 일2');
     });
 
-    it('When the filter is Active', () => {
+    it('When the filter is ACTIVE', () => {
       const { container, getByText } = renderApp(initialState);
 
-      fireEvent.click(getByText('Active'));
+      fireEvent.click(getByText('ACTIVE'));
 
       expect(container).toHaveTextContent('some task');
       expect(container).not.toHaveTextContent('할 일2');
     });
 
-    it('When the filter is Completed', () => {
+    it('When the filter is COMPLETED', () => {
       const { container, getByText } = renderApp(initialState);
 
-      fireEvent.click(getByText('Completed'));
+      fireEvent.click(getByText('COMPLETED'));
 
       expect(container).not.toHaveTextContent('some task');
       expect(container).toHaveTextContent('할 일2');
@@ -72,7 +72,7 @@ describe('App', () => {
 
     expect(container).toHaveTextContent('할 일1');
 
-    fireEvent.click(getByText('Clear completed'));
+    fireEvent.click(getByText('CLEAR COMPLETED'));
 
     expect(container).toHaveTextContent('할 일이 없어요!');
   });

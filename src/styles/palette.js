@@ -67,6 +67,10 @@ const palette = {
   border: [
     '#d1ccc0',
   ],
+  active: [
+    '#A3CB38',
+    '#6ab04c',
+  ],
 };
 
 export default palette;

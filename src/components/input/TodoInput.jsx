@@ -46,7 +46,7 @@ const NewTodoInputWrapper = styled.input`
 
   &:focus {
     ${({ error }) => !error && css`
-      border: 2px solid #A3CB38;
+      border: 2px solid ${palette.active[0]};
     `};
 
     padding: 0;

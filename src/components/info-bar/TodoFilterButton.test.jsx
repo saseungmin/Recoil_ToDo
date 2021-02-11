@@ -1,14 +1,18 @@
 import React from 'react';
 
+import { RecoilRoot } from 'recoil';
+
 import { render } from '@testing-library/react';
 
 import TodoFilterButton from './TodoFilterButton';
 
 describe('TodoFilterButton', () => {
   const renderTodoFilterButton = (type) => render((
-    <TodoFilterButton
-      type={type}
-    />
+    <RecoilRoot>
+      <TodoFilterButton
+        type={type}
+      />
+    </RecoilRoot>
   ));
 
   it('render filter button', () => {

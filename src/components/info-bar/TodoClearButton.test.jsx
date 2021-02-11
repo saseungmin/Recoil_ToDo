@@ -24,7 +24,7 @@ describe('TodoClearButton', () => {
     it('render clear button', () => {
       const { container } = renderTodoClearButton(state);
 
-      expect(container).toHaveTextContent('Clear completed');
+      expect(container).toHaveTextContent('CLEAR COMPLETED');
     });
   });
 
@@ -32,10 +32,10 @@ describe('TodoClearButton', () => {
     const state = [
       { id: '1', task: 'some tasks', isComplete: false },
     ];
-    it('render clear button', () => {
-      const { container } = renderTodoClearButton(state);
+    it('render disabled clear button', () => {
+      const { getByText } = renderTodoClearButton(state);
 
-      expect(container).toBeEmptyDOMElement();
+      expect(getByText('CLEAR COMPLETED')).toHaveAttribute('disabled');
     });
   });
 });

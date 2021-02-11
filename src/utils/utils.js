@@ -17,7 +17,7 @@ export const isActive = (todo) => !todo.isComplete;
 export const isCompleted = (todo) => todo.isComplete;
 
 export const filteredTodos = {
-  All: (state) => (state),
-  Active: (state) => (state.filter(isActive)),
-  Completed: (state) => (state.filter(isCompleted)),
+  ALL: (state) => (state),
+  ACTIVE: (state) => (state.filter(isActive)),
+  COMPLETED: (state) => (state.filter(isCompleted)),
 };

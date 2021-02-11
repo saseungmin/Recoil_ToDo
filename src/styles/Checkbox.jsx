@@ -25,13 +25,13 @@ const UnCheckedIconWrapper = styled(UnCheckedIcon)`
 `;
 
 const Checkbox = (props) => {
-  const { checked } = props;
+  const { checked, click } = props;
 
   return (
     <>
       {checked
-        ? <CheckedIConWrapper {...props} />
-        : <UnCheckedIconWrapper {...props} />}
+        ? <CheckedIConWrapper {...props} click={click && 1} />
+        : <UnCheckedIconWrapper {...props} click={click && 1} />}
     </>
   );
 };

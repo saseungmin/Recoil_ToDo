@@ -7,7 +7,7 @@ const todosAtom = atom({
 
 export const filterAtom = atom({
   key: 'filterAtom',
-  default: 'All',
+  default: 'ALL',
 });
 
 export default todosAtom;

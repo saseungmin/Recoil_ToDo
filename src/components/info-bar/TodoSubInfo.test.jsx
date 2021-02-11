@@ -25,15 +25,15 @@ describe('TodoSubInfo', () => {
   it('render sub info bar content', () => {
     const { container } = renderTodoSubInfo(initialState);
 
-    expect(container).toHaveTextContent('All');
-    expect(container).toHaveTextContent('Active');
-    expect(container).toHaveTextContent('Completed');
-    expect(container).toHaveTextContent('Clear completed');
+    expect(container).toHaveTextContent('ALL');
+    expect(container).toHaveTextContent('ACTIVE');
+    expect(container).toHaveTextContent('COMPLETED');
+    expect(container).toHaveTextContent('CLEAR COMPLETED');
   });
 
   it('Click filter buttons call event set value', () => {
     const { getByText } = renderTodoSubInfo(initialState);
 
-    fireEvent.click(getByText('Active'));
+    fireEvent.click(getByText('ACTIVE'));
   });
 });

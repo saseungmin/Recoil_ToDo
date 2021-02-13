@@ -28,6 +28,13 @@ describe('TodoItemView', () => {
     isComplete: false,
   };
 
+  it('renders todo item view', () => {
+    const { container } = renderTodoItemView(item);
+
+    expect(container).toHaveTextContent('some task');
+    expect(container).toHaveTextContent('수정하려면 더블 클릭해주세요!');
+  });
+
   it('click remove button', () => {
     const { getByTestId } = renderTodoItemView(item);
 

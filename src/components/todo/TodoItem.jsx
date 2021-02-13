@@ -97,12 +97,14 @@ const TodoItem = ({ item }) => {
   return (
     <>
       {!editToggleState ? (
-        <TodoItemView
-          item={item}
-          onDoubleClick={handleDoubleClick}
-          onRemove={() => handleRemove(id)}
-          onToggle={() => handleToggle(id, isComplete)}
-        />
+        <>
+          <TodoItemView
+            item={item}
+            onDoubleClick={handleDoubleClick}
+            onRemove={() => handleRemove(id)}
+            onToggle={() => handleToggle(id, isComplete)}
+          />
+        </>
       )
         : (
           <EditWrapper>

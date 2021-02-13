@@ -20,8 +20,8 @@ describe('TodoList', () => {
 
   context('with todos', () => {
     const initialState = [
-      { id: 1, task: '할 일1', isComplete: false },
-      { id: 2, task: '할 일2', isComplete: false },
+      { id: '1', task: '할 일1', isComplete: false },
+      { id: '2', task: '할 일2', isComplete: false },
     ];
     it('render todo list contents', () => {
       const { container } = renderTodoList(initialState);

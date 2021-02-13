@@ -19,7 +19,7 @@ describe('App', () => {
 
   it('renders App text', () => {
     const initialState = [
-      { id: 1, task: '할 일1', isComplete: true },
+      { id: '1', task: '할 일1', isComplete: true },
     ];
 
     const { container } = renderApp(initialState);
@@ -32,8 +32,8 @@ describe('App', () => {
 
   describe("render according to todo's filter state", () => {
     const initialState = [
-      { id: 1, task: 'some task', isComplete: false },
-      { id: 2, task: '할 일2', isComplete: true },
+      { id: '1', task: 'some task', isComplete: false },
+      { id: '2', task: '할 일2', isComplete: true },
     ];
     it('When the filter is ALL', () => {
       const { container, getByText } = renderApp(initialState);
@@ -65,7 +65,7 @@ describe('App', () => {
 
   it('When you click the Clear completed button, the completed todo is deleted.', () => {
     const initialState = [
-      { id: 1, task: '할 일1', isComplete: true },
+      { id: '1', task: '할 일1', isComplete: true },
     ];
 
     const { container, getByText } = renderApp(initialState);

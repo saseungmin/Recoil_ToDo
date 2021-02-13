@@ -63,6 +63,7 @@ const palette = {
     '#ffa8a8',
     '#ff8787',
     '#ff6b6b',
+    '#f19066',
   ],
   border: [
     '#d1ccc0',

@@ -15,7 +15,7 @@ const StatsWrapper = styled.div`
 
 const StatsTextWrapper = styled.div`
   font-size: 1.2rem;
-  margin: 5px 9px 0 5px;
+  margin: 5px 9px 0 7px;
 `;
 
 const TodoStats = () => {

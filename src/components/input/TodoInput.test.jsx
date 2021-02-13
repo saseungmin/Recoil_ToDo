@@ -68,7 +68,7 @@ describe('TodoInput', () => {
           { key: 'Enter', code: '13' },
         );
 
-        expect(input).toHaveStyle('border: 2px solid #ff8787;');
+        expect(input).toHaveStyle('border: 2px solid #f19066;');
       });
 
       it('When the input focus is out, the border of the input changes.', () => {
@@ -80,7 +80,7 @@ describe('TodoInput', () => {
           { key: 'Enter', code: '13' },
         );
 
-        expect(input).toHaveStyle('border: 2px solid #ff8787;');
+        expect(input).toHaveStyle('border: 2px solid #f19066;');
 
         fireEvent.blur(input);
 
@@ -96,7 +96,7 @@ describe('TodoInput', () => {
           { key: 'Enter', code: '13' },
         );
 
-        expect(input).toHaveStyle('border: 2px solid #ff8787;');
+        expect(input).toHaveStyle('border: 2px solid #f19066;');
 
         fireEvent.focus(input);
 

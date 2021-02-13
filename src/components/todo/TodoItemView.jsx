@@ -13,7 +13,7 @@ const TodoItemViewWrapper = styled.div`
   align-items: center;
   display: flex;
   flex-direction: row;
-  padding: 13px;
+  padding: 18px 13px;
   border-bottom: 1px solid ${palette.border[0]};
   position: relative;
 
@@ -27,11 +27,12 @@ const TodoItemViewWrapper = styled.div`
 `;
 
 const TodoItemTextWrapper = styled.div`
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   display: block;
-  width: 510px;
+  width: 700px;
   margin: 0 1rem;
   transition: color 0.5s;
+  cursor: pointer;
 
   ${({ isComplete }) => isComplete && css`
     color: gray;
@@ -41,13 +42,13 @@ const TodoItemTextWrapper = styled.div`
 
 const DeleteIcon = styled(DeleteSvg)`
   top: 0;
-  right: 12px;
+  right: 15px;
   position: absolute;
-  width: 23px;
-  height: 23px;
+  width: 25px;
+  height: 25px;
   bottom: 0;
   margin: auto 0;
-  margin-bottom: 13px;
+  margin-bottom: 18px;
   cursor: pointer;
 `;
 

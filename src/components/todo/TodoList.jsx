@@ -7,7 +7,7 @@ import _ from 'lodash';
 import todosAtom, { todosWithFilter } from '../../recoil/todos';
 import { NOTING_TO_DO } from '../../utils/constants/constants';
 
-import Todo from './TodoItem';
+import TodoItem from './TodoItem';
 import EmptyStatus from './EmptyStatus';
 import EmptyMessage from '../../styles/EmptyMessage';
 
@@ -30,7 +30,7 @@ const TodoList = () => {
   return (
     <div>
       {filteredTodos.map((todo) => (
-        <Todo
+        <TodoItem
           key={todo.id}
           item={todo}
         />

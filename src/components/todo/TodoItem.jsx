@@ -6,12 +6,31 @@ import _ from 'lodash';
 
 import styled from '@emotion/styled';
 
+import palette from '../../styles/palette';
 import todosAtom from '../../recoil/todos/atom';
 import { isCheckInputTrim, newTodos } from '../../utils/utils';
 
 import TodoItemView from './TodoItemView';
 
-const EditItemWrapper = styled.input``;
+const EditWrapper = styled.div`
+  display: flex;
+`;
+
+const EditSpaceWrapper = styled.div`
+  width: 45px;
+  height: auto;
+  border-bottom: 1px solid ${palette.border[0]};
+`;
+
+const EditItemWrapper = styled.input`
+  font-size: 1.3rem;
+  width: 100%;
+  display: block;
+  padding: 16px 13px;
+  border: 1px solid #999;
+  box-shadow: inset 0 -1px 5px 0 rgb(0 0 0 / 20%);
+  background: #f1f2f6;
+`;
 
 const TodoItem = ({ item }) => {
   const { id, task, isComplete } = item;
@@ -86,14 +105,17 @@ const TodoItem = ({ item }) => {
         />
       )
         : (
-          <EditItemWrapper
-            value={task}
-            ref={editInput}
-            onBlur={handleBlurEdit}
-            data-testid="todo-edit-input"
-            onKeyPress={handleSubmitEdit}
-            onChange={(e) => handleChangeEdit(e, id)}
-          />
+          <EditWrapper>
+            <EditSpaceWrapper />
+            <EditItemWrapper
+              value={task}
+              ref={editInput}
+              onBlur={handleBlurEdit}
+              data-testid="todo-edit-input"
+              onKeyPress={handleSubmitEdit}
+              onChange={(e) => handleChangeEdit(e, id)}
+            />
+          </EditWrapper>
         )}
     </>
   );

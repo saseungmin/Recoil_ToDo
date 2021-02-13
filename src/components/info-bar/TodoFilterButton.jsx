@@ -13,7 +13,7 @@ import { filterAtom } from '../../recoil/todos';
 const { COMPLETED } = FILTER_TYPE_BUTTON;
 
 const FilterButtonWrapper = styled.button`
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   border: none;
   padding: 0;
   background: none;

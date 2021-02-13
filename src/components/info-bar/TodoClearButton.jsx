@@ -14,7 +14,7 @@ import todosAtom from '../../recoil/todos/atom';
 import palette from '../../styles/palette';
 
 const ClearButtonWrapper = styled.button`
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   margin-left: 9px;
   border: none;
   padding: 0;

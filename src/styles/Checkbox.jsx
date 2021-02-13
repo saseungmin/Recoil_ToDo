@@ -8,8 +8,8 @@ import CheckedIcon from '../assets/icons/checked.svg';
 import UnCheckedIcon from '../assets/icons/un-checked.svg';
 
 const CheckboxWrapper = ({ click }) => css`
-  width: 20px;
-  height: 20px;
+  width: 25px;
+  height: 25px;
 
   ${click && css`
     cursor: pointer;

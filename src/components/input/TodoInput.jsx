@@ -18,19 +18,19 @@ const TodoInputDivWrapper = styled.div`
 `;
 
 const NewTodoInputWrapper = styled.input`
-  background: #f6f6f6;
-  height: 50px;
-  border-radius: 5px;
-  font-size: 1.2rem;
-  color: #5f5f5f;
-  box-shadow: none;
-  border: none;
-  padding: 2px;
-  width: 600px;
+  font-size: 1.3rem;
   text-align: center;
+  width: 800px;
+  height: 50px;
+  padding: 2px;
+  margin-bottom: 6px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: none;
+  color: #5f5f5f;
+  background: #f6f6f6;
   transition-timing-function: ease-in-out;
   transition: all 0.2s cubic-bezier(.65,.33,.65,.33);
-  margin-bottom: 6px;
 
   @keyframes shake {
       0% { left: -5px; }
@@ -38,10 +38,15 @@ const NewTodoInputWrapper = styled.input`
   };
 
   ${({ error }) => error && css`
-    border: 2px solid ${palette.warn[1]};
     position: relative;
+    border: 2px solid ${palette.warn[3]};
     animation: shake .1s linear;
     animation-iteration-count: 3;
+
+    &::placeholder {
+      color: ${palette.warn[3]};
+      transition: color .5s;
+    }
   `};
 
   &:focus {
@@ -51,7 +56,7 @@ const NewTodoInputWrapper = styled.input`
 
     padding: 0;
     height: 55px;
-    font-size:1.4rem;
+    font-size:1.5rem;
     box-shadow: ${palette.gray[3]} 0px 4px 9px 0px;
   };
 `;

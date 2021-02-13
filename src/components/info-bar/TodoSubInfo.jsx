@@ -14,22 +14,19 @@ const TodoSubInfoWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 13px 10px;
+  padding: 17px 15px;
   border-bottom: 2px solid #fab1a0;
   box-shadow: inset 0 0px 40px #fdcb6e;
-`;
-
-const TodoFilterButtonWrapper = styled.div`
 `;
 
 const TodoSubInfo = () => (
   <TodoSubInfoWrapper>
     <TodoClearButton />
-    <TodoFilterButtonWrapper>
+    <div>
       <TodoFilterButton type={ALL} />
       <TodoFilterButton type={ACTIVE} />
       <TodoFilterButton type={COMPLETED} />
-    </TodoFilterButtonWrapper>
+    </div>
     <TodoStats />
   </TodoSubInfoWrapper>
 );

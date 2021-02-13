@@ -20,7 +20,7 @@ const TodoInputDivWrapper = styled.div`
 const NewTodoInputWrapper = styled.input`
   background: #f6f6f6;
   height: 50px;
-  border-radius: 3px;
+  border-radius: 5px;
   font-size: 1.2rem;
   color: #5f5f5f;
   box-shadow: none;

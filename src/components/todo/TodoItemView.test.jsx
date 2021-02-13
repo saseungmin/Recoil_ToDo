@@ -29,9 +29,9 @@ describe('TodoItemView', () => {
   };
 
   it('click remove button', () => {
-    const { getByText } = renderTodoItemView(item);
+    const { getByTestId } = renderTodoItemView(item);
 
-    fireEvent.click(getByText('X'));
+    fireEvent.click(getByTestId('todo-delete'));
 
     expect(handleRemove).toBeCalled();
   });

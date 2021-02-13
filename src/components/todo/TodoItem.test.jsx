@@ -28,10 +28,10 @@ describe('TodoItem', () => {
 
     context('with visible todo contents', () => {
       it("doesn't span double click", () => {
-        const { container, getByText, getByTestId } = renderTodoItem(state);
+        const { container, getByTestId } = renderTodoItem(state);
 
         expect(container).toHaveTextContent(state[0].task);
-        expect(getByText('X')).not.toBeNull();
+        expect(getByTestId('todo-delete')).not.toBeNull();
         expect(getByTestId('todo-item')).not.toBeNull();
       });
     });

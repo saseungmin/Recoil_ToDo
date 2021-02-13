@@ -32,9 +32,9 @@ describe('TodoList', () => {
     });
 
     it('click remove button call handleRemove and remove todoItem', () => {
-      const { container, getAllByText } = renderTodoList(initialState);
+      const { container, getAllByTestId } = renderTodoList(initialState);
 
-      getAllByText('X').forEach((button) => {
+      getAllByTestId('todo-delete').forEach((button) => {
         fireEvent.click(button);
       });
 

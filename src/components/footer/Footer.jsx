@@ -3,8 +3,11 @@ import React from 'react';
 import styled from '@emotion/styled';
 
 import palette from '../../styles/palette';
-
 import { GithubIcon, FacebookIcon, BlogIcon } from '../../styles/SvgIcon';
+
+import {
+  E_MAIL, GITHUB, FACEBOOK, BLOG,
+} from '../../utils/constants/link';
 
 const FooterWrapper = styled.footer`
   display: flex;
@@ -48,16 +51,16 @@ const Footer = () => (
   <FooterWrapper>
     <CopyrightWrapper>
       <span>© Created by </span>
-      <a href="mailto:dbd02169@naver.com">Seungmin Sa</a>
+      <a href={E_MAIL} target="_blank" rel="noopener noreferrer">Seungmin Sa</a>
     </CopyrightWrapper>
     <IconWrapper>
-      <a href="https://github.com/saseungmin">
+      <a href={GITHUB} target="_blank" rel="noopener noreferrer">
         <GithubIcon />
       </a>
-      <a href="https://www.facebook.com/people/%EC%82%AC%EC%8A%B9%EB%AF%BC/100003758628929">
+      <a href={FACEBOOK} target="_blank" rel="noopener noreferrer">
         <FacebookIcon />
       </a>
-      <a href="https://haranglog.tistory.com/">
+      <a href={BLOG} target="_blank" rel="noopener noreferrer">
         <BlogIcon />
       </a>
     </IconWrapper>

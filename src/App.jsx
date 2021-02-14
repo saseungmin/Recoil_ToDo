@@ -4,13 +4,15 @@ import styled from '@emotion/styled';
 
 import { useRecoilValue } from 'recoil';
 
-import { MAIN_TITLE, TODOS_ATOM_KEY } from './utils/constants/constants';
+import { MAIN_TITLE } from './utils/constants/constants';
+import { TODOS_ATOM_KEY } from './utils/constants/atomKey';
 
 import todosAtom from './recoil/todos/atom';
 import { saveItem } from './services/storage';
 
+import mq from './styles/responsive';
 import palette from './styles/palette';
-import Responsive from './styles/Responsive';
+import AppBlock from './styles/AppBlock';
 
 import Footer from './components/footer/Footer';
 import TodoList from './components/todo/TodoList';
@@ -18,8 +20,12 @@ import TodoInput from './components/input/TodoInput';
 import TodoSubInfo from './components/info-bar/TodoSubInfo';
 
 const HeaderWrapper = styled.h1`
+  ${mq({
+    margin: ['1.2rem 0', '2rem 0', '3rem 0'],
+    fontSize: ['1.3rem', '1.6rem', '2rem'],
+  })};
+  
   font-family: 'Hachi Maru Pop', cursive;
-  margin: 3rem 0;
   text-align: center;
 `;
 
@@ -37,7 +43,7 @@ const App = () => {
   }, [todosState]);
 
   return (
-    <Responsive>
+    <AppBlock>
       <HeaderWrapper>
         {MAIN_TITLE}
       </HeaderWrapper>
@@ -47,7 +53,7 @@ const App = () => {
         <TodoList />
       </TodoContentWrapper>
       <Footer />
-    </Responsive>
+    </AppBlock>
   );
 };
 

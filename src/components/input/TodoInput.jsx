@@ -9,21 +9,40 @@ import _ from 'lodash';
 
 import { v4 as uuidv4 } from 'uuid';
 
+import mq from '../../styles/responsive';
 import palette from '../../styles/palette';
 
 import todosAtom from '../../recoil/todos/atom';
 
-const TodoInputDivWrapper = styled.div`
+const TodoInputWrapper = css`
+  width: 100%;
   height: 62px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const TodoInputDivWrapper = styled.div`
+  ${mq({
+    marginBottom: ['1rem', '1.5rem', '2rem'],
+  })};
+
+  ${TodoInputWrapper}
+`;
+
+const TodoInputFormWrapper = styled.form`
+  ${TodoInputWrapper}
 `;
 
 const NewTodoInputWrapper = styled.input`
-  font-size: 1.3rem;
+  ${mq({
+    width: ['90%', '75vw', '50vw'],
+    height: ['60%', '45px', '50px'],
+    fontSize: ['1rem', '1.2rem', '1.3rem'],
+  })};
+  
   text-align: center;
-  width: 800px;
-  height: 50px;
   padding: 2px;
-  margin-bottom: 6px;
   border: none;
   border-radius: 5px;
   box-shadow: none;
@@ -31,7 +50,7 @@ const NewTodoInputWrapper = styled.input`
   background: #f6f6f6;
   transition-timing-function: ease-in-out;
   transition: all 0.2s cubic-bezier(.65,.33,.65,.33);
-
+  
   @keyframes shake {
       0% { left: -5px; }
       100% { right: -5px; }
@@ -54,9 +73,12 @@ const NewTodoInputWrapper = styled.input`
       border: 2px solid ${palette.active[0]};
     `};
 
+  ${mq({
+    height: ['60%', '50px', '55px'],
+    fontSize: ['1.2rem', '1.4rem', '1.5rem'],
+  })};
+
     padding: 0;
-    height: 55px;
-    font-size:1.5rem;
     box-shadow: ${palette.gray[3]} 0px 4px 9px 0px;
   };
 `;
@@ -107,7 +129,7 @@ const TodoInput = () => {
 
   return (
     <TodoInputDivWrapper>
-      <form onSubmit={handleSubmit}>
+      <TodoInputFormWrapper onSubmit={handleSubmit}>
         <NewTodoInputWrapper
           error={error}
           value={input}
@@ -116,7 +138,7 @@ const TodoInput = () => {
           onKeyPress={handleKeyPress}
           placeholder="오늘의 할 일을 입력하세요!"
         />
-      </form>
+      </TodoInputFormWrapper>
     </TodoInputDivWrapper>
   );
 };

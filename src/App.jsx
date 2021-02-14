@@ -12,17 +12,19 @@ import { saveItem } from './services/storage';
 import palette from './styles/palette';
 import Responsive from './styles/Responsive';
 
+import Footer from './components/footer/Footer';
 import TodoList from './components/todo/TodoList';
 import TodoInput from './components/input/TodoInput';
 import TodoSubInfo from './components/info-bar/TodoSubInfo';
 
 const HeaderWrapper = styled.h1`
+  font-family: 'Hachi Maru Pop', cursive;
   margin: 3rem 0;
   text-align: center;
 `;
 
 const TodoContentWrapper = styled.div`
-  margin-bottom: 5rem;
+  margin-bottom: 3rem;
   border: 2px solid ${palette.border[0]};
   box-shadow: ${palette.border[0]} 0px 4px 16px 0px;
 `;
@@ -44,6 +46,7 @@ const App = () => {
         <TodoSubInfo />
         <TodoList />
       </TodoContentWrapper>
+      <Footer />
     </Responsive>
   );
 };

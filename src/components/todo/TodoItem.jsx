@@ -21,7 +21,6 @@ const EditWrapper = styled.div`
 
 const EditSpaceWrapper = styled.div`
   width: 45px;
-  height: auto;
   border-bottom: 1px solid ${palette.border[0]};
 `;
 

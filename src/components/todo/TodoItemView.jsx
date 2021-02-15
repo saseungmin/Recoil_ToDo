@@ -47,7 +47,7 @@ const TodoItemTextWrapper = styled.div`
   `}
 
   ${({ isComplete }) => isComplete && css`
-    color: gray;
+    color: ${palette.gray[6]};
     text-decoration: line-through;
   `}
 `;

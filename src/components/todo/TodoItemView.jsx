@@ -8,8 +8,9 @@ import ReactTooltip from 'react-tooltip';
 import DeleteSvg from '../../assets/icons/delete.svg';
 import PencilSvg from '../../assets/icons/pencil.svg';
 
-import Checkbox from '../../styles/Checkbox';
+import mq from '../../styles/responsive';
 import palette from '../../styles/palette';
+import Checkbox from '../../styles/Checkbox';
 
 const TodoItemViewWrapper = styled.div`
   word-break: break-all;
@@ -30,12 +31,16 @@ const TodoItemViewWrapper = styled.div`
 `;
 
 const TodoItemTextWrapper = styled.div`
-  font-size: 1.3rem;
+  ${mq({
+    width: ['82%', '87%', '90%'],
+    fontSize: ['1.1rem', '1.3rem'],
+  })};
+
   display: block;
-  width: 700px;
   margin: 0 1rem;
   transition: color 0.5s;
   cursor: pointer;
+  user-select: none;
 
   ${({ isComplete }) => isComplete && css`
     color: gray;
@@ -44,11 +49,13 @@ const TodoItemTextWrapper = styled.div`
 `;
 
 const DeleteIcon = styled(DeleteSvg)`
+  ${mq({
+    width: ['23px', '25px'],
+    height: ['23px', '25px'],
+  })};
   top: 0;
   right: 15px;
   position: absolute;
-  width: 25px;
-  height: 25px;
   bottom: 0;
   margin: auto 0;
   margin-bottom: 18px;

@@ -7,15 +7,21 @@ import _ from 'lodash';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
+import mq from '../../styles/responsive';
+import palette from '../../styles/palette';
+
 import { isCompleted, isActive } from '../../utils/utils';
 import { COMPLETED_CLEAR_BUTTON } from '../../utils/constants/constants';
 
 import todosAtom from '../../recoil/todos/atom';
-import palette from '../../styles/palette';
 
 const ClearButtonWrapper = styled.button`
-  font-size: 1.2rem;
-  margin-left: 9px;
+  ${mq({
+    fontSize: ['1rem', '1.2rem'],
+    marginLeft: ['0px', '9px'],
+
+  })};
+  
   border: none;
   padding: 0;
   background: none;

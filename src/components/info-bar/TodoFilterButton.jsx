@@ -5,7 +5,9 @@ import { useRecoilState } from 'recoil';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
+import mq from '../../styles/responsive';
 import palette from '../../styles/palette';
+
 import { FILTER_TYPE_BUTTON } from '../../utils/constants/constants';
 
 import { filterAtom } from '../../recoil/todos';
@@ -13,7 +15,10 @@ import { filterAtom } from '../../recoil/todos';
 const { COMPLETED } = FILTER_TYPE_BUTTON;
 
 const FilterButtonWrapper = styled.button`
-  font-size: 1.2rem;
+  ${mq({
+    fontSize: ['1rem', '1.2rem'],
+  })};
+
   border: none;
   padding: 0;
   background: none;

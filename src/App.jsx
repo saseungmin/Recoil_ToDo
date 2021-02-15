@@ -30,6 +30,10 @@ const HeaderWrapper = styled.h1`
 `;
 
 const TodoContentWrapper = styled.div`
+  ${mq({
+    width: ['100%', '80vw', '700px'],
+  })};
+
   margin-bottom: 3rem;
   border: 2px solid ${palette.border[0]};
   box-shadow: ${palette.border[0]} 0px 4px 16px 0px;

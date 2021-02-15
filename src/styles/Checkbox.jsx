@@ -4,12 +4,16 @@ import React from 'react';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
+import mq from './responsive';
+
 import CheckedIcon from '../assets/icons/checked.svg';
 import UnCheckedIcon from '../assets/icons/un-checked.svg';
 
 const CheckboxWrapper = ({ click }) => css`
-  width: 25px;
-  height: 25px;
+  ${mq({
+    width: ['20px', '25px'],
+    height: ['20px', '25px'],
+  })};
 
   ${click && css`
     cursor: pointer;

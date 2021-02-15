@@ -19,14 +19,20 @@ const TodoSubInfoWrapper = styled.div`
   box-shadow: inset 0 0px 40px #fdcb6e;
 `;
 
+const TodoFilterButtonsWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
 const TodoSubInfo = () => (
   <TodoSubInfoWrapper>
     <TodoClearButton />
-    <div>
+    <TodoFilterButtonsWrapper>
       <TodoFilterButton type={ALL} />
       <TodoFilterButton type={ACTIVE} />
       <TodoFilterButton type={COMPLETED} />
-    </div>
+    </TodoFilterButtonsWrapper>
     <TodoStats />
   </TodoSubInfoWrapper>
 );

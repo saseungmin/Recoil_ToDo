@@ -24,7 +24,7 @@ const TodoInputWrapper = css`
 
 const TodoInputDivWrapper = styled.div`
   ${mq({
-    marginBottom: ['1rem', '1.5rem', '2rem'],
+    marginBottom: ['2rem', '1.5rem', '2rem'],
   })};
 
   ${TodoInputWrapper}
@@ -36,7 +36,7 @@ const TodoInputFormWrapper = styled.form`
 
 const NewTodoInputWrapper = styled.input`
   ${mq({
-    width: ['90%', '75vw', '50vw'],
+    width: ['100%', '80vw', '700px'],
     height: ['60%', '45px', '50px'],
     fontSize: ['1rem', '1.2rem', '1.3rem'],
   })};
@@ -136,7 +136,7 @@ const TodoInput = () => {
           onBlur={handleBlur}
           onChange={handleChange}
           onKeyPress={handleKeyPress}
-          placeholder="오늘의 할 일을 입력하세요!"
+          placeholder="오늘의 할 일을 입력해주세요!"
         />
       </TodoInputFormWrapper>
     </TodoInputDivWrapper>

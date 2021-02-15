@@ -10,7 +10,7 @@ const AppWrapper = styled.div`
     marginTop: ['24px', '32px'],
   })};
 
-  width: calc(100% - 1rem);
+  width: calc(100% - 2rem);
   display: flex;
   flex: 1;
   align-items: center;

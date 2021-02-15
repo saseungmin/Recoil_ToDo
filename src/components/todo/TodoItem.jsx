@@ -6,8 +6,11 @@ import _ from 'lodash';
 
 import styled from '@emotion/styled';
 
+import mq from '../../styles/responsive';
 import palette from '../../styles/palette';
+
 import todosAtom from '../../recoil/todos/atom';
+
 import { isCheckInputTrim, newTodos } from '../../utils/utils';
 
 import TodoItemView from './TodoItemView';
@@ -23,7 +26,10 @@ const EditSpaceWrapper = styled.div`
 `;
 
 const EditItemWrapper = styled.input`
-  font-size: 1.3rem;
+  ${mq({
+    fontSize: ['1rem', '1.3rem'],
+  })};
+  
   width: 100%;
   display: block;
   padding: 16px 13px;
@@ -54,7 +60,7 @@ const TodoItem = ({ item }) => {
     }));
   };
 
-  const handleDoubleClick = () => {
+  const handleShowEdit = () => {
     setEditToggleState(true);
   };
 
@@ -100,7 +106,7 @@ const TodoItem = ({ item }) => {
         <>
           <TodoItemView
             item={item}
-            onDoubleClick={handleDoubleClick}
+            onShowEdit={handleShowEdit}
             onRemove={() => handleRemove(id)}
             onToggle={() => handleToggle(id, isComplete)}
           />

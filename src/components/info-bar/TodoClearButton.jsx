@@ -17,7 +17,7 @@ import todosAtom from '../../recoil/todos/atom';
 
 const ClearButtonWrapper = styled.button`
   ${mq({
-    fontSize: ['1rem', '1.2rem'],
+    fontSize: ['0.9rem', '1.2rem'],
     marginLeft: ['0px', '9px'],
 
   })};

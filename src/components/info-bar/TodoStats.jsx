@@ -4,9 +4,10 @@ import { useRecoilValue } from 'recoil';
 
 import styled from '@emotion/styled';
 
-import Checkbox from '../../styles/Checkbox';
-import todosWithStats from '../../recoil/todos/withStats';
 import mq from '../../styles/responsive';
+import Checkbox from '../../styles/Checkbox';
+
+import todosWithStats from '../../recoil/todos/withStats';
 
 const StatsWrapper = styled.div`
   ${mq({
@@ -22,7 +23,7 @@ const StatsWrapper = styled.div`
 
 const StatsTextWrapper = styled.div`
   ${mq({
-    fontSize: ['1.1rem', '1.2rem'],
+    fontSize: ['1rem', '1.2rem'],
   })};
 
   margin: 5px 9px 0 7px;

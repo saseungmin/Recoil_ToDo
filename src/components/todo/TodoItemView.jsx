@@ -1,16 +1,16 @@
 import React from 'react';
 
+import { useMediaQuery } from 'react-responsive';
+
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
-import ReactTooltip from 'react-tooltip';
-
 import DeleteSvg from '../../assets/icons/delete.svg';
-import PencilSvg from '../../assets/icons/pencil.svg';
 
 import mq from '../../styles/responsive';
 import palette from '../../styles/palette';
 import Checkbox from '../../styles/Checkbox';
+import EditShowTool from './EditShowTool';
 
 const TodoItemViewWrapper = styled.div`
   word-break: break-all;
@@ -32,8 +32,8 @@ const TodoItemViewWrapper = styled.div`
 
 const TodoItemTextWrapper = styled.div`
   ${mq({
-    width: ['82%', '87%', '90%'],
-    fontSize: ['1.1rem', '1.3rem'],
+    width: ['73%', '87%', '90%'],
+    fontSize: ['1rem', '1.3rem'],
   })};
 
   display: block;
@@ -41,6 +41,10 @@ const TodoItemTextWrapper = styled.div`
   transition: color 0.5s;
   cursor: pointer;
   user-select: none;
+
+  ${({ onDoubleClick }) => !onDoubleClick && css`
+    cursor: unset;
+  `}
 
   ${({ isComplete }) => isComplete && css`
     color: gray;
@@ -62,38 +66,11 @@ const DeleteIcon = styled(DeleteSvg)`
   cursor: pointer;
 `;
 
-const PencilIcon = styled(PencilSvg)`
-  width: 20px;
-  height: 20px;
-  margin-right: 5px;
-  margin-bottom: 3px;
-`;
-
-const EditTooltip = styled(ReactTooltip)`
-  background: #91a7ff !important;
-  opacity: 0.8 !important;
-
-  &.place-top {
-    &:after {
-      border-top-color: #91a7ff !important;
-      border-top-style: solid !important;
-      border-top-width: 6px !important;
-    }
-  }
-
-  & p {
-    font-size: 0.9rem;
-  }
-`;
-
-const EditTooltipWrapper = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
 const TodoItemView = ({
-  item, onDoubleClick, onRemove, onToggle,
+  item, onShowEdit, onRemove, onToggle,
 }) => {
+  const isMobileScreen = useMediaQuery({ query: '(max-width: 450px)' });
+
   const { task, isComplete, id } = item;
 
   return (
@@ -121,26 +98,21 @@ const TodoItemView = ({
         data-tip
         data-for={id}
         data-testid="todo-text"
-        onDoubleClick={onDoubleClick}
+        onDoubleClick={isMobileScreen ? undefined : onShowEdit}
       >
         {task}
       </TodoItemTextWrapper>
+      <EditShowTool
+        id={id}
+        isMobile={isMobileScreen}
+        onShowEdit={onShowEdit}
+      />
       <div>
         <DeleteIcon
           onClick={onRemove}
           data-testid="todo-delete"
         />
       </div>
-      <EditTooltip
-        id={id}
-      >
-        <EditTooltipWrapper>
-          <PencilIcon />
-          <p>
-            수정하려면 더블 클릭해주세요!
-          </p>
-        </EditTooltipWrapper>
-      </EditTooltip>
     </TodoItemViewWrapper>
   );
 };

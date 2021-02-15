@@ -75,24 +75,12 @@ const TodoItemView = ({
 
   return (
     <TodoItemViewWrapper>
-      <div>
-        {isComplete
-          ? (
-            <Checkbox
-              click
-              checked
-              onClick={onToggle}
-              data-testid="todo-item"
-            />
-          )
-          : (
-            <Checkbox
-              click
-              onClick={onToggle}
-              data-testid="todo-item"
-            />
-          )}
-      </div>
+      <Checkbox
+        click
+        checked={isComplete}
+        onClick={onToggle}
+        data-testid="todo-item"
+      />
       <TodoItemTextWrapper
         isComplete={isComplete}
         data-tip
@@ -107,12 +95,10 @@ const TodoItemView = ({
         isMobile={isMobileScreen}
         onShowEdit={onShowEdit}
       />
-      <div>
-        <DeleteIcon
-          onClick={onRemove}
-          data-testid="todo-delete"
-        />
-      </div>
+      <DeleteIcon
+        onClick={onRemove}
+        data-testid="todo-delete"
+      />
     </TodoItemViewWrapper>
   );
 };

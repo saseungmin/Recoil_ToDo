@@ -22,7 +22,7 @@ import TodoSubInfo from './components/info-bar/TodoSubInfo';
 const HeaderWrapper = styled.h1`
   ${mq({
     margin: ['1.2rem 0', '2rem 0', '3rem 0'],
-    fontSize: ['1.3rem', '1.6rem', '2rem'],
+    fontSize: ['1.4rem', '1.6rem', '2rem'],
   })};
   
   font-family: 'Hachi Maru Pop', cursive;

@@ -2,6 +2,7 @@ import React from 'react';
 
 import styled from '@emotion/styled';
 
+import mq from '../../styles/responsive';
 import palette from '../../styles/palette';
 import { GithubIcon, FacebookIcon, BlogIcon } from '../../styles/SvgIcon';
 
@@ -10,6 +11,10 @@ import {
 } from '../../utils/constants/link';
 
 const FooterWrapper = styled.footer`
+  ${mq({
+    fontSize: ['0.9rem', '1rem'],
+  })};
+
   display: flex;
   flex-direction: column;
   justify-content: center;

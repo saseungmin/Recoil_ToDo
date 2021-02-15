@@ -4,10 +4,14 @@ import { css } from '@emotion/react';
 import BlogSvg from '../assets/icons/blog.svg';
 import GithubSvg from '../assets/icons/github.svg';
 import FacebookSvg from '../assets/icons/facebook.svg';
+import mq from './responsive';
 
 const SvgIconWrapper = () => css`
-  width: 20px;
-  height: 20px;
+  ${mq({
+    width: ['18px', '20px'],
+    height: ['18px', '20px'],
+  })};
+  
   transition: fill .2s;
 
   &:hover {

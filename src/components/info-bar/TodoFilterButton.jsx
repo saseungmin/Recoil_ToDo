@@ -16,7 +16,7 @@ const { COMPLETED } = FILTER_TYPE_BUTTON;
 
 const FilterButtonWrapper = styled.button`
   ${mq({
-    fontSize: ['1rem', '1.2rem'],
+    fontSize: ['0.9rem', '1.2rem'],
   })};
 
   border: none;
@@ -36,7 +36,10 @@ const FilterButtonWrapper = styled.button`
     &::after {
       content: "";
       border-right: 1px solid ${palette.gray[6]};
-      margin: 0px 10px;
+
+  ${mq({
+    margin: ['0px 5px', '0px 10px'],
+  })}
     }
   `};
 

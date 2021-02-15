@@ -32,8 +32,9 @@ const EditItemWrapper = styled.input`
   
   width: 100%;
   display: block;
-  padding: 16px 13px;
+  padding: 18px 13px;
   border: 1px solid #999;
+  border-radius: 0px;
   box-shadow: inset 0 -1px 5px 0 rgb(0 0 0 / 20%);
   background: #f1f2f6;
 `;

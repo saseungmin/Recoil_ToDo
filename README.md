@@ -5,7 +5,7 @@
 </a>
 
 <a href="https://github.com/saseungmin/Recoil_ToDo/actions?query=workflow%3ACD">
-  <img src="https://img.shields.io/github/workflow/status/saseungmin/Recoil_ToDo/CI?label=build&logo=GitHub&style=flat-square" />
+  <img src="https://img.shields.io/github/workflow/status/saseungmin/Recoil_ToDo/CD?label=build&logo=GitHub&style=flat-square" />
 </a>
 
 <a href="https://codecov.io/gh/saseungmin/Recoil_ToDo">

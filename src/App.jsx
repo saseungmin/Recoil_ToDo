@@ -18,6 +18,7 @@ import Footer from './components/footer/Footer';
 import TodoList from './components/todo/TodoList';
 import TodoInput from './components/input/TodoInput';
 import TodoSubInfo from './components/info-bar/TodoSubInfo';
+import UserStatus from './components/user-info/UserStatus';
 
 const HeaderWrapper = styled.h1`
   ${mq({
@@ -51,6 +52,7 @@ const App = () => {
       <HeaderWrapper>
         {MAIN_TITLE}
       </HeaderWrapper>
+      <UserStatus />
       <TodoInput />
       <TodoContentWrapper>
         <TodoSubInfo />

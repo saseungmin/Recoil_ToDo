@@ -13,7 +13,7 @@ const StatsWrapper = styled.div`
   ${mq({
     position: ['absolute', 'unset'],
     right: ['9px', 'unset'],
-    top: ['185px', 'unset'],
+    top: ['228px', 'unset'],
   })};
 
   display:flex;

@@ -16,3 +16,9 @@ export const EMPTY_TODO_MESSAGE = {
   NOTHING_ACTIVE: '모든 할 일을 완료했네요!',
   NOTHING_COMPLETED: '완료된 할 일이 없어요!',
 };
+
+export const FORM_TYPE = {
+  login: 'Sign in',
+  register: 'Sign up',
+  logout: 'Sign out',
+};

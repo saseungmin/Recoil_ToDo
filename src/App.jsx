@@ -19,6 +19,7 @@ import TodoList from './components/todo/TodoList';
 import TodoInput from './components/input/TodoInput';
 import TodoSubInfo from './components/info-bar/TodoSubInfo';
 import UserStatus from './components/user-info/UserStatus';
+import AuthModalForm from './components/auth/AuthModalForm';
 
 const HeaderWrapper = styled.h1`
   ${mq({
@@ -59,6 +60,7 @@ const App = () => {
         <TodoList />
       </TodoContentWrapper>
       <Footer />
+      <AuthModalForm />
     </AppBlock>
   );
 };

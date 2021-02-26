@@ -5,8 +5,8 @@ import { useRecoilValue, useResetRecoilState } from 'recoil';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
-import authFieldsAtom, { authStatusAtom } from '../../recoil/auth';
 import { FORM_TYPE } from '../../utils/constants/constants';
+import authFieldsAtom, { authStatusAtom } from '../../recoil/auth';
 
 import AuthInput from './AuthInput';
 

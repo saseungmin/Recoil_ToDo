@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useRecoilState } from 'recoil';
 
-import authFieldsAtom from '../../recoil/auth';
+import { authWithFields } from '../../recoil/auth';
 
 const authFieldsProperty = {
   userId: {
@@ -23,20 +23,14 @@ const authFieldsProperty = {
 };
 
 const AuthInput = ({ formType, inputName }) => {
-  const [authFieldsState, setAuthFieldsState] = useRecoilState(authFieldsAtom);
+  const [authFieldsState, setAuthFieldsState] = useRecoilState(authWithFields);
 
   const { inputType, placeholder, autoComplete } = authFieldsProperty[inputName];
 
   const onChange = (e, type) => {
     const { name, value } = e.target;
 
-    setAuthFieldsState({
-      ...authFieldsState,
-      [type]: {
-        ...authFieldsState[type],
-        [name]: value,
-      },
-    });
+    setAuthFieldsState({ name, type, value });
   };
 
   return (
@@ -45,7 +39,7 @@ const AuthInput = ({ formType, inputName }) => {
       name={inputName}
       placeholder={placeholder}
       autoComplete={autoComplete}
-      value={authFieldsState[formType][inputName]}
+      value={authFieldsState[inputName]}
       onChange={(e) => onChange(e, formType)}
     />
   );

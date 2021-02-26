@@ -55,6 +55,19 @@ describe('AuthModalForm', () => {
 
       fireEvent.submit(getByTestId('auth-submit-button'));
     });
+
+    it('When click Close button, the modal window is closed.', () => {
+      const props = {
+        type: 'register',
+        visible: true,
+      };
+
+      const { container, getByText } = renderAuthForm(props);
+
+      fireEvent.click(getByText('닫기'));
+
+      expect(container).toBeEmptyDOMElement();
+    });
   });
 
   context("Isn't visible", () => {

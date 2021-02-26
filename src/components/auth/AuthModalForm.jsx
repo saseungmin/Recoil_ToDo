@@ -5,8 +5,10 @@ import { useRecoilValue, useResetRecoilState } from 'recoil';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
-import { authStatusAtom } from '../../recoil/auth';
+import authFieldsAtom, { authStatusAtom } from '../../recoil/auth';
 import { FORM_TYPE } from '../../utils/constants/constants';
+
+import AuthInput from './AuthInput';
 
 const AuthModalFormWrapper = styled.div`
   top: 0;
@@ -53,17 +55,24 @@ const AuthModalBoxWrapper = styled.div`
 `;
 
 const AuthFormWrapper = styled.form`
-
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 
 const AuthModalForm = () => {
-  const authStatusState = useRecoilValue(authStatusAtom);
-  const resetAuthStatusState = useResetRecoilState(authStatusAtom);
+  const { type, visible } = useRecoilValue(authStatusAtom);
 
-  const { type, visible } = authStatusState;
+  const resetAuthStatusState = useResetRecoilState(authStatusAtom);
+  const resetAuthFieldsState = useResetRecoilState(authFieldsAtom);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+  };
+
+  const onCloseAuthModal = () => {
+    resetAuthStatusState();
+    resetAuthFieldsState();
   };
 
   if (!visible) {
@@ -77,24 +86,18 @@ const AuthModalForm = () => {
       <AuthModalBoxWrapper>
         <h2>{formType}</h2>
         <AuthFormWrapper onSubmit={handleSubmit}>
-          <input
-            type="text"
-            name="userId"
-            placeholder="아이디"
-            autoComplete="username"
+          <AuthInput
+            formType={type}
+            inputName="userId"
           />
-          <input
-            type="password"
-            name="password"
-            placeholder="비밀번호"
-            autoComplete="new-password"
+          <AuthInput
+            formType={type}
+            inputName="password"
           />
           {type === 'register' && (
-            <input
-              type="password"
-              name="passwordConfirm"
-              placeholder="비밀번호 확인"
-              autoComplete="new-password"
+            <AuthInput
+              formType={type}
+              inputName="passwordConfirm"
             />
           )}
           <button
@@ -105,7 +108,7 @@ const AuthModalForm = () => {
           </button>
           <button
             type="button"
-            onClick={resetAuthStatusState}
+            onClick={onCloseAuthModal}
           >
             닫기
           </button>

@@ -4,14 +4,27 @@ import { RecoilRoot } from 'recoil';
 
 import { render, fireEvent } from '@testing-library/react';
 
-import AuthModalForm from './AuthModalForm';
 import InjectTestingRecoilState from '../common/InjectTestingRecoilState';
+import AuthModalForm from './AuthModalForm';
+
+const authFieldsState = {
+  register: {
+    userId: '',
+    password: '',
+    passwordConfirm: '',
+  },
+  login: {
+    userId: '',
+    password: '',
+  },
+};
 
 describe('AuthModalForm', () => {
-  const renderAuthForm = (auth) => render((
+  const renderAuthForm = ({ auth, fields = authFieldsState }) => render((
     <RecoilRoot>
       <InjectTestingRecoilState
         auth={auth}
+        authFields={fields}
       />
       <AuthModalForm />
     </RecoilRoot>
@@ -21,8 +34,10 @@ describe('AuthModalForm', () => {
     context('When type login', () => {
       it('renders login form contents', () => {
         const props = {
-          type: 'login',
-          visible: true,
+          auth: {
+            type: 'login',
+            visible: true,
+          },
         };
 
         const { container } = renderAuthForm(props);
@@ -34,8 +49,10 @@ describe('AuthModalForm', () => {
     context('When type register', () => {
       it('renders register form contents', () => {
         const props = {
-          type: 'register',
-          visible: true,
+          auth: {
+            type: 'register',
+            visible: true,
+          },
         };
 
         const { container, getByPlaceholderText } = renderAuthForm(props);
@@ -47,8 +64,10 @@ describe('AuthModalForm', () => {
 
     it('When click Submit button, listen event', () => {
       const props = {
-        type: 'register',
-        visible: true,
+        auth: {
+          type: 'register',
+          visible: true,
+        },
       };
 
       const { getByTestId } = renderAuthForm(props);
@@ -58,8 +77,10 @@ describe('AuthModalForm', () => {
 
     it('When click Close button, the modal window is closed.', () => {
       const props = {
-        type: 'register',
-        visible: true,
+        auth: {
+          type: 'register',
+          visible: true,
+        },
       };
 
       const { container, getByText } = renderAuthForm(props);
@@ -68,13 +89,43 @@ describe('AuthModalForm', () => {
 
       expect(container).toBeEmptyDOMElement();
     });
+
+    it('listens event change input value', () => {
+      const props = {
+        auth: {
+          type: 'login',
+          visible: true,
+        },
+        fields: {
+          login: {
+            userId: '',
+          },
+        },
+      };
+
+      const { getByPlaceholderText } = renderAuthForm(props);
+
+      const input = getByPlaceholderText('아이디');
+
+      fireEvent.change(input, {
+        target: {
+          value: 'seungmin',
+          name: 'userId',
+        },
+      });
+
+      expect(input).not.toBeNull();
+      expect(input).toHaveValue('seungmin');
+    });
   });
 
   context("Isn't visible", () => {
     it('nothing renders', () => {
       const props = {
-        type: 'login',
-        visible: false,
+        auth: {
+          type: 'login',
+          visible: false,
+        },
       };
 
       const { container } = renderAuthForm(props);

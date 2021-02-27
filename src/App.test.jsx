@@ -4,16 +4,20 @@ import { render, fireEvent } from '@testing-library/react';
 
 import { RecoilRoot } from 'recoil';
 
+import { SnackbarProvider } from 'notistack';
+
 import App from './App';
 import InjectTestingRecoilState from './components/common/InjectTestingRecoilState';
 
 describe('App', () => {
   const renderApp = ({ todos }) => render((
     <RecoilRoot>
-      <InjectTestingRecoilState
-        todos={todos}
-      />
-      <App />
+      <SnackbarProvider>
+        <InjectTestingRecoilState
+          todos={todos}
+        />
+        <App />
+      </SnackbarProvider>
     </RecoilRoot>
   ));
 

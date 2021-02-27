@@ -5,8 +5,12 @@ import { useRecoilValue, useResetRecoilState } from 'recoil';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
-import { FORM_TYPE } from '../../utils/constants/constants';
-import authFieldsAtom, { authStatusAtom } from '../../recoil/auth';
+import { useSnackbar } from 'notistack';
+
+import { isCheckValidate } from '../../utils/utils';
+import { FORM_TYPE, EMPTY_AUTH_INPUT } from '../../utils/constants/constants';
+
+import authFieldsAtom, { authStatusAtom, authWithFields } from '../../recoil/auth';
 
 import AuthInput from './AuthInput';
 
@@ -61,13 +65,22 @@ const AuthFormWrapper = styled.form`
 `;
 
 const AuthModalForm = () => {
+  const { enqueueSnackbar } = useSnackbar();
+
   const { type, visible } = useRecoilValue(authStatusAtom);
+  const authFieldsState = useRecoilValue(authWithFields);
 
   const resetAuthStatusState = useResetRecoilState(authStatusAtom);
   const resetAuthFieldsState = useResetRecoilState(authFieldsAtom);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (!isCheckValidate(authFieldsState)) {
+      enqueueSnackbar(EMPTY_AUTH_INPUT, {
+        variant: 'error',
+      });
+    }
   };
 
   const onCloseAuthModal = () => {

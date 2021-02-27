@@ -22,3 +22,5 @@ export const FORM_TYPE = {
   register: 'Sign up',
   logout: 'Sign out',
 };
+
+export const EMPTY_AUTH_INPUT = '입력이 안된 사항이 있습니다.';

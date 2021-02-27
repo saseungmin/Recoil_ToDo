@@ -4,6 +4,8 @@ import { RecoilRoot } from 'recoil';
 
 import { render, fireEvent } from '@testing-library/react';
 
+import { SnackbarProvider } from 'notistack';
+
 import InjectTestingRecoilState from '../common/InjectTestingRecoilState';
 import AuthModalForm from './AuthModalForm';
 
@@ -22,11 +24,13 @@ const authFieldsState = {
 describe('AuthModalForm', () => {
   const renderAuthForm = ({ auth, fields = authFieldsState }) => render((
     <RecoilRoot>
-      <InjectTestingRecoilState
-        auth={auth}
-        authFields={fields}
-      />
-      <AuthModalForm />
+      <SnackbarProvider>
+        <InjectTestingRecoilState
+          auth={auth}
+          authFields={fields}
+        />
+        <AuthModalForm />
+      </SnackbarProvider>
     </RecoilRoot>
   ));
 
@@ -62,17 +66,53 @@ describe('AuthModalForm', () => {
       });
     });
 
-    it('When click Submit button, listen event', () => {
-      const props = {
-        auth: {
-          type: 'register',
-          visible: true,
-        },
-      };
+    context('Is Submit error', () => {
+      describe('When click Submit button, listen event', () => {
+        it('Renders error message "입력이 안된 사항이 있습니다."', () => {
+          const props = {
+            auth: {
+              type: 'register',
+              visible: true,
+            },
+          };
 
-      const { getByTestId } = renderAuthForm(props);
+          const { container, getByTestId } = renderAuthForm(props);
 
-      fireEvent.submit(getByTestId('auth-submit-button'));
+          fireEvent.submit(getByTestId('auth-submit-button'));
+
+          expect(container).toHaveTextContent('입력이 안된 사항이 있습니다.');
+        });
+      });
+    });
+
+    context("Isn't Submit error", () => {
+      describe('When click Submit button, listen event', () => {
+        it('Success submit', () => {
+          const props = {
+            auth: {
+              type: 'register',
+              visible: true,
+            },
+            fields: {
+              register: {
+                userId: 'test',
+                password: 'test',
+                passwordConfirm: 'test',
+              },
+              login: {
+                userId: '',
+                password: '',
+              },
+            },
+          };
+
+          const { container, getByTestId } = renderAuthForm(props);
+
+          fireEvent.submit(getByTestId('auth-submit-button'));
+
+          expect(container).not.toHaveTextContent('입력이 안된 사항이 있습니다.');
+        });
+      });
     });
 
     it('When click Close button, the modal window is closed.', () => {

@@ -21,3 +21,7 @@ export const filteredTodos = {
   ACTIVE: (state) => (state.filter(isActive)),
   COMPLETED: (state) => (state.filter(isCompleted)),
 };
+
+export const isCheckValidate = (inputValue) => Object
+  .entries(inputValue)
+  .every((value) => _.trim(value[1]));

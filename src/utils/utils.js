@@ -25,3 +25,6 @@ export const filteredTodos = {
 export const isCheckValidate = (inputValue) => Object
   .entries(inputValue)
   .every((value) => _.trim(value[1]));
+
+export const isEqualPassword = ({ password, passwordConfirm }) => passwordConfirm
+  && (password !== passwordConfirm);

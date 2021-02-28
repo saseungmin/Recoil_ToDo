@@ -10,23 +10,11 @@ const authState = {
   visible: false,
 };
 
-const authFieldsState = {
-  register: {
-    userId: '',
-    password: '',
-    passwordConfirm: '',
-  },
-  login: {
-    userId: '',
-    password: '',
-  },
-};
-
 const InjectTestingRecoilState = ({
   todos = [],
   filter = 'ALL',
   auth = authState,
-  authFields = authFieldsState,
+  authFields = null,
 }) => {
   const setTodosState = useSetRecoilState(todosAtom);
   const setFilterState = useSetRecoilState(filterAtom);

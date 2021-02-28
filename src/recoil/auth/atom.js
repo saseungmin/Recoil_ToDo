@@ -12,17 +12,7 @@ export const authStatusAtom = atom({
 
 const authFieldsAtom = atom({
   key: AUTH_FIELDS_ATOM_KEY,
-  default: {
-    register: {
-      userId: '',
-      password: '',
-      passwordConfirm: '',
-    },
-    login: {
-      userId: '',
-      password: '',
-    },
-  },
+  default: null,
 });
 
 export default authFieldsAtom;

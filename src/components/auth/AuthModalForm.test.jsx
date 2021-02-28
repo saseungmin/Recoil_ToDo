@@ -2,6 +2,7 @@ import React from 'react';
 
 import { RecoilRoot } from 'recoil';
 
+import { act } from 'react-dom/test-utils';
 import { render, fireEvent } from '@testing-library/react';
 
 import { SnackbarProvider } from 'notistack';
@@ -9,25 +10,12 @@ import { SnackbarProvider } from 'notistack';
 import InjectTestingRecoilState from '../common/InjectTestingRecoilState';
 import AuthModalForm from './AuthModalForm';
 
-const authFieldsState = {
-  register: {
-    userId: '',
-    password: '',
-    passwordConfirm: '',
-  },
-  login: {
-    userId: '',
-    password: '',
-  },
-};
-
 describe('AuthModalForm', () => {
-  const renderAuthForm = ({ auth, fields = authFieldsState }) => render((
+  const renderAuthForm = ({ auth }) => render((
     <RecoilRoot>
       <SnackbarProvider>
         <InjectTestingRecoilState
           auth={auth}
-          authFields={fields}
         />
         <AuthModalForm />
       </SnackbarProvider>
@@ -68,7 +56,7 @@ describe('AuthModalForm', () => {
 
     context('Is Submit error', () => {
       describe('When click Submit button, listen event', () => {
-        it('Renders error message "입력이 안된 사항이 있습니다."', () => {
+        it('If there is something that has not been entered, renders error message', async () => {
           const props = {
             auth: {
               type: 'register',
@@ -78,44 +66,79 @@ describe('AuthModalForm', () => {
 
           const { container, getByTestId } = renderAuthForm(props);
 
-          fireEvent.submit(getByTestId('auth-submit-button'));
+          await act(async () => {
+            fireEvent.submit(getByTestId('auth-submit-button'));
+          });
 
           expect(container).toHaveTextContent('입력이 안된 사항이 있습니다.');
+        });
+
+        it('If the passwords do not match, renders error message', async () => {
+          const props = {
+            auth: {
+              type: 'register',
+              visible: true,
+            },
+          };
+
+          const input = [
+            { placeholder: '아이디', value: 'test' },
+            { placeholder: '비밀번호', value: 'test' },
+            { placeholder: '비밀번호 확인', value: 'test1' },
+          ];
+
+          const { container, getByTestId, getByPlaceholderText } = renderAuthForm(props);
+
+          await act(async () => {
+            input.forEach(async ({ placeholder, value }) => {
+              await fireEvent.change(getByPlaceholderText(placeholder), { target: { value } });
+            });
+          });
+
+          await act(async () => {
+            fireEvent.submit(getByTestId('auth-submit-button'));
+          });
+
+          expect(container).toHaveTextContent('입력하신 비밀번호가 일치하지 않습니다.');
         });
       });
     });
 
     context("Isn't Submit error", () => {
       describe('When click Submit button, listen event', () => {
-        it('Success submit', () => {
+        it('Success submit', async () => {
           const props = {
             auth: {
               type: 'register',
               visible: true,
             },
-            fields: {
-              register: {
-                userId: 'test',
-                password: 'test',
-                passwordConfirm: 'test',
-              },
-              login: {
-                userId: '',
-                password: '',
-              },
-            },
           };
 
-          const { container, getByTestId } = renderAuthForm(props);
+          const input = [
+            { placeholder: '아이디', value: 'test' },
+            { placeholder: '비밀번호', value: 'test' },
+            { placeholder: '비밀번호 확인', value: 'test' },
+          ];
 
-          fireEvent.submit(getByTestId('auth-submit-button'));
+          const { container, getByTestId, getByPlaceholderText } = renderAuthForm(props);
+
+          await act(async () => {
+            input.forEach(async ({ placeholder, value }) => {
+              await fireEvent.change(getByPlaceholderText(placeholder), { target: { value } });
+            });
+          });
+
+          await act(async () => {
+            fireEvent.submit(getByTestId('auth-submit-button'));
+          });
 
           expect(container).not.toHaveTextContent('입력이 안된 사항이 있습니다.');
+          expect(container).not.toHaveTextContent('입력하신 비밀번호가 일치하지 않습니다.');
         });
       });
     });
 
-    it('When click Close button, the modal window is closed.', () => {
+    it('When click Close button, the modal window is closed.', async () => {
       const props = {
         auth: {
           type: 'register',
@@ -125,21 +148,18 @@ describe('AuthModalForm', () => {
 
       const { container, getByText } = renderAuthForm(props);
 
-      fireEvent.click(getByText('닫기'));
+      await act(async () => {
+        fireEvent.click(getByText('닫기'));
+      });
 
       expect(container).toBeEmptyDOMElement();
     });
 
-    it('listens event change input value', () => {
+    it('listens event change input value', async () => {
       const props = {
         auth: {
           type: 'login',
           visible: true,
-        },
-        fields: {
-          login: {
-            userId: '',
-          },
         },
       };
 
@@ -147,11 +167,13 @@ describe('AuthModalForm', () => {
 
       const input = getByPlaceholderText('아이디');
 
-      fireEvent.change(input, {
-        target: {
-          value: 'seungmin',
-          name: 'userId',
-        },
+      await act(async () => {
+        fireEvent.change(input, {
+          target: {
+            value: 'seungmin',
+            name: 'userId',
+          },
+        });
       });
 
       expect(input).not.toBeNull();

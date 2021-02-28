@@ -24,3 +24,5 @@ export const FORM_TYPE = {
 };
 
 export const EMPTY_AUTH_INPUT = '입력이 안된 사항이 있습니다.';
+
+export const NOT_MATCH_PASSWORD = '입력하신 비밀번호가 일치하지 않습니다.';

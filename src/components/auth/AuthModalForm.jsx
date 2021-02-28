@@ -1,16 +1,18 @@
 import React from 'react';
 
-import { useRecoilValue, useResetRecoilState } from 'recoil';
+import { useForm } from 'react-hook-form';
+
+import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
 
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
 import { useSnackbar } from 'notistack';
 
-import { isCheckValidate } from '../../utils/utils';
-import { FORM_TYPE, EMPTY_AUTH_INPUT } from '../../utils/constants/constants';
+import { isCheckValidate, isEqualPassword } from '../../utils/utils';
+import { FORM_TYPE, EMPTY_AUTH_INPUT, NOT_MATCH_PASSWORD } from '../../utils/constants/constants';
 
-import authFieldsAtom, { authStatusAtom, authWithFields } from '../../recoil/auth';
+import authFieldsAtom, { authStatusAtom } from '../../recoil/auth';
 
 import AuthInput from './AuthInput';
 
@@ -65,22 +67,34 @@ const AuthFormWrapper = styled.form`
 `;
 
 const AuthModalForm = () => {
+  const { register, handleSubmit } = useForm();
+
   const { enqueueSnackbar } = useSnackbar();
 
+  const setAuthFields = useSetRecoilState(authFieldsAtom);
   const { type, visible } = useRecoilValue(authStatusAtom);
-  const authFieldsState = useRecoilValue(authWithFields);
 
   const resetAuthStatusState = useResetRecoilState(authStatusAtom);
   const resetAuthFieldsState = useResetRecoilState(authFieldsAtom);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const errorSnackbar = (message) => enqueueSnackbar(message, {
+    variant: 'error',
+  });
 
-    if (!isCheckValidate(authFieldsState)) {
-      enqueueSnackbar(EMPTY_AUTH_INPUT, {
-        variant: 'error',
-      });
+  const onSubmit = (data) => {
+    if (!isCheckValidate(data)) {
+      errorSnackbar(EMPTY_AUTH_INPUT);
+
+      return;
     }
+
+    if (isEqualPassword(data)) {
+      errorSnackbar(NOT_MATCH_PASSWORD);
+
+      return;
+    }
+
+    setAuthFields(data);
   };
 
   const onCloseAuthModal = () => {
@@ -98,18 +112,18 @@ const AuthModalForm = () => {
     <AuthModalFormWrapper visible={visible}>
       <AuthModalBoxWrapper>
         <h2>{formType}</h2>
-        <AuthFormWrapper onSubmit={handleSubmit}>
+        <AuthFormWrapper onSubmit={handleSubmit(onSubmit)}>
           <AuthInput
-            formType={type}
+            inputRef={register}
             inputName="userId"
           />
           <AuthInput
-            formType={type}
+            inputRef={register}
             inputName="password"
           />
           {type === 'register' && (
             <AuthInput
-              formType={type}
+              inputRef={register}
               inputName="passwordConfirm"
             />
           )}

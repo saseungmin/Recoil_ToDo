@@ -1,9 +1,5 @@
 import React from 'react';
 
-import { useRecoilState } from 'recoil';
-
-import { authWithFields } from '../../recoil/auth';
-
 const authFieldsProperty = {
   userId: {
     inputType: 'text',
@@ -22,25 +18,16 @@ const authFieldsProperty = {
   },
 };
 
-const AuthInput = ({ formType, inputName }) => {
-  const [authFieldsState, setAuthFieldsState] = useRecoilState(authWithFields);
-
+const AuthInput = ({ inputRef, inputName }) => {
   const { inputType, placeholder, autoComplete } = authFieldsProperty[inputName];
-
-  const onChange = (e, type) => {
-    const { name, value } = e.target;
-
-    setAuthFieldsState({ name, type, value });
-  };
 
   return (
     <input
+      ref={inputRef}
       type={inputType}
       name={inputName}
       placeholder={placeholder}
       autoComplete={autoComplete}
-      value={authFieldsState[inputName]}
-      onChange={(e) => onChange(e, formType)}
     />
   );
 };

@@ -34,6 +34,7 @@
     "notistack": "^1.0.4",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-hook-form": "^6.15.4",
     "react-responsive": "^8.2.0",
     "react-tooltip": "^4.2.13",
     "recoil": "^0.1.2",

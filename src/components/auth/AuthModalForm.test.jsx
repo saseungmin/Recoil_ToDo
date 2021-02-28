@@ -81,12 +81,18 @@ describe('AuthModalForm', () => {
             },
           };
 
+          const input = [
+            { placeholder: '아이디', value: 'test' },
+            { placeholder: '비밀번호', value: 'test' },
+            { placeholder: '비밀번호 확인', value: 'test1' },
+          ];
+
           const { container, getByTestId, getByPlaceholderText } = renderAuthForm(props);
 
           await act(async () => {
-            await fireEvent.change(getByPlaceholderText('아이디'), { target: { value: 'test' } });
-            await fireEvent.change(getByPlaceholderText('비밀번호'), { target: { value: 'test' } });
-            await fireEvent.change(getByPlaceholderText('비밀번호 확인'), { target: { value: 'test1' } });
+            input.forEach(async ({ placeholder, value }) => {
+              await fireEvent.change(getByPlaceholderText(placeholder), { target: { value } });
+            });
           });
 
           await act(async () => {
@@ -108,12 +114,18 @@ describe('AuthModalForm', () => {
             },
           };
 
+          const input = [
+            { placeholder: '아이디', value: 'test' },
+            { placeholder: '비밀번호', value: 'test' },
+            { placeholder: '비밀번호 확인', value: 'test' },
+          ];
+
           const { container, getByTestId, getByPlaceholderText } = renderAuthForm(props);
 
           await act(async () => {
-            await fireEvent.change(getByPlaceholderText('아이디'), { target: { value: 'test' } });
-            await fireEvent.change(getByPlaceholderText('비밀번호'), { target: { value: 'test' } });
-            await fireEvent.change(getByPlaceholderText('비밀번호 확인'), { target: { value: 'test' } });
+            input.forEach(async ({ placeholder, value }) => {
+              await fireEvent.change(getByPlaceholderText(placeholder), { target: { value } });
+            });
           });
 
           await act(async () => {

@@ -1,10 +1,10 @@
 import { selector, selectorFamily } from 'recoil';
 
-import authFieldsAtom, { authStatusAtom } from './atom';
+import authFieldsAtom, { authFormStatusAtom } from './atom';
 
 import { register, login } from '../../services/api/auth';
 
-const authWithRegister = selectorFamily({
+export const authWithRegister = selectorFamily({
   key: 'authWithRegister',
   get: (user) => async () => {
     const response = await register(user);
@@ -13,7 +13,7 @@ const authWithRegister = selectorFamily({
   },
 });
 
-const authWithLogin = selectorFamily({
+export const authWithLogin = selectorFamily({
   key: 'authWithLogin',
   get: (user) => async () => {
     const response = await login(user);
@@ -22,21 +22,20 @@ const authWithLogin = selectorFamily({
   },
 });
 
-const branchAuthType = (user) => ({
+export const branchAuthType = (user) => ({
   register: authWithRegister(user),
   login: authWithLogin(user),
 });
 
 const authWithQuery = selector({
-  key: 'authWithApi',
+  key: 'authWithQuery',
   get: ({ get }) => {
-    const { type } = get(authStatusAtom);
+    const { type } = get(authFormStatusAtom);
     const user = get(authFieldsAtom);
 
     if (!user) {
       return null;
     }
-
     const response = get(branchAuthType(user)[type]);
 
     return response;

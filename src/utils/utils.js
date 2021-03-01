@@ -1,5 +1,7 @@
 import _ from 'lodash';
 
+import { BASE_URL } from './constants/url';
+
 export const newTodos = (todos) => ({ id, key, value }) => todos.map((todo) => {
   if (todo.id === id) {
     return {
@@ -10,6 +12,14 @@ export const newTodos = (todos) => ({ id, key, value }) => todos.map((todo) => {
 
   return todo;
 });
+
+export const setPath = (env) => {
+  if (env === 'development') {
+    return '/';
+  }
+
+  return BASE_URL;
+};
 
 export const isCheckInputTrim = (value) => _.trim(value).length > 0;
 

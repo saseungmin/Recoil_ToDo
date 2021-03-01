@@ -1,4 +1,4 @@
-import { newTodos, filteredTodos } from './utils';
+import { newTodos, filteredTodos, setPath } from './utils';
 
 describe('newTodos', () => {
   const initialState = [
@@ -42,5 +42,19 @@ describe('filteredTodos', () => {
     const result = filteredTodos.ACTIVE(initialState);
 
     expect(result).toEqual([initialState[0]]);
+  });
+});
+
+describe('setPath', () => {
+  it('When env "development"', () => {
+    const result = setPath('development');
+
+    expect(result).toBe('/');
+  });
+
+  it('When another env', () => {
+    const result = setPath('production');
+
+    expect(result).toBe('https://recoil-todo.herokuapp.com');
   });
 });

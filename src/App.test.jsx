@@ -1,20 +1,28 @@
 import React from 'react';
 
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, act } from '@testing-library/react';
 
 import { RecoilRoot } from 'recoil';
+
+import mockAxios from 'axios';
 
 import { SnackbarProvider } from 'notistack';
 
 import App from './App';
 import InjectTestingRecoilState from './components/common/InjectTestingRecoilState';
 
+const mockAuth = {
+  type: '',
+  visible: false,
+};
+
 describe('App', () => {
-  const renderApp = ({ todos }) => render((
+  const renderApp = ({ todos, auth = mockAuth }) => render((
     <RecoilRoot>
       <SnackbarProvider>
         <InjectTestingRecoilState
           todos={todos}
+          auth={auth}
         />
         <App />
       </SnackbarProvider>
@@ -108,5 +116,37 @@ describe('App', () => {
         expect(getByPlaceholderText('비밀번호 확인')).not.toBeNull();
       });
     });
+  });
+
+  it('Success logged in', async () => {
+    mockAxios.post.mockResolvedValueOnce({ data: 'test' });
+
+    const props = {
+      auth: {
+        type: 'login',
+        visible: true,
+      },
+    };
+
+    const input = [
+      { placeholder: '아이디', value: 'test' },
+      { placeholder: '비밀번호', value: 'test' },
+    ];
+
+    const {
+      container, getByTestId, getByPlaceholderText,
+    } = renderApp(props);
+
+    await act(async () => {
+      input.forEach(async ({ placeholder, value }) => {
+        await fireEvent.change(getByPlaceholderText(placeholder), { target: { value } });
+      });
+    });
+
+    await act(async () => {
+      fireEvent.submit(getByTestId('auth-submit-button'));
+    });
+
+    expect(container).toHaveTextContent('Success Sign in!');
   });
 });

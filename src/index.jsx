@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 
 import ReactDOM from 'react-dom';
 
@@ -13,18 +13,16 @@ import './assets/css/global.css';
 ReactDOM.render(
   (
     <RecoilRoot>
-      <Suspense fallback={<div>Loading...</div>}>
-        <SnackbarProvider
-          maxSnack={3}
-          preventDuplicate
-          anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'left',
-          }}
-        >
-          <App />
-        </SnackbarProvider>
-      </Suspense>
+      <SnackbarProvider
+        maxSnack={3}
+        preventDuplicate
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
+        }}
+      >
+        <App />
+      </SnackbarProvider>
     </RecoilRoot>
   ),
   document.getElementById('app'),

@@ -1,18 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
-import { useForm } from 'react-hook-form';
-
-import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
+import {
+  useRecoilValue, useResetRecoilState, useSetRecoilState, useRecoilValueLoadable, useRecoilState,
+} from 'recoil';
 
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
+import { useForm } from 'react-hook-form';
+
 import { useSnackbar } from 'notistack';
 
+import recoilLoadable from '../../utils/recoilLoadable';
 import { isCheckValidate, isEqualPassword } from '../../utils/utils';
 import { FORM_TYPE, EMPTY_AUTH_INPUT, NOT_MATCH_PASSWORD } from '../../utils/constants/constants';
 
-import authFieldsAtom, { authStatusAtom } from '../../recoil/auth';
+import authFieldsAtom, {
+  authFormStatusAtom, authWithQuery, authWithResult, authResultAtom,
+} from '../../recoil/auth';
 
 import AuthInput from './AuthInput';
 
@@ -72,10 +77,15 @@ const AuthModalForm = () => {
   const { enqueueSnackbar } = useSnackbar();
 
   const setAuthFields = useSetRecoilState(authFieldsAtom);
-  const { type, visible } = useRecoilValue(authStatusAtom);
+  const setResetAuthError = useSetRecoilState(authResultAtom);
+  const [authResult, setAuthResult] = useRecoilState(authWithResult);
 
-  const resetAuthStatusState = useResetRecoilState(authStatusAtom);
+  const { type, visible } = useRecoilValue(authFormStatusAtom);
+
+  const resetAuthStatusState = useResetRecoilState(authFormStatusAtom);
   const resetAuthFieldsState = useResetRecoilState(authFieldsAtom);
+
+  const authLoadable = useRecoilValueLoadable(authWithQuery);
 
   const errorSnackbar = (message) => enqueueSnackbar(message, {
     variant: 'error',
@@ -102,11 +112,38 @@ const AuthModalForm = () => {
     resetAuthFieldsState();
   };
 
+  const formType = FORM_TYPE[type];
+
+  useEffect(() => {
+    const authStatus = recoilLoadable(authLoadable);
+
+    if (authStatus && authStatus.data) {
+      setAuthResult(authStatus);
+    }
+  }, [authLoadable]);
+
+  useEffect(() => {
+    const { auth, authError } = authResult;
+
+    if (auth) {
+      enqueueSnackbar(`Success ${formType}!`, {
+        variant: 'success',
+      });
+      onCloseAuthModal();
+    }
+
+    if (authError) {
+      errorSnackbar(`Failure ${formType}!`);
+      setResetAuthError({
+        ...authResult,
+        authError: null,
+      });
+    }
+  }, [authResult]);
+
   if (!visible) {
     return null;
   }
-
-  const formType = FORM_TYPE[type];
 
   return (
     <AuthModalFormWrapper visible={visible}>

@@ -1,5 +1,10 @@
-import authFieldsAtom, { authStatusAtom } from './atom';
+import authFieldsAtom, { authFormStatusAtom, authResultAtom } from './atom';
 
-export { authStatusAtom };
+import authWithQuery from './withQuery';
+import authWithResult from './withResult';
+
+export {
+  authResultAtom, authWithQuery, authFormStatusAtom, authWithResult,
+};
 
 export default authFieldsAtom;

@@ -5,9 +5,14 @@ import { authResultAtom } from './atom';
 const branchAuthResult = {
   success: (auth) => ({
     auth,
+    loading: false,
   }),
   error: (authError) => ({
     authError,
+    loading: false,
+  }),
+  loading: () => ({
+    loading: true,
   }),
 };
 

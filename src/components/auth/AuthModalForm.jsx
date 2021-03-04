@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import {
   useRecoilValue, useResetRecoilState, useSetRecoilState, useRecoilValueLoadable, useRecoilState,
@@ -20,6 +20,7 @@ import authFieldsAtom, {
 } from '../../recoil/auth';
 
 import AuthInput from './AuthInput';
+import LoadingSpinner from '../common/LoadingSpinner';
 
 const AuthModalFormWrapper = styled.div`
   top: 0;
@@ -72,8 +73,9 @@ const AuthFormWrapper = styled.form`
 `;
 
 const AuthModalForm = () => {
-  const { register, handleSubmit } = useForm();
+  const [authLoading, setAuthLoading] = useState();
 
+  const { register, handleSubmit } = useForm();
   const { enqueueSnackbar } = useSnackbar();
 
   const setAuthFields = useSetRecoilState(authFieldsAtom);
@@ -87,9 +89,9 @@ const AuthModalForm = () => {
 
   const authLoadable = useRecoilValueLoadable(authWithQuery);
 
-  const errorSnackbar = (message) => enqueueSnackbar(message, {
-    variant: 'error',
-  });
+  const snackbar = (variant) => (message) => enqueueSnackbar(message, { variant });
+  const errorSnackbar = snackbar('error');
+  const successSnackbar = snackbar('success');
 
   const onSubmit = (data) => {
     if (!isCheckValidate(data)) {
@@ -117,18 +119,27 @@ const AuthModalForm = () => {
   useEffect(() => {
     const authStatus = recoilLoadable(authLoadable);
 
-    if (authStatus && authStatus.data) {
+    if (authStatus) {
       setAuthResult(authStatus);
     }
   }, [authLoadable]);
 
   useEffect(() => {
+    const { loading } = authResult;
+
+    if (loading) {
+      setAuthLoading(loading);
+      return;
+    }
+
+    setAuthLoading(loading);
+  }, [authResult.loading]);
+
+  useEffect(() => {
     const { auth, authError } = authResult;
 
     if (auth) {
-      enqueueSnackbar(`Success ${formType}!`, {
-        variant: 'success',
-      });
+      successSnackbar(`Success ${formType}!`);
       onCloseAuthModal();
     }
 
@@ -177,6 +188,9 @@ const AuthModalForm = () => {
             닫기
           </button>
         </AuthFormWrapper>
+        <LoadingSpinner
+          loading={authLoading}
+        />
       </AuthModalBoxWrapper>
     </AuthModalFormWrapper>
   );

@@ -8,6 +8,8 @@ import mockAxios from 'axios';
 
 import { SnackbarProvider } from 'notistack';
 
+import { loadItem } from './services/storage';
+
 import App from './App';
 import InjectTestingRecoilState from './components/common/InjectTestingRecoilState';
 
@@ -16,6 +18,7 @@ const mockAuth = {
   visible: false,
 };
 
+jest.mock('./services/storage');
 describe('App', () => {
   const renderApp = ({ todos, auth = mockAuth }) => render((
     <RecoilRoot>
@@ -148,5 +151,21 @@ describe('App', () => {
     });
 
     expect(container).toHaveTextContent('Success Sign in!');
+  });
+
+  describe('when logged in', () => {
+    const user = {
+      id: 'test',
+    };
+
+    beforeEach(() => {
+      loadItem.mockImplementation(() => user);
+    });
+
+    it('It has the user session value, so the Sign out button is visible.', () => {
+      const { container } = renderApp({ todos: [] });
+
+      expect(container).toHaveTextContent('Sign out');
+    });
   });
 });

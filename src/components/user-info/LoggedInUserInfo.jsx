@@ -23,7 +23,7 @@ const LoggedInUserInfoWrapper = styled.div`
 
 const LoggedInUserInfo = ({ user }) => (
   <LoggedInUserInfoWrapper>
-    <div>{user}</div>
+    <div>{user.id}</div>
     <div>
       <AuthButton type={logout} />
     </div>

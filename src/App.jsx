@@ -2,13 +2,15 @@ import React, { useEffect } from 'react';
 
 import styled from '@emotion/styled';
 
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import { MAIN_TITLE } from './utils/constants/constants';
 import { TODOS_ATOM_KEY } from './utils/constants/atomKey';
 
-import todosAtom from './recoil/todos/atom';
-import { saveItem } from './services/storage';
+import todosAtom from './recoil/todos';
+import { userAtom } from './recoil/auth';
+
+import { saveItem, loadItem } from './services/storage';
 
 import mq from './styles/responsive';
 import palette from './styles/palette';
@@ -43,10 +45,19 @@ const TodoContentWrapper = styled.div`
 
 const App = () => {
   const todosState = useRecoilValue(todosAtom);
+  const setUser = useSetRecoilState(userAtom);
+
+  const user = loadItem('user');
 
   useEffect(() => {
     saveItem(TODOS_ATOM_KEY, todosState);
   }, [todosState]);
+
+  useEffect(() => {
+    if (user) {
+      setUser(user);
+    }
+  }, [user]);
 
   return (
     <AppBlock>

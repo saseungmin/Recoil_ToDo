@@ -7,3 +7,5 @@ export const AUTH_FIELDS_ATOM_KEY = 'authFieldsAtom';
 export const AUTH_RESULT_ATOM_KEY = 'authResultAtom';
 
 export const AUTH_FORM_STATUS_ATOM_KEY = 'authFormStatusAtom';
+
+export const USER_ATOM_KEY = 'userAtom';

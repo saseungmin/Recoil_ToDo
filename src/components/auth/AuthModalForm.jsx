@@ -18,6 +18,7 @@ import { FORM_TYPE, EMPTY_AUTH_INPUT, NOT_MATCH_PASSWORD } from '../../utils/con
 import authFieldsAtom, {
   authFormStatusAtom, authWithQuery, authWithResult, authResultAtom,
 } from '../../recoil/auth';
+import { saveItem } from '../../services/storage';
 
 import AuthInput from './AuthInput';
 import LoadingSpinner from '../common/LoadingSpinner';
@@ -140,6 +141,7 @@ const AuthModalForm = () => {
 
     if (auth) {
       successSnackbar(`Success ${formType}!`);
+      saveItem('user', auth);
       onCloseAuthModal();
     }
 

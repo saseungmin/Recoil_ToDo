@@ -12,7 +12,11 @@ describe('LoggedInUserInfo', () => {
   ));
 
   it('render Logged in user info', () => {
-    const { container, getByText } = renderLoggedInUserInfo('test');
+    const user = {
+      id: 'test',
+    };
+
+    const { container, getByText } = renderLoggedInUserInfo(user);
 
     expect(getByText('Sign out')).not.toBeNull();
     expect(container).toHaveTextContent('test');

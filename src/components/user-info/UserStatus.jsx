@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { useSetRecoilState } from 'recoil';
+import { useSetRecoilState, useRecoilValue } from 'recoil';
 
 import styled from '@emotion/styled';
 
 import mq from '../../styles/responsive';
 
-import { authFormStatusAtom } from '../../recoil/auth';
+import { authFormStatusAtom, userAtom } from '../../recoil/auth';
 import { FORM_TYPE } from '../../utils/constants/constants';
 
 import AuthButton from './AuthButton';
@@ -24,8 +24,9 @@ const AuthButtonsWrapper = styled.div`
   })}
 `;
 
-const UserStatus = ({ user }) => {
+const UserStatus = () => {
   const setAuthStatus = useSetRecoilState(authFormStatusAtom);
+  const user = useRecoilValue(userAtom);
 
   const onClickOpenModal = (type) => {
     setAuthStatus({

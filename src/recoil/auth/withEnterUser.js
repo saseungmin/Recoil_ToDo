@@ -4,7 +4,7 @@ import authFieldsAtom, { authFormStatusAtom } from './atom';
 
 import { register, login } from '../../services/api/auth';
 
-export const authWithRegister = selectorFamily({
+const authWithRegister = selectorFamily({
   key: 'authWithRegister',
   get: (user) => async () => {
     const response = await register(user);
@@ -13,7 +13,7 @@ export const authWithRegister = selectorFamily({
   },
 });
 
-export const authWithLogin = selectorFamily({
+const authWithLogin = selectorFamily({
   key: 'authWithLogin',
   get: (user) => async () => {
     const response = await login(user);
@@ -27,19 +27,20 @@ export const branchAuthType = (user) => ({
   login: authWithLogin(user),
 });
 
-const authWithQuery = selector({
-  key: 'authWithQuery',
+const authWithEnterUser = selector({
+  key: 'authWithEnterUser',
   get: ({ get }) => {
-    const { type } = get(authFormStatusAtom);
     const user = get(authFieldsAtom);
+    const { type } = get(authFormStatusAtom);
 
     if (!user) {
       return null;
     }
+
     const response = get(branchAuthType(user)[type]);
 
     return response;
   },
 });
 
-export default authWithQuery;
+export default authWithEnterUser;

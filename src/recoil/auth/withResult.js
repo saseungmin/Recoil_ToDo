@@ -3,8 +3,8 @@ import { selector } from 'recoil';
 import { authResultAtom } from './atom';
 
 const branchAuthResult = {
-  success: ({ data }) => ({
-    auth: data,
+  success: (auth) => ({
+    auth,
     loading: false,
   }),
   error: (authError) => ({

@@ -168,4 +168,16 @@ describe('App', () => {
       expect(container).toHaveTextContent('Sign out');
     });
   });
+
+  it('success logout', async () => {
+    mockAxios.post.mockResolvedValueOnce({ data: 'mock', status: '204' });
+
+    const { container, getByText } = renderApp({ todos: [] });
+
+    await act(async () => {
+      fireEvent.click(getByText('Sign out'));
+    });
+
+    expect(container).toHaveTextContent('Success Sign out!');
+  });
 });

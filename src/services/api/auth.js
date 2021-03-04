@@ -17,3 +17,7 @@ export const login = ({
   id: userId,
   password,
 });
+
+export const check = () => client.get(`${AUTH_PATH}/check`);
+
+export const logout = () => client.post(`${AUTH_PATH}/logout`);

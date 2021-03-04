@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { useSetRecoilState, useRecoilValue } from 'recoil';
 
@@ -6,7 +6,10 @@ import styled from '@emotion/styled';
 
 import mq from '../../styles/responsive';
 
-import { authFormStatusAtom, userAtom } from '../../recoil/auth';
+import {
+  authFormStatusAtom, userAtom, authWithResult, authWithLogoutQuery,
+} from '../../recoil/auth';
+
 import { FORM_TYPE } from '../../utils/constants/constants';
 
 import AuthButton from './AuthButton';
@@ -25,8 +28,10 @@ const AuthButtonsWrapper = styled.div`
 `;
 
 const UserStatus = () => {
-  const setAuthStatus = useSetRecoilState(authFormStatusAtom);
   const user = useRecoilValue(userAtom);
+  const setAuthStatus = useSetRecoilState(authFormStatusAtom);
+  const authLoadable = useRecoilValue(authWithLogoutQuery);
+  const setAuthResult = useSetRecoilState(authWithResult);
 
   const onClickOpenModal = (type) => {
     setAuthStatus({
@@ -34,6 +39,12 @@ const UserStatus = () => {
       visible: true,
     });
   };
+
+  useEffect(() => {
+    if (authLoadable) {
+      setAuthResult(authLoadable);
+    }
+  }, [authLoadable]);
 
   if (user) {
     return (

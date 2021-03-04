@@ -4,16 +4,19 @@ import { RecoilRoot } from 'recoil';
 
 import { render } from '@testing-library/react';
 
+import { SnackbarProvider } from 'notistack';
 import UserStatus from './UserStatus';
 import InjectTestingRecoilState from '../common/InjectTestingRecoilState';
 
 describe('UserStatus', () => {
   const renderUserStatus = () => render((
     <RecoilRoot>
-      <InjectTestingRecoilState
-        user={given.user}
-      />
-      <UserStatus />
+      <SnackbarProvider>
+        <InjectTestingRecoilState
+          user={given.user}
+        />
+        <UserStatus />
+      </SnackbarProvider>
     </RecoilRoot>
   ));
 

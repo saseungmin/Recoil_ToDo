@@ -16,7 +16,7 @@ import { isCheckValidate, isEqualPassword } from '../../utils/utils';
 import { FORM_TYPE, EMPTY_AUTH_INPUT, NOT_MATCH_PASSWORD } from '../../utils/constants/constants';
 
 import authFieldsAtom, {
-  authFormStatusAtom, authWithQuery, authWithResult, authResultAtom,
+  authFormStatusAtom, authWithEnterUser, authWithResult, authResultAtom, userAtom,
 } from '../../recoil/auth';
 import { saveItem } from '../../services/storage';
 
@@ -80,15 +80,16 @@ const AuthModalForm = () => {
   const { enqueueSnackbar } = useSnackbar();
 
   const setAuthFields = useSetRecoilState(authFieldsAtom);
-  const setResetAuthError = useSetRecoilState(authResultAtom);
+  const setResetAuth = useResetRecoilState(authResultAtom);
   const [authResult, setAuthResult] = useRecoilState(authWithResult);
+  const setUser = useSetRecoilState(userAtom);
 
   const { type, visible } = useRecoilValue(authFormStatusAtom);
 
   const resetAuthStatusState = useResetRecoilState(authFormStatusAtom);
   const resetAuthFieldsState = useResetRecoilState(authFieldsAtom);
 
-  const authLoadable = useRecoilValueLoadable(authWithQuery);
+  const authLoadable = useRecoilValueLoadable(authWithEnterUser);
 
   const snackbar = (variant) => (message) => enqueueSnackbar(message, { variant });
   const errorSnackbar = snackbar('error');
@@ -141,16 +142,15 @@ const AuthModalForm = () => {
 
     if (auth) {
       successSnackbar(`Success ${formType}!`);
-      saveItem('user', auth);
+      saveItem('user', auth.data);
+      setUser(auth.data);
+      setResetAuth();
       onCloseAuthModal();
     }
 
     if (authError) {
       errorSnackbar(`Failure ${formType}!`);
-      setResetAuthError({
-        ...authResult,
-        authError: null,
-      });
+      setResetAuth();
     }
   }, [authResult]);
 

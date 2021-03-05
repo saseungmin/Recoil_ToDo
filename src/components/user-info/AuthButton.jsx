@@ -4,6 +4,7 @@ const AuthButton = ({ type, onClick }) => (
   <button
     type="button"
     onClick={onClick}
+    data-testid="sign-out-button"
   >
     {type}
   </button>

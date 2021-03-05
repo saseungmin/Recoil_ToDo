@@ -3,10 +3,10 @@ import { snapshot_UNSTABLE } from 'recoil';
 
 import mockAxios from 'axios';
 
-import authWithEnterUser from './withEnterUser';
+import { authWithLoginQuery } from './withLogin';
 
 jest.mock('axios');
-describe('authWithQuery', () => {
+describe('authWithLoginQuery', () => {
   const data = { userId: 'id', password: 'test' };
 
   beforeEach(() => {
@@ -15,6 +15,6 @@ describe('authWithQuery', () => {
 
   it('When auth input fields is empty', () => {
     const initialSnapshot = snapshot_UNSTABLE();
-    expect(initialSnapshot.getLoadable(authWithEnterUser).valueOrThrow()).toBeNull();
+    expect(initialSnapshot.getLoadable(authWithLoginQuery).valueOrThrow()).toBeNull();
   });
 });

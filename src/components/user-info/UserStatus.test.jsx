@@ -1,10 +1,14 @@
 import React from 'react';
 
+import mockAxios from 'axios';
+
 import { RecoilRoot } from 'recoil';
 
-import { render } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 
 import { SnackbarProvider } from 'notistack';
+
+import { act } from 'react-dom/test-utils';
 import UserStatus from './UserStatus';
 import InjectTestingRecoilState from '../common/InjectTestingRecoilState';
 
@@ -13,7 +17,7 @@ describe('UserStatus', () => {
     <RecoilRoot>
       <SnackbarProvider>
         <InjectTestingRecoilState
-          user={given.user}
+          authResult={given.user}
         />
         <UserStatus />
       </SnackbarProvider>
@@ -22,18 +26,34 @@ describe('UserStatus', () => {
 
   context('With user', () => {
     given('user', () => ({
-      id: 'test',
+      user: {
+        id: 'test',
+      },
     }));
     it('render Sign out Button', () => {
       const { container } = renderUserStatus();
 
       expect(container).toHaveTextContent('Sign out');
     });
+
+    describe('When click Sign out button, call event', () => {
+      it('when sign out is successful, renders success message', async () => {
+        mockAxios.post.mockResolvedValueOnce({ data: 'test' });
+
+        const { container, getByTestId } = renderUserStatus();
+
+        await act(async () => {
+          fireEvent.click(getByTestId('sign-out-button'));
+        });
+
+        expect(container).toHaveTextContent('Success Sign out!');
+      });
+    });
   });
 
   context('Without user', () => {
-    given('result', () => ({
-      id: 'test',
+    given('user', () => ({
+      user: null,
     }));
 
     it('render Sing in and Sign up buttons', () => {

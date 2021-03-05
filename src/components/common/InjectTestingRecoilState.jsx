@@ -12,6 +12,7 @@ const authState = {
 
 const authResultState = {
   auth: null,
+  user: null,
   authError: null,
   loading: false,
 };

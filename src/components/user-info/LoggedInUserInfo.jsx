@@ -1,11 +1,9 @@
 import React from 'react';
 
-import { useSetRecoilState } from 'recoil';
-
 import styled from '@emotion/styled';
 
 import mq from '../../styles/responsive';
-import { authFormStatusAtom } from '../../recoil/auth';
+
 import { FORM_TYPE } from '../../utils/constants/constants';
 
 import AuthButton from './AuthButton';
@@ -24,26 +22,15 @@ const LoggedInUserInfoWrapper = styled.div`
 
 `;
 
-const LoggedInUserInfo = ({ user }) => {
-  const setLogout = useSetRecoilState(authFormStatusAtom);
-
-  const onLogout = () => {
-    setLogout((status) => ({
-      ...status,
-      type: 'logout',
-    }));
-  };
-
-  return (
-    <LoggedInUserInfoWrapper>
-      <div>{user.id}</div>
-      <div>
-        <AuthButton
-          type={logout}
-          onClick={onLogout}
-        />
-      </div>
-    </LoggedInUserInfoWrapper>
-  );
-};
+const LoggedInUserInfo = ({ user, onLogout }) => (
+  <LoggedInUserInfoWrapper>
+    <div>{user.id}</div>
+    <div>
+      <AuthButton
+        type={logout}
+        onClick={onLogout}
+      />
+    </div>
+  </LoggedInUserInfoWrapper>
+);
 export default LoggedInUserInfo;

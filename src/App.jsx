@@ -8,7 +8,7 @@ import { MAIN_TITLE } from './utils/constants/constants';
 import { TODOS_ATOM_KEY } from './utils/constants/atomKey';
 
 import todosAtom from './recoil/todos';
-import { userAtom } from './recoil/auth';
+import { authResultAtom } from './recoil/auth';
 
 import { saveItem, loadItem } from './services/storage';
 
@@ -19,9 +19,10 @@ import AppBlock from './styles/AppBlock';
 import Footer from './components/footer/Footer';
 import TodoList from './components/todo/TodoList';
 import TodoInput from './components/input/TodoInput';
+import AuthStatus from './components/auth/AuthStatus';
 import TodoSubInfo from './components/info-bar/TodoSubInfo';
 import UserStatus from './components/user-info/UserStatus';
-import AuthModalForm from './components/auth/AuthModalForm';
+import LoadingSpinner from './components/common/LoadingSpinner';
 
 const HeaderWrapper = styled.h1`
   ${mq({
@@ -45,7 +46,7 @@ const TodoContentWrapper = styled.div`
 
 const App = () => {
   const todosState = useRecoilValue(todosAtom);
-  const setUser = useSetRecoilState(userAtom);
+  const setUser = useSetRecoilState(authResultAtom);
 
   const user = loadItem('user');
 
@@ -55,7 +56,10 @@ const App = () => {
 
   useEffect(() => {
     if (user) {
-      setUser(user);
+      setUser((state) => ({
+        ...state,
+        user,
+      }));
     }
   }, [user]);
 
@@ -71,7 +75,8 @@ const App = () => {
         <TodoList />
       </TodoContentWrapper>
       <Footer />
-      <AuthModalForm />
+      <AuthStatus />
+      <LoadingSpinner />
     </AppBlock>
   );
 };

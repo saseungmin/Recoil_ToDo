@@ -1,16 +1,19 @@
 import authFieldsAtom, { authFormStatusAtom, authResultAtom, userAtom } from './atom';
 
-import authWithEnterUser from './withEnterUser';
-import authWithResult from './withResult';
-import authWithLogoutQuery from './withLogout';
+import authWithLoginHandle, { authWithLoginQuery } from './withLogin';
+import authWithLogoutHandle, { authWithLogoutQuery } from './withLogout';
+import authWithRegisterHandle, { authWithRegisterQuery } from './withRegister';
 
 export {
-  authResultAtom,
-  authWithEnterUser,
-  authFormStatusAtom,
-  authWithResult,
   userAtom,
+  authResultAtom,
+  authWithLogoutHandle,
+  authFormStatusAtom,
   authWithLogoutQuery,
+  authWithLoginHandle,
+  authWithLoginQuery,
+  authWithRegisterQuery,
+  authWithRegisterHandle,
 };
 
 export default authFieldsAtom;

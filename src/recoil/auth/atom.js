@@ -15,6 +15,7 @@ export const authFormStatusAtom = atom({
 export const authResultAtom = atom({
   key: AUTH_RESULT_ATOM_KEY,
   default: {
+    user: null,
     auth: null,
     authError: null,
     loading: false,

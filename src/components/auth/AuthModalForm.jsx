@@ -1,27 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
-import {
-  useRecoilValue, useResetRecoilState, useSetRecoilState, useRecoilValueLoadable, useRecoilState,
-} from 'recoil';
+import { useRecoilValue, useResetRecoilState } from 'recoil';
 
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
 import { useForm } from 'react-hook-form';
 
-import { useSnackbar } from 'notistack';
+import { FORM_TYPE } from '../../utils/constants/constants';
 
-import recoilLoadable from '../../utils/recoilLoadable';
-import { isCheckValidate, isEqualPassword } from '../../utils/utils';
-import { FORM_TYPE, EMPTY_AUTH_INPUT, NOT_MATCH_PASSWORD } from '../../utils/constants/constants';
-
-import authFieldsAtom, {
-  authFormStatusAtom, authWithEnterUser, authWithResult, authResultAtom, userAtom,
-} from '../../recoil/auth';
-import { saveItem } from '../../services/storage';
+import authFieldsAtom, { authFormStatusAtom } from '../../recoil/auth';
 
 import AuthInput from './AuthInput';
-import LoadingSpinner from '../common/LoadingSpinner';
 
 const AuthModalFormWrapper = styled.div`
   top: 0;
@@ -73,43 +63,13 @@ const AuthFormWrapper = styled.form`
   justify-content: center;
 `;
 
-const AuthModalForm = () => {
-  const [authLoading, setAuthLoading] = useState();
-
+const AuthModalForm = ({ onSubmit }) => {
   const { register, handleSubmit } = useForm();
-  const { enqueueSnackbar } = useSnackbar();
-
-  const setAuthFields = useSetRecoilState(authFieldsAtom);
-  const setResetAuth = useResetRecoilState(authResultAtom);
-  const [authResult, setAuthResult] = useRecoilState(authWithResult);
-  const setUser = useSetRecoilState(userAtom);
 
   const { type, visible } = useRecoilValue(authFormStatusAtom);
 
   const resetAuthStatusState = useResetRecoilState(authFormStatusAtom);
   const resetAuthFieldsState = useResetRecoilState(authFieldsAtom);
-
-  const authLoadable = useRecoilValueLoadable(authWithEnterUser);
-
-  const snackbar = (variant) => (message) => enqueueSnackbar(message, { variant });
-  const errorSnackbar = snackbar('error');
-  const successSnackbar = snackbar('success');
-
-  const onSubmit = (data) => {
-    if (!isCheckValidate(data)) {
-      errorSnackbar(EMPTY_AUTH_INPUT);
-
-      return;
-    }
-
-    if (isEqualPassword(data)) {
-      errorSnackbar(NOT_MATCH_PASSWORD);
-
-      return;
-    }
-
-    setAuthFields(data);
-  };
 
   const onCloseAuthModal = () => {
     resetAuthStatusState();
@@ -117,46 +77,6 @@ const AuthModalForm = () => {
   };
 
   const formType = FORM_TYPE[type];
-
-  useEffect(() => {
-    const authStatus = recoilLoadable(authLoadable);
-
-    if (authStatus) {
-      setAuthResult(authStatus);
-    }
-  }, [authLoadable]);
-
-  useEffect(() => {
-    const { loading } = authResult;
-
-    if (loading) {
-      setAuthLoading(loading);
-      return;
-    }
-
-    setAuthLoading(loading);
-  }, [authResult.loading]);
-
-  useEffect(() => {
-    const { auth, authError } = authResult;
-
-    if (auth) {
-      successSnackbar(`Success ${formType}!`);
-      saveItem('user', auth.data);
-      setUser(auth.data);
-      setResetAuth();
-      onCloseAuthModal();
-    }
-
-    if (authError) {
-      errorSnackbar(`Failure ${formType}!`);
-      setResetAuth();
-    }
-  }, [authResult]);
-
-  if (!visible) {
-    return null;
-  }
 
   return (
     <AuthModalFormWrapper visible={visible}>
@@ -190,9 +110,6 @@ const AuthModalForm = () => {
             닫기
           </button>
         </AuthFormWrapper>
-        <LoadingSpinner
-          loading={authLoading}
-        />
       </AuthModalBoxWrapper>
     </AuthModalFormWrapper>
   );

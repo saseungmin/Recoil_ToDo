@@ -1,16 +1,21 @@
 import React, { useEffect } from 'react';
 
-import { useSetRecoilState, useRecoilValue } from 'recoil';
+import {
+  useSetRecoilState, useRecoilValue, useResetRecoilState, useRecoilState,
+} from 'recoil';
 
 import styled from '@emotion/styled';
 
+import { useSnackbar } from 'notistack';
+
 import mq from '../../styles/responsive';
 
-import {
-  authFormStatusAtom, userAtom, authWithResult, authWithLogoutQuery,
-} from '../../recoil/auth';
-
+import { removeItem } from '../../services/storage';
 import { FORM_TYPE } from '../../utils/constants/constants';
+
+import {
+  authWithLogoutHandle, authWithLogoutQuery, authFormStatusAtom, authResultAtom,
+} from '../../recoil/auth';
 
 import AuthButton from './AuthButton';
 import LoggedInUserInfo from './LoggedInUserInfo';
@@ -28,27 +33,44 @@ const AuthButtonsWrapper = styled.div`
 `;
 
 const UserStatus = () => {
-  const user = useRecoilValue(userAtom);
-  const setAuthStatus = useSetRecoilState(authFormStatusAtom);
-  const authLoadable = useRecoilValue(authWithLogoutQuery);
-  const setAuthResult = useSetRecoilState(authWithResult);
+  const { enqueueSnackbar } = useSnackbar();
 
-  const onClickOpenModal = (type) => {
+  const [logoutLoadable, setLogout] = useRecoilState(authWithLogoutQuery);
+  const setLogoutResult = useSetRecoilState(authWithLogoutHandle);
+  const { user } = useRecoilValue(authResultAtom);
+  const resetAuthFormStatus = useResetRecoilState(authFormStatusAtom);
+  const [{ type }, setAuthStatus] = useRecoilState(authFormStatusAtom);
+
+  const snackbar = (variant) => (message) => enqueueSnackbar(message, { variant });
+  const successSnackbar = snackbar('success');
+
+  const onClickOpenModal = (formType) => {
     setAuthStatus({
-      type,
+      type: formType,
       visible: true,
     });
   };
 
   useEffect(() => {
-    if (authLoadable) {
-      setAuthResult(authLoadable);
+    if (logoutLoadable) {
+      setLogoutResult(logoutLoadable);
     }
-  }, [authLoadable]);
+  }, [logoutLoadable]);
+
+  useEffect(() => {
+    if (!user && type === 'logout') {
+      successSnackbar('Success Sign out!');
+      resetAuthFormStatus();
+      removeItem('user');
+    }
+  }, [user, type]);
 
   if (user) {
     return (
-      <LoggedInUserInfo user={user} />
+      <LoggedInUserInfo
+        user={user}
+        onLogout={setLogout}
+      />
     );
   }
 

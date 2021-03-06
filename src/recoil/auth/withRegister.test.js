@@ -3,7 +3,7 @@ import { snapshot_UNSTABLE } from 'recoil';
 
 import mockAxios from 'axios';
 
-import { authWithRegisterQuery } from './withRegister';
+import authWithRegisterQuery from './withRegister';
 
 jest.mock('axios');
 describe('authWithRegisterQuery', () => {

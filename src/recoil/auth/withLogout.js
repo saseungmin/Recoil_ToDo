@@ -1,19 +1,9 @@
 import { selector, noWait } from 'recoil';
 
-import { authFormStatusAtom, authResultAtom } from './atom';
+import { authFormStatusAtom } from './atom';
 
 import { logout } from '../../services/api/auth';
-import recoilLoadable from '../../utils/recoilLoadable';
-
-const branchAuthResult = {
-  success: () => ({
-    user: null,
-    loading: false,
-  }),
-  loading: () => ({
-    loading: true,
-  }),
-};
+import recoilLoadable from '../../utils/recoil/recoilLoadable';
 
 const authWithLogout = selector({
   key: 'authWithLogout',
@@ -24,7 +14,7 @@ const authWithLogout = selector({
   },
 });
 
-export const authWithLogoutQuery = selector({
+const authWithLogoutQuery = selector({
   key: 'authWithLogoutQuery',
   get: ({ get }) => {
     const { type } = get(authFormStatusAtom);
@@ -49,19 +39,4 @@ export const authWithLogoutQuery = selector({
   },
 });
 
-const authWithLogoutHandle = selector({
-  key: 'authWithLogoutHandle',
-  set: ({ set }, loadable) => {
-    const { type, data, status } = loadable;
-
-    set(
-      authResultAtom,
-      (prevState) => ({
-        ...prevState,
-        ...branchAuthResult[type]({ data, status }),
-      }),
-    );
-  },
-});
-
-export default authWithLogoutHandle;
+export default authWithLogoutQuery;

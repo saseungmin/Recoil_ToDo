@@ -1,23 +1,9 @@
 import { selectorFamily, selector, noWait } from 'recoil';
 
-import authFieldsAtom, { authResultAtom } from './atom';
+import authFieldsAtom from './atom';
 
 import { register } from '../../services/api/auth';
-import recoilLoadable from '../../utils/recoilLoadable';
-
-const branchAuthResult = {
-  success: (auth) => ({
-    auth,
-    loading: false,
-  }),
-  error: (authError) => ({
-    authError,
-    loading: false,
-  }),
-  loading: () => ({
-    loading: true,
-  }),
-};
+import recoilLoadable from '../../utils/recoil/recoilLoadable';
 
 const authWithRegister = selectorFamily({
   key: 'authWithRegister',
@@ -28,7 +14,7 @@ const authWithRegister = selectorFamily({
   },
 });
 
-export const authWithRegisterQuery = selector({
+const authWithRegisterQuery = selector({
   key: 'authWithRegisterQuery',
   get: ({ get }) => {
     const registerFields = get(authFieldsAtom);
@@ -43,19 +29,4 @@ export const authWithRegisterQuery = selector({
   },
 });
 
-const authWithRegisterHandle = selector({
-  key: 'authWithRegisterHandle',
-  set: ({ set }, loadable) => {
-    const { type, data, status } = loadable;
-
-    set(
-      authResultAtom,
-      (prevState) => ({
-        ...prevState,
-        ...branchAuthResult[type]({ data, status }),
-      }),
-    );
-  },
-});
-
-export default authWithRegisterHandle;
+export default authWithRegisterQuery;

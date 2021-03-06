@@ -1,23 +1,9 @@
 import { selectorFamily, selector, noWait } from 'recoil';
 
-import authFieldsAtom, { authResultAtom } from './atom';
+import authFieldsAtom from './atom';
 
 import { login } from '../../services/api/auth';
-import recoilLoadable from '../../utils/recoilLoadable';
-
-const branchAuthResult = {
-  success: ({ data }) => ({
-    user: data,
-    loading: false,
-  }),
-  error: (authError) => ({
-    authError,
-    loading: false,
-  }),
-  loading: () => ({
-    loading: true,
-  }),
-};
+import recoilLoadable from '../../utils/recoil/recoilLoadable';
 
 const authWithLogin = selectorFamily({
   key: 'authWithLogin',
@@ -28,7 +14,7 @@ const authWithLogin = selectorFamily({
   },
 });
 
-export const authWithLoginQuery = selector({
+const authWithLoginQuery = selector({
   key: 'authWithLoginQuery',
   get: ({ get }) => {
     const loginFields = get(authFieldsAtom);
@@ -43,19 +29,4 @@ export const authWithLoginQuery = selector({
   },
 });
 
-const authWithLoginHandle = selector({
-  key: 'authWithLoginHandle',
-  set: ({ set }, loadable) => {
-    const { type, data, status } = loadable;
-
-    set(
-      authResultAtom,
-      (prevState) => ({
-        ...prevState,
-        ...branchAuthResult[type]({ data, status }),
-      }),
-    );
-  },
-});
-
-export default authWithLoginHandle;
+export default authWithLoginQuery;

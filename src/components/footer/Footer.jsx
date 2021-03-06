@@ -10,6 +10,8 @@ import {
   E_MAIL, GITHUB, FACEBOOK, BLOG,
 } from '../../utils/constants/link';
 
+import ExternalLink from './ExternalLink';
+
 const FooterWrapper = styled.footer`
   ${mq({
     fontSize: ['0.9rem', '1rem'],
@@ -56,18 +58,20 @@ const Footer = () => (
   <FooterWrapper>
     <CopyrightWrapper>
       <span>© Created by </span>
-      <a href={E_MAIL} target="_blank" rel="noopener noreferrer">Seungmin Sa</a>
+      <ExternalLink link={E_MAIL}>
+        Seungmin Sa
+      </ExternalLink>
     </CopyrightWrapper>
     <IconWrapper>
-      <a href={GITHUB} target="_blank" rel="noopener noreferrer">
+      <ExternalLink link={GITHUB}>
         <GithubIcon />
-      </a>
-      <a href={FACEBOOK} target="_blank" rel="noopener noreferrer">
+      </ExternalLink>
+      <ExternalLink link={FACEBOOK}>
         <FacebookIcon />
-      </a>
-      <a href={BLOG} target="_blank" rel="noopener noreferrer">
+      </ExternalLink>
+      <ExternalLink link={BLOG}>
         <BlogIcon />
-      </a>
+      </ExternalLink>
     </IconWrapper>
   </FooterWrapper>
 );

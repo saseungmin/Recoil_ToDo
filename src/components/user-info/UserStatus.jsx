@@ -12,9 +12,10 @@ import mq from '../../styles/responsive';
 
 import { removeItem } from '../../services/storage';
 import { FORM_TYPE } from '../../utils/constants/constants';
+import { logoutHandling } from '../../utils/recoil/authStatusHandling';
 
 import {
-  authWithLogoutHandle, authWithLogoutQuery, authFormStatusAtom, authResultAtom,
+  authWithLogoutQuery, authFormStatusAtom, authResultAtom, authWithHandle,
 } from '../../recoil/auth';
 
 import AuthButton from './AuthButton';
@@ -35,8 +36,8 @@ const AuthButtonsWrapper = styled.div`
 const UserStatus = () => {
   const { enqueueSnackbar } = useSnackbar();
 
-  const [logoutLoadable, setLogout] = useRecoilState(authWithLogoutQuery);
-  const setLogoutResult = useSetRecoilState(authWithLogoutHandle);
+  const [loadable, setLogout] = useRecoilState(authWithLogoutQuery);
+  const setLogoutResult = useSetRecoilState(authWithHandle);
   const { user } = useRecoilValue(authResultAtom);
   const resetAuthFormStatus = useResetRecoilState(authFormStatusAtom);
   const [{ type }, setAuthStatus] = useRecoilState(authFormStatusAtom);
@@ -52,10 +53,13 @@ const UserStatus = () => {
   };
 
   useEffect(() => {
-    if (logoutLoadable) {
-      setLogoutResult(logoutLoadable);
+    if (loadable) {
+      setLogoutResult({
+        loadable,
+        handling: logoutHandling,
+      });
     }
-  }, [logoutLoadable]);
+  }, [loadable]);
 
   useEffect(() => {
     if (!user && type === 'logout') {

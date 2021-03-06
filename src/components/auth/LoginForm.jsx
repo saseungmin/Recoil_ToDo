@@ -7,9 +7,10 @@ import { useSnackbar } from 'notistack';
 import { saveItem } from '../../services/storage';
 import { isCheckValidate } from '../../utils/utils';
 import { EMPTY_AUTH_INPUT } from '../../utils/constants/constants';
+import { loginHandling } from '../../utils/recoil/authStatusHandling';
 
 import authFieldsAtom, {
-  authWithLoginHandle, authResultAtom, authFormStatusAtom, authWithLoginQuery,
+  authResultAtom, authFormStatusAtom, authWithLoginQuery, authWithHandle,
 } from '../../recoil/auth';
 
 import AuthModalForm from './AuthModalForm';
@@ -19,8 +20,8 @@ const LoginForm = () => {
 
   const setResetAuth = useResetRecoilState(authResultAtom);
   const setAuthFields = useSetRecoilState(authFieldsAtom);
-  const setLogin = useSetRecoilState(authWithLoginHandle);
-  const loginResult = useRecoilValue(authWithLoginQuery);
+  const setLoginResult = useSetRecoilState(authWithHandle);
+  const loadable = useRecoilValue(authWithLoginQuery);
   const resetAuthStatusState = useResetRecoilState(authFormStatusAtom);
   const { user, authError } = useRecoilValue(authResultAtom);
 
@@ -39,10 +40,13 @@ const LoginForm = () => {
   };
 
   useEffect(() => {
-    if (loginResult) {
-      setLogin(loginResult);
+    if (loadable) {
+      setLoginResult({
+        loadable,
+        handling: loginHandling,
+      });
     }
-  }, [loginResult]);
+  }, [loadable]);
 
   useEffect(() => {
     if (user) {

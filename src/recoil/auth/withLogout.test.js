@@ -1,7 +1,7 @@
 // eslint-disable-next-line camelcase
 import { snapshot_UNSTABLE } from 'recoil';
 
-import { authWithLogoutQuery } from './withLogout';
+import authWithLogoutQuery from './withLogout';
 import { authFormStatusAtom } from './atom';
 
 describe('authWithLogoutQuery', () => {

@@ -5,10 +5,11 @@ import { useSetRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
 import { useSnackbar } from 'notistack';
 
 import authFieldsAtom, {
-  authWithRegisterHandle, authResultAtom, authFormStatusAtom, authWithRegisterQuery,
+  authWithHandle, authResultAtom, authFormStatusAtom, authWithRegisterQuery,
 } from '../../recoil/auth';
 
 import { isCheckValidate, isEqualPassword } from '../../utils/utils';
+import { registerHandling } from '../../utils/recoil/authStatusHandling';
 import { EMPTY_AUTH_INPUT, NOT_MATCH_PASSWORD } from '../../utils/constants/constants';
 
 import AuthModalForm from './AuthModalForm';
@@ -18,8 +19,8 @@ const RegisterForm = () => {
 
   const setResetAuth = useResetRecoilState(authResultAtom);
   const setAuthFields = useSetRecoilState(authFieldsAtom);
-  const setRegisterResult = useSetRecoilState(authWithRegisterHandle);
-  const registerLoadable = useRecoilValue(authWithRegisterQuery);
+  const setRegisterResult = useSetRecoilState(authWithHandle);
+  const loadable = useRecoilValue(authWithRegisterQuery);
   const setLoginVisible = useSetRecoilState(authFormStatusAtom);
   const { auth, authError } = useRecoilValue(authResultAtom);
 
@@ -44,10 +45,13 @@ const RegisterForm = () => {
   };
 
   useEffect(() => {
-    if (registerLoadable) {
-      setRegisterResult(registerLoadable);
+    if (loadable) {
+      setRegisterResult({
+        loadable,
+        handling: registerHandling,
+      });
     }
-  }, [registerLoadable]);
+  }, [loadable]);
 
   useEffect(() => {
     if (auth) {

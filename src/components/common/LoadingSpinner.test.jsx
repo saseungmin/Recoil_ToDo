@@ -11,16 +11,14 @@ describe('LoadingSpinner', () => {
   const renderLoadingSpinner = () => render((
     <RecoilRoot>
       <InjectTestingRecoilState
-        authResult={given.result}
+        isLoading={given.loading}
       />
       <LoadingSpinner />
     </RecoilRoot>
   ));
 
   context('Is loading', () => {
-    given('result', () => ({
-      loading: true,
-    }));
+    given('loading', () => (true));
 
     it('renders Loading spinner', () => {
       const { getByTestId } = renderLoadingSpinner();
@@ -30,9 +28,7 @@ describe('LoadingSpinner', () => {
   });
 
   context("Isn't loading", () => {
-    given('result', () => ({
-      loading: false,
-    }));
+    given('loading', () => (false));
     it('renders Loading spinner', () => {
       const { container } = renderLoadingSpinner();
 

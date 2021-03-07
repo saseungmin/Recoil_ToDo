@@ -7,8 +7,8 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { MAIN_TITLE } from './utils/constants/constants';
 import { TODOS_ATOM_KEY } from './utils/constants/atomKey';
 
+import userAtom from './recoil/user';
 import todosAtom from './recoil/todos';
-import { authResultAtom } from './recoil/auth';
 
 import { saveItem, loadItem } from './services/storage';
 
@@ -46,7 +46,7 @@ const TodoContentWrapper = styled.div`
 
 const App = () => {
   const todosState = useRecoilValue(todosAtom);
-  const setUser = useSetRecoilState(authResultAtom);
+  const setUser = useSetRecoilState(userAtom);
 
   const user = loadItem('user');
 

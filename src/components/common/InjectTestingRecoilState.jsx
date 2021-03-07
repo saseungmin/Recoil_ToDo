@@ -2,8 +2,10 @@ import { useEffect } from 'react';
 
 import { useSetRecoilState } from 'recoil';
 
+import userAtom from '../../recoil/user';
 import todosAtom, { filterAtom } from '../../recoil/todos';
-import authFieldsAtom, { authFormStatusAtom, authResultAtom, userAtom } from '../../recoil/auth';
+import authFieldsAtom, { authFormStatusAtom, authResultAtom } from '../../recoil/auth';
+import isLoadingAtom from '../../recoil/common/atom';
 
 const authState = {
   type: '',
@@ -11,19 +13,23 @@ const authState = {
 };
 
 const authResultState = {
-  auth: null,
   user: null,
   authError: null,
-  loading: false,
+};
+
+const userState = {
+  user: null,
+  checkError: null,
 };
 
 const InjectTestingRecoilState = ({
   todos = [],
   filter = 'ALL',
-  user = null,
+  user = userState,
   auth = authState,
   authFields = null,
   authResult = authResultState,
+  isLoading = false,
 }) => {
   const setTodosState = useSetRecoilState(todosAtom);
   const setFilterState = useSetRecoilState(filterAtom);
@@ -31,6 +37,7 @@ const InjectTestingRecoilState = ({
   const setAuthState = useSetRecoilState(authFormStatusAtom);
   const setAuthFieldsState = useSetRecoilState(authFieldsAtom);
   const setAuthResultState = useSetRecoilState(authResultAtom);
+  const setLoadingState = useSetRecoilState(isLoadingAtom);
 
   useEffect(() => {
     setUserState(user);
@@ -39,6 +46,7 @@ const InjectTestingRecoilState = ({
     setFilterState(filter);
     setAuthFieldsState(authFields);
     setAuthResultState(authResult);
+    setLoadingState(isLoading);
   }, []);
 
   return null;

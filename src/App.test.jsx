@@ -123,6 +123,7 @@ describe('App', () => {
 
   it('Success logged in', async () => {
     mockAxios.post.mockResolvedValueOnce({ data: 'test' });
+    mockAxios.get.mockResolvedValueOnce({ data: 'test' });
 
     const props = {
       auth: {

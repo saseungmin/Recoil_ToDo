@@ -36,7 +36,17 @@ describe('AuthStatus', () => {
         expect(container).toHaveTextContent('Sign up');
       });
 
-      describe('Have Successful status', () => {
+      describe('When Click close button', () => {
+        it('close auth modal', () => {
+          const { container, getByText } = renderAuthStatus();
+
+          fireEvent.click(getByText('닫기'));
+
+          expect(container).toBeEmptyDOMElement();
+        });
+      });
+
+      describe('When submit action, Have Successful status', () => {
         const input = [
           { placeholder: '아이디', value: 'test' },
           { placeholder: '비밀번호', value: 'test' },
@@ -60,16 +70,6 @@ describe('AuthStatus', () => {
 
           expect(container).toHaveTextContent('Success Sign up!');
         });
-
-        describe('When Click close button', () => {
-          it('close auth modal', () => {
-            const { container, getByText } = renderAuthStatus();
-
-            fireEvent.click(getByText('닫기'));
-
-            expect(container).toBeEmptyDOMElement();
-          });
-        });
       });
     });
 
@@ -84,7 +84,7 @@ describe('AuthStatus', () => {
         expect(container).toHaveTextContent('Sign in');
       });
 
-      describe('Have Successful status', () => {
+      describe('When Submit action, Have Successful status', () => {
         const input = [
           { placeholder: '아이디', value: 'test' },
           { placeholder: '비밀번호', value: 'test' },
@@ -92,6 +92,7 @@ describe('AuthStatus', () => {
 
         it('when login is successful, renders success message', async () => {
           mockAxios.post.mockResolvedValueOnce({ data: 'test' });
+          mockAxios.get.mockResolvedValueOnce({ data: 'test' });
 
           const { container, getByPlaceholderText, getByTestId } = renderAuthStatus();
 

@@ -9,3 +9,5 @@ export const AUTH_RESULT_ATOM_KEY = 'authResultAtom';
 export const AUTH_FORM_STATUS_ATOM_KEY = 'authFormStatusAtom';
 
 export const USER_ATOM_KEY = 'userAtom';
+
+export const IS_LOADING_ATOM_KEY = 'loadingAtom';

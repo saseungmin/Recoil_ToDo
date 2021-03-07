@@ -1,13 +1,11 @@
 import { selector } from 'recoil';
 
-import { authResultAtom } from './atom';
+import userAtom from './atom';
 import isLoadingAtom from '../common/atom';
 
-import { authStatusHandling } from '../../utils/recoil/statusHandling';
-
-const authWithHandle = selector({
-  key: 'authWithHandle',
-  set: ({ set }, loadable) => {
+const userWithHandle = selector({
+  key: 'userWithHandle',
+  set: ({ set }, { loadable, handling }) => {
     const { type, data, status } = loadable;
 
     if (type === 'loading') {
@@ -16,10 +14,10 @@ const authWithHandle = selector({
     }
 
     set(
-      authResultAtom,
+      userAtom,
       (prevState) => ({
         ...prevState,
-        ...authStatusHandling[type]({ data, status }),
+        ...handling[type]({ data, status }),
       }),
     );
 
@@ -27,4 +25,4 @@ const authWithHandle = selector({
   },
 });
 
-export default authWithHandle;
+export default userWithHandle;

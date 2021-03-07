@@ -12,11 +12,10 @@ import mq from '../../styles/responsive';
 
 import { removeItem } from '../../services/storage';
 import { FORM_TYPE } from '../../utils/constants/constants';
-import { logoutHandling } from '../../utils/recoil/authStatusHandling';
+import { logoutHandling } from '../../utils/recoil/statusHandling';
 
-import {
-  authWithLogoutQuery, authFormStatusAtom, authResultAtom, authWithHandle,
-} from '../../recoil/auth';
+import userAtom, { userWithHandle } from '../../recoil/user';
+import { authWithLogoutQuery, authFormStatusAtom } from '../../recoil/auth';
 
 import AuthButton from './AuthButton';
 import LoggedInUserInfo from './LoggedInUserInfo';
@@ -37,10 +36,11 @@ const UserStatus = () => {
   const { enqueueSnackbar } = useSnackbar();
 
   const [loadable, setLogout] = useRecoilState(authWithLogoutQuery);
-  const setLogoutResult = useSetRecoilState(authWithHandle);
-  const { user } = useRecoilValue(authResultAtom);
-  const resetAuthFormStatus = useResetRecoilState(authFormStatusAtom);
   const [{ type }, setAuthStatus] = useRecoilState(authFormStatusAtom);
+
+  const { user } = useRecoilValue(userAtom);
+  const setLogoutResult = useSetRecoilState(userWithHandle);
+  const resetAuthFormStatus = useResetRecoilState(authFormStatusAtom);
 
   const snackbar = (variant) => (message) => enqueueSnackbar(message, { variant });
   const successSnackbar = snackbar('success');

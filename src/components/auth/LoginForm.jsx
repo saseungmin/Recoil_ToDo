@@ -2,13 +2,17 @@ import React, { useEffect } from 'react';
 
 import { useSetRecoilState, useResetRecoilState, useRecoilValue } from 'recoil';
 
+import { useUnmount } from 'react-use';
+
 import { useSnackbar } from 'notistack';
 
-import { saveItem } from '../../services/storage';
 import { isCheckValidate } from '../../utils/utils';
+import { checkHandling } from '../../utils/recoil/statusHandling';
 import { EMPTY_AUTH_INPUT } from '../../utils/constants/constants';
-import { loginHandling } from '../../utils/recoil/authStatusHandling';
 
+import { saveItem, removeItem } from '../../services/storage';
+
+import userAtom, { userWithHandle, userWithCheckQuery } from '../../recoil/user';
 import authFieldsAtom, {
   authResultAtom, authFormStatusAtom, authWithLoginQuery, authWithHandle,
 } from '../../recoil/auth';
@@ -18,12 +22,18 @@ import AuthModalForm from './AuthModalForm';
 const LoginForm = () => {
   const { enqueueSnackbar } = useSnackbar();
 
-  const setResetAuth = useResetRecoilState(authResultAtom);
   const setAuthFields = useSetRecoilState(authFieldsAtom);
   const setLoginResult = useSetRecoilState(authWithHandle);
-  const loadable = useRecoilValue(authWithLoginQuery);
+  const setUserResult = useSetRecoilState(userWithHandle);
+
+  const authLoadable = useRecoilValue(authWithLoginQuery);
+  const checkLoadable = useRecoilValue(userWithCheckQuery);
+  const { auth, authError } = useRecoilValue(authResultAtom);
+  const { user, checkError } = useRecoilValue(userAtom);
+
+  const setResetAuth = useResetRecoilState(authResultAtom);
   const resetAuthStatusState = useResetRecoilState(authFormStatusAtom);
-  const { user, authError } = useRecoilValue(authResultAtom);
+  const setResetUser = useResetRecoilState(userAtom);
 
   const snackbar = (variant) => (message) => enqueueSnackbar(message, { variant });
   const errorSnackbar = snackbar('error');
@@ -40,27 +50,45 @@ const LoginForm = () => {
   };
 
   useEffect(() => {
-    if (loadable) {
-      setLoginResult({
-        loadable,
-        handling: loginHandling,
+    if (authLoadable) {
+      setLoginResult(authLoadable);
+    }
+  }, [authLoadable]);
+
+  useEffect(() => {
+    if (checkLoadable) {
+      setUserResult({
+        loadable: checkLoadable,
+        handling: checkHandling,
       });
     }
-  }, [loadable]);
+  }, [checkLoadable]);
+
+  useEffect(() => {
+    if (authError) {
+      errorSnackbar('Failure Sign in!');
+      setResetAuth();
+    }
+  }, [auth, authError]);
 
   useEffect(() => {
     if (user) {
       successSnackbar('Success Sign in!');
       saveItem('user', user);
-      setAuthFields(null);
       resetAuthStatusState();
     }
 
-    if (authError) {
+    if (checkError) {
       errorSnackbar('Failure Sign in!');
-      setResetAuth();
+      removeItem('user');
+      setResetUser();
     }
-  }, [user, authError]);
+  }, [user, checkError]);
+
+  useUnmount(() => {
+    setResetAuth();
+    setAuthFields(null);
+  });
 
   return (
     <AuthModalForm

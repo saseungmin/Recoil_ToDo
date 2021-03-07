@@ -12,15 +12,22 @@ import { SnackbarProvider } from 'notistack';
 import InjectTestingRecoilState from '../common/InjectTestingRecoilState';
 import LoginForm from './LoginForm';
 
+const userState = {
+  user: null,
+  checkError: null,
+};
+
 describe('LoginForm', () => {
   afterEach(() => {
     jest.resetAllMocks();
   });
 
-  const renderLoginForm = () => render((
+  const renderLoginForm = (user = userState) => render((
     <RecoilRoot>
       <SnackbarProvider>
-        <InjectTestingRecoilState />
+        <InjectTestingRecoilState
+          user={user}
+        />
         <LoginForm />
       </SnackbarProvider>
     </RecoilRoot>
@@ -43,7 +50,7 @@ describe('LoginForm', () => {
         expect(container).toHaveTextContent('입력이 안된 사항이 있습니다.');
       });
 
-      it('When there is an empty value, renders error message', async () => {
+      it('When have some auth server error, renders error message', async () => {
         const mockData = {
           response: {
             status: 401,
@@ -64,6 +71,17 @@ describe('LoginForm', () => {
         await act(async () => {
           fireEvent.submit(getByTestId('auth-submit-button'));
         });
+
+        expect(container).toHaveTextContent('Failure Sign in!');
+      });
+
+      it('When have some check server error, renders error message', () => {
+        const user = {
+          user: null,
+          checkError: 'some check error',
+        };
+
+        const { container } = renderLoginForm(user);
 
         expect(container).toHaveTextContent('Failure Sign in!');
       });

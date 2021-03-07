@@ -17,7 +17,7 @@ describe('UserStatus', () => {
     <RecoilRoot>
       <SnackbarProvider>
         <InjectTestingRecoilState
-          authResult={given.user}
+          user={given.user}
         />
         <UserStatus />
       </SnackbarProvider>

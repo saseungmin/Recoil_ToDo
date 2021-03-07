@@ -38,6 +38,7 @@
     "react-responsive": "^8.2.0",
     "react-spinners": "^0.10.6",
     "react-tooltip": "^4.2.13",
+    "react-use": "^17.1.1",
     "recoil": "^0.1.2",
     "uuid": "^8.3.2"
   },

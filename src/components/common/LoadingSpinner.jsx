@@ -8,8 +8,7 @@ import { css } from '@emotion/react';
 import BounceLoader from 'react-spinners/BounceLoader';
 
 import mq from '../../styles/responsive';
-
-import { authResultAtom } from '../../recoil/auth';
+import isLoadingAtom from '../../recoil/common/atom';
 
 const LoadingSpinnerWrapper = styled.div`
   top: 0;
@@ -34,9 +33,9 @@ const loaderSpinners = css`
 `;
 
 const LoadingSpinner = () => {
-  const { loading } = useRecoilValue(authResultAtom);
+  const isLoading = useRecoilValue(isLoadingAtom);
 
-  if (!loading) {
+  if (!isLoading) {
     return null;
   }
 
@@ -48,7 +47,7 @@ const LoadingSpinner = () => {
         size={100}
         color="#9775fa"
         css={loaderSpinners}
-        loading={loading}
+        loading={isLoading}
       />
     </LoadingSpinnerWrapper>
   );

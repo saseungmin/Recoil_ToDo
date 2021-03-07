@@ -1,5 +1,7 @@
 import { newTodos, filteredTodos, setPath } from './utils';
 
+import { BASE_URL } from './constants/url';
+
 describe('newTodos', () => {
   const initialState = [
     { id: '1', task: 'task', isComplete: false },
@@ -49,12 +51,17 @@ describe('setPath', () => {
   it('When env "development"', () => {
     const result = setPath('development');
 
-    expect(result).toBe('/');
+    expect(result).toEqual({
+      baseURL: '/',
+    });
   });
 
   it('When another env', () => {
     const result = setPath('production');
 
-    expect(result).toBe('https://recoil-todo.herokuapp.com');
+    expect(result).toEqual({
+      baseURL: BASE_URL,
+      withCredentials: true,
+    });
   });
 });

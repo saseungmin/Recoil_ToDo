@@ -15,10 +15,15 @@ export const newTodos = (todos) => ({ id, key, value }) => todos.map((todo) => {
 
 export const setPath = (env) => {
   if (env === 'development') {
-    return '/';
+    return {
+      baseURL: '/',
+    };
   }
 
-  return BASE_URL;
+  return {
+    baseURL: BASE_URL,
+    withCredentials: true,
+  };
 };
 
 export const isCheckInputTrim = (value) => _.trim(value).length > 0;

@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 
 import { useSetRecoilState, useResetRecoilState, useRecoilValue } from 'recoil';
 
+import { useUnmount } from 'react-use';
+
 import { useSnackbar } from 'notistack';
 
 import { isCheckValidate } from '../../utils/utils';
@@ -73,8 +75,6 @@ const LoginForm = () => {
     if (user) {
       successSnackbar('Success Sign in!');
       saveItem('user', user);
-      setResetAuth();
-      setAuthFields(null);
       resetAuthStatusState();
     }
 
@@ -84,6 +84,11 @@ const LoginForm = () => {
       setResetUser();
     }
   }, [user, checkError]);
+
+  useUnmount(() => {
+    setResetAuth();
+    setAuthFields(null);
+  });
 
   return (
     <AuthModalForm

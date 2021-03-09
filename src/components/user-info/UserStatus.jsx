@@ -35,10 +35,10 @@ const AuthButtonsWrapper = styled.div`
 const UserStatus = () => {
   const { enqueueSnackbar } = useSnackbar();
 
+  const { user } = useRecoilValue(userAtom);
   const [loadable, setLogout] = useRecoilState(authWithLogoutQuery);
   const [{ type }, setAuthStatus] = useRecoilState(authFormStatusAtom);
 
-  const { user } = useRecoilValue(userAtom);
   const setLogoutResult = useSetRecoilState(userWithHandle);
   const resetAuthFormStatus = useResetRecoilState(authFormStatusAtom);
 

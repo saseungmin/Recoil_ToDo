@@ -28,12 +28,12 @@ const LoginForm = () => {
 
   const authLoadable = useRecoilValue(authWithLoginQuery);
   const checkLoadable = useRecoilValue(userWithCheckQuery);
-  const { auth, authError } = useRecoilValue(authResultAtom);
+  const { authError } = useRecoilValue(authResultAtom);
   const { user, checkError } = useRecoilValue(userAtom);
 
+  const setResetUser = useResetRecoilState(userAtom);
   const setResetAuth = useResetRecoilState(authResultAtom);
   const resetAuthStatusState = useResetRecoilState(authFormStatusAtom);
-  const setResetUser = useResetRecoilState(userAtom);
 
   const snackbar = (variant) => (message) => enqueueSnackbar(message, { variant });
   const errorSnackbar = snackbar('error');
@@ -69,7 +69,7 @@ const LoginForm = () => {
       errorSnackbar('Failure Sign in!');
       setResetAuth();
     }
-  }, [auth, authError]);
+  }, [authError]);
 
   useEffect(() => {
     if (user) {

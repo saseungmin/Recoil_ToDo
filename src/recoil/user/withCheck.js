@@ -1,13 +1,13 @@
-import { selector, noWait } from 'recoil';
+import { selector, noWait, selectorFamily } from 'recoil';
 
 import { authResultAtom } from '../auth';
 
 import { check } from '../../services/api/auth';
 import recoilLoadable from '../../utils/recoil/recoilLoadable';
 
-const userWithCheck = selector({
+const userWithCheck = selectorFamily({
   key: 'userWithCheck',
-  get: async () => {
+  get: () => async () => {
     const response = await check();
 
     return response;
@@ -23,7 +23,7 @@ const userWithCheckQuery = selector({
       return null;
     }
 
-    const loadable = recoilLoadable(get(noWait(userWithCheck)));
+    const loadable = recoilLoadable(get(noWait(userWithCheck(auth))));
 
     return loadable;
   },

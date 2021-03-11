@@ -2,12 +2,13 @@ import React, { useEffect } from 'react';
 
 import styled from '@emotion/styled';
 
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue, useRecoilCallback } from 'recoil';
 
+import { userCheckErrorHandling } from './utils/utils';
 import { MAIN_TITLE } from './utils/constants/constants';
 import { TODOS_ATOM_KEY } from './utils/constants/atomKey';
 
-import userAtom from './recoil/user';
+import userAtom, { userWithCheck } from './recoil/user';
 import todosAtom from './recoil/todos';
 
 import { saveItem, loadItem } from './services/storage';
@@ -45,10 +46,13 @@ const TodoContentWrapper = styled.div`
 `;
 
 const App = () => {
-  const todosState = useRecoilValue(todosAtom);
-  const setUser = useSetRecoilState(userAtom);
-
   const user = loadItem('user');
+
+  const todosState = useRecoilValue(todosAtom);
+  const checkUser = useRecoilCallback(({ snapshot, set }) => async () => {
+    const { data } = await userCheckErrorHandling(snapshot.getPromise(userWithCheck()));
+    set(userAtom, { user: data });
+  }, []);
 
   useEffect(() => {
     saveItem(TODOS_ATOM_KEY, todosState);
@@ -56,12 +60,9 @@ const App = () => {
 
   useEffect(() => {
     if (user) {
-      setUser((state) => ({
-        ...state,
-        user,
-      }));
+      checkUser();
     }
-  }, [user]);
+  }, []);
 
   return (
     <AppBlock>

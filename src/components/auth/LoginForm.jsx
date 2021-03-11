@@ -7,10 +7,8 @@ import { useUnmount } from 'react-use';
 import { useSnackbar } from 'notistack';
 
 import { isCheckValidate } from '../../utils/utils';
-import { checkHandling } from '../../utils/recoil/statusHandling';
+import { userCheckHandling } from '../../utils/recoil/statusHandling';
 import { EMPTY_AUTH_INPUT } from '../../utils/constants/constants';
-
-import { saveItem, removeItem } from '../../services/storage';
 
 import userAtom, { userWithHandle, userWithCheckQuery } from '../../recoil/user';
 import authFieldsAtom, {
@@ -59,7 +57,7 @@ const LoginForm = () => {
     if (checkLoadable) {
       setUserResult({
         loadable: checkLoadable,
-        handling: checkHandling,
+        handling: userCheckHandling,
       });
     }
   }, [checkLoadable]);
@@ -74,13 +72,11 @@ const LoginForm = () => {
   useEffect(() => {
     if (user) {
       successSnackbar('Success Sign in!');
-      saveItem('user', user);
       resetAuthStatusState();
     }
 
     if (checkError) {
       errorSnackbar('Failure Sign in!');
-      removeItem('user');
       setResetUser();
     }
   }, [user, checkError]);

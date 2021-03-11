@@ -1,6 +1,7 @@
 import _ from 'lodash';
 
 import { BASE_URL } from './constants/url';
+import { removeItem } from '../services/storage';
 
 export const newTodos = (todos) => ({ id, key, value }) => todos.map((todo) => {
   if (todo.id === id) {
@@ -43,3 +44,14 @@ export const isCheckValidate = (inputValue) => Object
 
 export const isEqualPassword = ({ password, passwordConfirm }) => passwordConfirm
   && (password !== passwordConfirm);
+
+// eslint-disable-next-line consistent-return
+export const userCheckErrorHandling = async (userCheck) => {
+  try {
+    const response = await userCheck;
+
+    return response;
+  } catch (error) {
+    removeItem('user');
+  }
+};

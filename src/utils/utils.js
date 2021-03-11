@@ -2,6 +2,9 @@ import _ from 'lodash';
 
 import { BASE_URL } from './constants/url';
 import { removeItem } from '../services/storage';
+import { AUTH_ERROR } from './constants/messages';
+
+const { UNAUTHORIZED, CONFLICT, INTERNAL_SERVER_ERROR } = AUTH_ERROR;
 
 export const newTodos = (todos) => ({ id, key, value }) => todos.map((todo) => {
   if (todo.id === id) {
@@ -54,4 +57,24 @@ export const userCheckErrorHandling = async (userCheck) => {
   } catch (error) {
     removeItem('user');
   }
+};
+
+export const authSetErrorMessage = (auth) => ({ status, data }) => {
+  if (status === 400) {
+    return data.details[0].message;
+  }
+
+  if (status === 401) {
+    return UNAUTHORIZED;
+  }
+
+  if (status === 409) {
+    return CONFLICT;
+  }
+
+  if (status === 500) {
+    return INTERNAL_SERVER_ERROR;
+  }
+
+  return `Failure ${auth}!`;
 };

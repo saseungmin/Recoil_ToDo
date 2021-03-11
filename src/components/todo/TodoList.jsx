@@ -4,8 +4,8 @@ import { useRecoilValue } from 'recoil';
 
 import _ from 'lodash';
 
+import { NOTING_TO_DO } from '../../utils/constants/messages';
 import todosAtom, { todosWithFilter } from '../../recoil/todos';
-import { NOTING_TO_DO } from '../../utils/constants/constants';
 
 import TodoItem from './TodoItem';
 import EmptyStatus from './EmptyStatus';

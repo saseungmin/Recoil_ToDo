@@ -71,7 +71,7 @@ describe('RegisterForm', () => {
 
         const mockData = {
           response: {
-            status: 401,
+            status: 403,
             data: 'error',
           },
         };

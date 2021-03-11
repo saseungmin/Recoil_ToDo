@@ -1,5 +1,5 @@
 import {
-  newTodos, filteredTodos, setPath, userCheckErrorHandling,
+  newTodos, filteredTodos, setPath, userCheckErrorHandling, authSetErrorMessage,
 } from './utils';
 
 import { BASE_URL } from './constants/url';
@@ -87,6 +87,79 @@ describe('userCheckErrorHandling', () => {
       const response = await userCheckErrorHandling(new Promise((resolve) => resolve('success')));
 
       expect(response).toBe('success');
+    });
+  });
+});
+
+describe('authSetErrorMessage', () => {
+  const setErrorMessage = authSetErrorMessage('Sign in');
+
+  describe('status is 400', () => {
+    const errorStatus = {
+      status: 400,
+      data: {
+        details: [{
+          message: '빈 값이 존재합니다.',
+        }],
+      },
+    };
+
+    it('Error message should be "빈 값이 존재합니다."', () => {
+      const errorMessage = setErrorMessage(errorStatus);
+
+      expect(errorMessage).toBe(errorStatus.data.details[0].message);
+    });
+  });
+
+  describe('status is 409', () => {
+    const errorStatus = {
+      status: 409,
+      data: '',
+    };
+
+    it('Error message should be "이미 존재하는 아이디입니다."', () => {
+      const errorMessage = setErrorMessage(errorStatus);
+
+      expect(errorMessage).toBe('이미 존재하는 아이디입니다.');
+    });
+  });
+
+  describe('status is 401', () => {
+    const errorStatus = {
+      status: 401,
+      data: '',
+    };
+
+    it('Error message should be "아이디 또는 비밀번호가 다릅니다."', () => {
+      const errorMessage = setErrorMessage(errorStatus);
+
+      expect(errorMessage).toBe('아이디 또는 비밀번호가 다릅니다.');
+    });
+  });
+
+  describe('status is 500', () => {
+    const errorStatus = {
+      status: 500,
+      data: '',
+    };
+
+    it('Error message should be "서버에 문제가 발생하였습니다. 관리자에게 문의하세요."', () => {
+      const errorMessage = setErrorMessage(errorStatus);
+
+      expect(errorMessage).toBe('서버에 문제가 발생하였습니다. 관리자에게 문의하세요.');
+    });
+  });
+
+  describe('Another status', () => {
+    const errorStatus = {
+      status: 403,
+      data: '',
+    };
+
+    it('Error message should be "Failure Sign in!"', () => {
+      const errorMessage = setErrorMessage(errorStatus);
+
+      expect(errorMessage).toBe('Failure Sign in!');
     });
   });
 });

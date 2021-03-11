@@ -53,7 +53,7 @@ describe('LoginForm', () => {
       it('When have some auth server error, renders error message', async () => {
         const mockData = {
           response: {
-            status: 401,
+            status: 403,
             data: 'error',
           },
         };

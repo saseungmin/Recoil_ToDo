@@ -8,13 +8,15 @@ import authFieldsAtom, {
   authWithHandle, authResultAtom, authFormStatusAtom, authWithRegisterQuery,
 } from '../../recoil/auth';
 
-import { isCheckValidate, isEqualPassword } from '../../utils/utils';
-import { EMPTY_AUTH_INPUT, NOT_MATCH_PASSWORD } from '../../utils/constants/constants';
+import { EMPTY_AUTH_INPUT, NOT_MATCH_PASSWORD } from '../../utils/constants/messages';
+import { isCheckValidate, isEqualPassword, authSetErrorMessage } from '../../utils/utils';
+import { FORM_TYPE } from '../../utils/constants/constants';
 
 import AuthModalForm from './AuthModalForm';
 
 const RegisterForm = () => {
   const { enqueueSnackbar } = useSnackbar();
+  const setErrorMessage = authSetErrorMessage(FORM_TYPE.register);
 
   const setAuthFields = useSetRecoilState(authFieldsAtom);
   const setRegisterResult = useSetRecoilState(authWithHandle);
@@ -60,7 +62,7 @@ const RegisterForm = () => {
     }
 
     if (authError) {
-      errorSnackbar('Failure Sign up!');
+      errorSnackbar(setErrorMessage(authError));
       setResetAuth();
     }
   }, [auth, authError]);

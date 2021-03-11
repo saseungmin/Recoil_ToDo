@@ -4,7 +4,8 @@ import { useRecoilValue } from 'recoil';
 
 import { filterAtom } from '../../recoil/todos';
 
-import { FILTER_TYPE_BUTTON, EMPTY_TODO_MESSAGE } from '../../utils/constants/constants';
+import { EMPTY_TODO_MESSAGE } from '../../utils/constants/messages';
+import { FILTER_TYPE_BUTTON } from '../../utils/constants/constants';
 
 import EmptyMessage from '../../styles/EmptyMessage';
 

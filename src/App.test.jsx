@@ -18,14 +18,20 @@ const mockAuth = {
   visible: false,
 };
 
+const mockUser = {
+  user: null,
+  checkError: null,
+};
+
 jest.mock('./services/storage');
 describe('App', () => {
-  const renderApp = ({ todos, auth = mockAuth }) => render((
+  const renderApp = ({ todos, auth = mockAuth, user = mockUser }) => render((
     <RecoilRoot>
       <SnackbarProvider>
         <InjectTestingRecoilState
           todos={todos}
           auth={auth}
+          user={user}
         />
         <App />
       </SnackbarProvider>
@@ -98,21 +104,24 @@ describe('App', () => {
     ];
 
     context('Is Sign in Modal', () => {
-      it('When you click the "Sign in" button, the Sign in modal is shown.', () => {
+      it('When you click the "Sign in" button, the Sign in modal is shown.', async () => {
         const { getByPlaceholderText, getByText } = renderApp({ todos });
 
-        fireEvent.click(getByText('Sign in'));
-
+        await act(async () => {
+          fireEvent.click(getByText('Sign in'));
+        });
         expect(getByPlaceholderText('아이디')).not.toBeNull();
         expect(getByPlaceholderText('비밀번호')).not.toBeNull();
       });
     });
 
     context('Is Sign up Modal', () => {
-      it('When you click the "Sing in" button, the Sign in modal is shown.', () => {
+      it('When you click the "Sing in" button, the Sign in modal is shown.', async () => {
         const { getByPlaceholderText, getByText } = renderApp({ todos });
 
-        fireEvent.click(getByText('Sign up'));
+        await act(async () => {
+          fireEvent.click(getByText('Sign up'));
+        });
 
         expect(getByPlaceholderText('아이디')).not.toBeNull();
         expect(getByPlaceholderText('비밀번호')).not.toBeNull();
@@ -159,21 +168,38 @@ describe('App', () => {
       id: 'test',
     };
 
+    const mockUserState = {
+      user: 'test',
+      checkError: null,
+    };
+
     beforeEach(() => {
       loadItem.mockImplementation(() => user);
     });
 
-    it('It has the user session value, so the Sign out button is visible.', () => {
-      const { container } = renderApp({ todos: [] });
+    context('Have Success', () => {
+      it('It has the user session value, so the Sign out button is visible.', async () => {
+        mockAxios.get.mockResolvedValueOnce({ data: 'test' });
+        let response;
 
-      expect(container).toHaveTextContent('Sign out');
+        await act(async () => {
+          response = renderApp({ todos: [], user: mockUserState });
+        });
+
+        expect(response.container).toHaveTextContent('Sign out');
+      });
     });
   });
 
   it('success logout', async () => {
     mockAxios.post.mockResolvedValueOnce({ data: 'mock', status: '204' });
 
-    const { container, getByText } = renderApp({ todos: [] });
+    const mockUserState = {
+      user: 'test',
+      checkError: null,
+    };
+
+    const { container, getByText } = renderApp({ todos: [], user: mockUserState });
 
     await act(async () => {
       fireEvent.click(getByText('Sign out'));

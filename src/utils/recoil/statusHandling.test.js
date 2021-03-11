@@ -1,4 +1,4 @@
-import { authStatusHandling, checkHandling, logoutHandling } from './statusHandling';
+import { authStatusHandling, logoutCheckHandling, userCheckHandling } from './statusHandling';
 
 describe('statusHandling', () => {
   const user = { data: 'some data' };
@@ -16,7 +16,7 @@ describe('statusHandling', () => {
   describe('checkHandling', () => {
     context('Have Error', () => {
       it('There is a error in checkError', () => {
-        const result = checkHandling.error(user);
+        const result = userCheckHandling.error(user);
 
         expect(result).toEqual({
           checkError: user,
@@ -26,7 +26,7 @@ describe('statusHandling', () => {
 
     context('Have Success', () => {
       it('There is a value in user.', () => {
-        const result = checkHandling.success(user);
+        const result = userCheckHandling.success(user);
 
         expect(result).toEqual({
           user: user.data,
@@ -37,11 +37,24 @@ describe('statusHandling', () => {
   });
 
   describe('logoutHandling', () => {
-    it('When success, user is null', () => {
-      const result = logoutHandling.success();
+    context('Have Success', () => {
+      it('When success, user is null', () => {
+        const result = logoutCheckHandling.success();
 
-      expect(result).toEqual({
-        user: null,
+        expect(result).toEqual({
+          user: null,
+        });
+      });
+    });
+
+    context('Have Error', () => {
+      const error = 'error';
+      it('There is a error in checkError', () => {
+        const result = logoutCheckHandling.error(error);
+
+        expect(result).toEqual({
+          checkError: error,
+        });
       });
     });
   });

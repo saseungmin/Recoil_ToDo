@@ -1,3 +1,5 @@
+import { removeItem, saveItem } from '../../services/storage';
+
 export const authStatusHandling = {
   success: (auth) => ({
     auth,
@@ -8,18 +10,33 @@ export const authStatusHandling = {
   }),
 };
 
-const userStatusHandling = (success) => ({
-  success,
+export const userCheckHandling = {
+  success: ({ data }) => {
+    saveItem('user', data);
+
+    return {
+      user: data,
+      checkError: null,
+    };
+  },
+  error: (checkError) => {
+    removeItem('user');
+
+    return {
+      checkError,
+    };
+  },
+};
+
+export const logoutCheckHandling = {
+  success: () => {
+    removeItem('user');
+
+    return {
+      user: null,
+    };
+  },
   error: (checkError) => ({
     checkError,
   }),
-});
-
-export const checkHandling = userStatusHandling(({ data }) => ({
-  user: data,
-  checkError: null,
-}));
-
-export const logoutHandling = userStatusHandling(() => ({
-  user: null,
-}));
+};

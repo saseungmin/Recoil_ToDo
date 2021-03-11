@@ -1,7 +1,12 @@
-import { newTodos, filteredTodos, setPath } from './utils';
+import {
+  newTodos, filteredTodos, setPath, userCheckErrorHandling,
+} from './utils';
 
 import { BASE_URL } from './constants/url';
 
+import { removeItem } from '../services/storage';
+
+jest.mock('../services/storage');
 describe('newTodos', () => {
   const initialState = [
     { id: '1', task: 'task', isComplete: false },
@@ -62,6 +67,26 @@ describe('setPath', () => {
     expect(result).toEqual({
       baseURL: BASE_URL,
       withCredentials: true,
+    });
+  });
+});
+
+describe('userCheckErrorHandling', () => {
+  context('Have Error', () => {
+    it('Call localStorage removeItem', () => {
+      try {
+        userCheckErrorHandling(new Promise((_, reject) => reject(new Error('error'))));
+      } catch (error) {
+        expect(removeItem).toBeCalledTimes(1);
+      }
+    });
+  });
+
+  context('Have Success', () => {
+    it('should response data', async () => {
+      const response = await userCheckErrorHandling(new Promise((resolve) => resolve('success')));
+
+      expect(response).toBe('success');
     });
   });
 });

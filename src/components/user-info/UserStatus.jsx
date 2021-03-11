@@ -10,9 +10,8 @@ import { useSnackbar } from 'notistack';
 
 import mq from '../../styles/responsive';
 
-import { removeItem } from '../../services/storage';
 import { FORM_TYPE } from '../../utils/constants/constants';
-import { logoutHandling } from '../../utils/recoil/statusHandling';
+import { logoutCheckHandling } from '../../utils/recoil/statusHandling';
 
 import userAtom, { userWithHandle } from '../../recoil/user';
 import { authWithLogoutQuery, authFormStatusAtom } from '../../recoil/auth';
@@ -56,7 +55,7 @@ const UserStatus = () => {
     if (loadable) {
       setLogoutResult({
         loadable,
-        handling: logoutHandling,
+        handling: logoutCheckHandling,
       });
     }
   }, [loadable]);
@@ -65,7 +64,6 @@ const UserStatus = () => {
     if (!user && type === 'logout') {
       successSnackbar('Success Sign out!');
       resetAuthFormStatus();
-      removeItem('user');
     }
   }, [user, type]);
 

@@ -1,8 +1,8 @@
 import userAtom from './atom';
 
 import userWithHandle from './withUserHandle';
-import userWithCheckQuery from './withCheck';
+import userWithCheckQuery, { userWithCheck } from './withCheck';
 
-export { userWithHandle, userWithCheckQuery };
+export { userWithHandle, userWithCheckQuery, userWithCheck };
 
 export default userAtom;

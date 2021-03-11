@@ -5,7 +5,7 @@ import { authResultAtom } from '../auth';
 import { check } from '../../services/api/auth';
 import recoilLoadable from '../../utils/recoil/recoilLoadable';
 
-const userWithCheck = selectorFamily({
+export const userWithCheck = selectorFamily({
   key: 'userWithCheck',
   get: () => async () => {
     const response = await check();

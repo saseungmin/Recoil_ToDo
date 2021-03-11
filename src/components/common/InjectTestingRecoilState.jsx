@@ -13,7 +13,7 @@ const authState = {
 };
 
 const authResultState = {
-  user: null,
+  auth: null,
   authError: null,
 };
 

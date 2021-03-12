@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-import { useSetRecoilState } from 'recoil';
+import {
+  useSetRecoilState, useRecoilValue, useRecoilState,
+} from 'recoil';
 
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
@@ -9,10 +11,14 @@ import _ from 'lodash';
 
 import { v4 as uuidv4 } from 'uuid';
 
+import { useForm } from 'react-hook-form';
+
+import { useSnackbar } from 'notistack';
+import todosAtom, { todosWithWriteQuery, todosWithHandle, todosResultAtom } from '../../recoil/todos';
+import userAtom from '../../recoil/user';
+
 import mq from '../../styles/responsive';
 import palette from '../../styles/palette';
-
-import todosAtom from '../../recoil/todos/atom';
 
 const TodoInputWrapper = css`
   width: 100%;
@@ -27,6 +33,7 @@ const TodoInputDivWrapper = styled.div`
     marginBottom: ['2rem', '1.5rem', '2rem'],
   })};
 
+  margin-top: 1rem;
   ${TodoInputWrapper}
 `;
 
@@ -83,58 +90,100 @@ const NewTodoInputWrapper = styled.input`
   };
 `;
 
+const DisableInput = styled.div`
+  ${mq({
+    width: ['100%', '80vw', '700px'],
+    height: ['60%', '45px', '50px'],
+    fontSize: ['1rem', '1.2rem', '1.3rem'],
+  })};
+  
+  color: ${palette.gray[5]};
+  cursor: not-allowed;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1rem 0 2rem 0;
+  border: 2px solid ${palette.gray[5]};
+  border-radius: 4px;
+`;
+
 const TodoInput = () => {
-  const [input, setInput] = useState('');
+  const { enqueueSnackbar } = useSnackbar();
+
   const [error, setError] = useState(false);
+  const { register, handleSubmit, reset } = useForm();
 
   const setTodos = useSetRecoilState(todosAtom);
+  const { user } = useRecoilValue(userAtom);
+  const [writeLoadable, setTask] = useRecoilState(todosWithWriteQuery);
+  const setTodoResult = useSetRecoilState(todosWithHandle);
+  const { todo } = useRecoilValue(todosResultAtom);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (!_.trim(input)) {
+  const onSubmit = ({ task }) => {
+    if (!_.trim(task)) {
       setError(true);
       return;
     }
 
+    setTask(task);
+
+    // TODO - 추후 삭제
     setTodos((oldTodoList) => [
       ...oldTodoList,
       {
         id: uuidv4(),
-        task: input,
+        task,
         isComplete: false,
       },
     ]);
 
-    setInput('');
     setError(false);
+    reset();
   };
 
-  const handleChange = (e) => {
-    const { value } = e.target;
-
-    setError(false);
-    setInput(value);
-  };
-
-  const handleBlur = () => {
+  const handleResetError = () => {
     setError(false);
   };
 
   const handleKeyPress = (e) => {
     if (error && e.key === 'Enter') {
-      setError(false);
+      handleResetError();
     }
   };
 
+  useEffect(() => {
+    if (writeLoadable) {
+      setTodoResult(writeLoadable);
+    }
+  }, [writeLoadable]);
+
+  useEffect(() => {
+    if (todo) {
+      enqueueSnackbar('Success in entering To-Do', {
+        variant: 'success',
+      });
+    }
+  }, [todo]);
+
+  if (!user) {
+    return (
+      <DisableInput>
+        로그인 후 이용 가능합니다.
+      </DisableInput>
+    );
+  }
+
   return (
     <TodoInputDivWrapper>
-      <TodoInputFormWrapper onSubmit={handleSubmit}>
+      <TodoInputFormWrapper onSubmit={handleSubmit(onSubmit)}>
         <NewTodoInputWrapper
+          name="task"
           error={error}
-          value={input}
-          onBlur={handleBlur}
-          onChange={handleChange}
+          ref={register}
+          autoComplete="off"
+          onBlur={handleResetError}
+          onChange={handleResetError}
           onKeyPress={handleKeyPress}
           placeholder="오늘의 할 일을 입력해주세요!"
         />

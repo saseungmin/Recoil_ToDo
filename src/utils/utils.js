@@ -48,7 +48,6 @@ export const isCheckValidate = (inputValue) => Object
 export const isEqualPassword = ({ password, passwordConfirm }) => passwordConfirm
   && (password !== passwordConfirm);
 
-// eslint-disable-next-line consistent-return
 export const userCheckErrorHandling = async (userCheck) => {
   try {
     const response = await userCheck;
@@ -56,6 +55,8 @@ export const userCheckErrorHandling = async (userCheck) => {
     return response;
   } catch (error) {
     removeItem('user');
+
+    return null;
   }
 };
 

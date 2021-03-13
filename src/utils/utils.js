@@ -6,8 +6,8 @@ import { AUTH_ERROR } from './constants/messages';
 
 const { UNAUTHORIZED, CONFLICT, INTERNAL_SERVER_ERROR } = AUTH_ERROR;
 
-export const newTodos = (todos) => ({ id, key, value }) => todos.map((todo) => {
-  if (todo.id === id) {
+export const newTodos = (todos) => ({ _id, key, value }) => todos.map((todo) => {
+  if (todo._id === _id) {
     return {
       ...todo,
       [key]: value,

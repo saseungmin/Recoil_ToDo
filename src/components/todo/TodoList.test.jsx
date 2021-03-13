@@ -4,14 +4,16 @@ import { render, fireEvent } from '@testing-library/react';
 
 import { RecoilRoot } from 'recoil';
 
+import { todoResultState } from '../../../fixtures/recoil-atom-state';
+
 import TodoList from './TodoList';
 import InjectTestingRecoilState from '../common/InjectTestingRecoilState';
 
 describe('TodoList', () => {
-  const renderTodoList = (state, filter = 'ALL') => render((
+  const renderTodoList = (filter = 'ALL') => render((
     <RecoilRoot>
       <InjectTestingRecoilState
-        todos={state}
+        todos={given.todos}
         filter={filter}
       />
       <TodoList />
@@ -19,49 +21,62 @@ describe('TodoList', () => {
   ));
 
   context('with todos', () => {
-    const initialState = [
-      { id: '1', task: '할 일1', isComplete: false },
-      { id: '2', task: '할 일2', isComplete: false },
-    ];
-    it('render todo list contents', () => {
-      const { container } = renderTodoList(initialState);
+    describe('When there are multiple todos', () => {
+      const todos = [
+        { _id: '1', task: '할 일1', isComplete: false },
+        { _id: '2', task: '할 일2', isComplete: false },
+      ];
 
-      initialState.forEach(({ task }) => {
-        expect(container).toHaveTextContent(task);
-      });
-    });
+      given('todos', () => ({
+        ...todoResultState,
+        todos,
+      }));
 
-    it('click remove button call handleRemove and remove todoItem', () => {
-      const { container, getAllByTestId } = renderTodoList(initialState);
+      it('render todo list contents', () => {
+        const { container } = renderTodoList();
 
-      getAllByTestId('todo-delete').forEach((button) => {
-        fireEvent.click(button);
-      });
-
-      expect(container).toHaveTextContent('할 일이 없어요!');
-    });
-
-    it('should todo completed change style', () => {
-      const { getAllByTestId } = renderTodoList(initialState);
-
-      getAllByTestId('todo-item').forEach((checkbox) => {
-        fireEvent.click(checkbox);
+        todos.forEach(({ task }) => {
+          expect(container).toHaveTextContent(task);
+        });
       });
 
-      getAllByTestId('todo-text').forEach((todo) => {
-        expect(todo).toHaveStyle('text-decoration: line-through;');
+      it('click remove button call handleRemove and remove todoItem', () => {
+        const { container, getAllByTestId } = renderTodoList();
+
+        getAllByTestId('todo-delete').forEach((button) => {
+          fireEvent.click(button);
+        });
+
+        expect(container).toHaveTextContent('할 일이 없어요!');
+      });
+
+      it('should todo completed change style', () => {
+        const { getAllByTestId } = renderTodoList();
+
+        getAllByTestId('todo-item').forEach((checkbox) => {
+          fireEvent.click(checkbox);
+        });
+
+        getAllByTestId('todo-text').forEach((todo) => {
+          expect(todo).toHaveStyle('text-decoration: line-through;');
+        });
       });
     });
 
     describe('Change edit todo text', () => {
-      const state = [
-        { id: '1', task: 'some task', isComplete: true },
+      const todo = [
+        { _id: '1', task: 'some task', isComplete: true },
       ];
+
+      given('todos', () => ({
+        ...todoResultState,
+        todos: todo,
+      }));
 
       context('with Enter key', () => {
         const value = 'tasks';
         it('Call handleChangeEdit and then Call handleSubmitEdit', () => {
-          const { container, getByTestId } = renderTodoList(state);
+          const { container, getByTestId } = renderTodoList();
 
           fireEvent.doubleClick(getByTestId('todo-text'));
 
@@ -84,7 +99,7 @@ describe('TodoList', () => {
       context('without Enter Key', () => {
         const value = 'tasks';
         it('Call handleChangeEdit and then Call handleSubmitEdit', () => {
-          const { container, getByTestId } = renderTodoList(state);
+          const { container, getByTestId } = renderTodoList();
 
           fireEvent.doubleClick(getByTestId('todo-text'));
 
@@ -106,15 +121,20 @@ describe('TodoList', () => {
     });
 
     describe('When the edit input loses focus', () => {
-      const state = (task) => ([{
-        id: '1',
+      const setTodos = (task) => ([{
+        _id: '1',
         task,
         isComplete: true,
       }]);
 
       context('without task in edit input', () => {
+        given('todos', () => ({
+          ...todoResultState,
+          todos: setTodos(''),
+        }));
+
         it('remove to todo', () => {
-          const { container, getByTestId } = renderTodoList(state(''));
+          const { container, getByTestId } = renderTodoList();
 
           fireEvent.doubleClick(getByTestId('todo-text'));
 
@@ -129,8 +149,13 @@ describe('TodoList', () => {
       });
 
       context('with task in edit input', () => {
+        given('todos', () => ({
+          ...todoResultState,
+          todos: setTodos('some task'),
+        }));
+
         it('call edit blur event', () => {
-          const { container, getByTestId } = renderTodoList(state('some task'));
+          const { container, getByTestId } = renderTodoList();
 
           fireEvent.doubleClick(getByTestId('todo-text'));
 
@@ -148,12 +173,17 @@ describe('TodoList', () => {
     });
 
     describe('When filter todos is empty', () => {
-      const state = [
-        { id: '1', task: 'some task', isComplete: true },
+      const todos = [
+        { _id: '1', task: 'some task', isComplete: true },
       ];
 
+      given('todos', () => ({
+        ...todoResultState,
+        todos,
+      }));
+
       it('renders empty messages', () => {
-        const { container } = renderTodoList(state, 'ACTIVE');
+        const { container } = renderTodoList('ACTIVE');
 
         expect(container).toHaveTextContent('모든 할 일을 완료했네요!');
       });
@@ -161,9 +191,9 @@ describe('TodoList', () => {
   });
 
   context('without todos', () => {
-    const initialState = [];
+    given('todos', () => (todoResultState));
     it('renders message "할 일이 없어요!"', () => {
-      const { container } = renderTodoList(initialState);
+      const { container } = renderTodoList();
 
       expect(container).toHaveTextContent('할 일이 없어요!');
     });

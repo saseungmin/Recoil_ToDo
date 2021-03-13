@@ -6,10 +6,10 @@ import { useRecoilValue, useRecoilCallback } from 'recoil';
 
 import { userCheckErrorHandling } from './utils/utils';
 import { MAIN_TITLE } from './utils/constants/constants';
-import { TODOS_ATOM_KEY } from './utils/constants/atomKey';
+import { TODOS_RESULT_ATOM_KEY } from './utils/constants/atomKey';
 
 import userAtom, { userWithCheck } from './recoil/user';
-import todosAtom from './recoil/todos';
+import { todosResultAtom } from './recoil/todos';
 
 import { saveItem, loadItem } from './services/storage';
 
@@ -48,15 +48,15 @@ const TodoContentWrapper = styled.div`
 const App = () => {
   const user = loadItem('user');
 
-  const todosState = useRecoilValue(todosAtom);
+  const { todos } = useRecoilValue(todosResultAtom);
   const checkUser = useRecoilCallback(({ snapshot, set }) => async () => {
     const { data } = await userCheckErrorHandling(snapshot.getPromise(userWithCheck()));
     set(userAtom, { user: data });
   }, []);
 
   useEffect(() => {
-    saveItem(TODOS_ATOM_KEY, todosState);
-  }, [todosState]);
+    saveItem(TODOS_RESULT_ATOM_KEY, todos);
+  }, [todos]);
 
   useEffect(() => {
     if (user) {

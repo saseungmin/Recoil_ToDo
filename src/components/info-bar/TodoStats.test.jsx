@@ -5,6 +5,7 @@ import { render } from '@testing-library/react';
 import { RecoilRoot } from 'recoil';
 import TodoStats from './TodoStats';
 import InjectTestingRecoilState from '../common/InjectTestingRecoilState';
+import { todoResultState } from '../../../fixtures/recoil-atom-state';
 
 describe('TodoStats', () => {
   const renderTodoStats = (state) => render((
@@ -17,11 +18,14 @@ describe('TodoStats', () => {
   ));
 
   it("renders todo's stats", () => {
-    const initialState = [
-      { id: 1, task: 'some tasks', isComplete: false },
-      { id: 2, task: 'some tasks', isComplete: true },
-      { id: 3, task: 'some tasks', isComplete: true },
-    ];
+    const initialState = {
+      ...todoResultState,
+      todos: [
+        { id: 1, task: 'some tasks', isComplete: false },
+        { id: 2, task: 'some tasks', isComplete: true },
+        { id: 3, task: 'some tasks', isComplete: true },
+      ],
+    };
 
     const { getByTestId } = renderTodoStats(initialState);
 

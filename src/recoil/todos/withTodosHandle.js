@@ -1,13 +1,11 @@
 import { selector } from 'recoil';
 
-import { todoStatusHandling } from '../../utils/recoil/statusHandling';
-
 import isLoadingAtom from '../common/atom';
 import { todosResultAtom, taskInputAtom } from './atom';
 
 const todosWithHandle = selector({
   key: 'todosWithHandle',
-  set: ({ set, reset }, loadable) => {
+  set: ({ set, reset }, { loadable, handling }) => {
     const { type, data, status } = loadable;
 
     if (type === 'loading') {
@@ -19,7 +17,7 @@ const todosWithHandle = selector({
       todosResultAtom,
       (prevState) => ({
         ...prevState,
-        ...todoStatusHandling[type]({ data, status }),
+        ...handling[type]({ data, status }),
       }),
     );
 

@@ -14,7 +14,10 @@ import { v4 as uuidv4 } from 'uuid';
 import { useForm } from 'react-hook-form';
 
 import { useSnackbar } from 'notistack';
-import todosAtom, { todosWithWriteQuery, todosWithHandle, todosResultAtom } from '../../recoil/todos';
+
+import { todoStatusHandling } from '../../utils/recoil/statusHandling';
+
+import { todosWithWriteQuery, todosWithHandle, todosResultAtom } from '../../recoil/todos';
 import userAtom from '../../recoil/user';
 
 import mq from '../../styles/responsive';
@@ -114,7 +117,7 @@ const TodoInput = () => {
   const [error, setError] = useState(false);
   const { register, handleSubmit, reset } = useForm();
 
-  const setTodos = useSetRecoilState(todosAtom);
+  const setTodos = useSetRecoilState(todosResultAtom);
   const { user } = useRecoilValue(userAtom);
   const [writeLoadable, setTask] = useRecoilState(todosWithWriteQuery);
   const setTodoResult = useSetRecoilState(todosWithHandle);
@@ -129,14 +132,17 @@ const TodoInput = () => {
     setTask(task);
 
     // TODO - 추후 삭제
-    setTodos((oldTodoList) => [
-      ...oldTodoList,
-      {
-        id: uuidv4(),
-        task,
-        isComplete: false,
-      },
-    ]);
+    setTodos((oldTodoState) => ({
+      ...oldTodoState,
+      todos: [
+        ...oldTodoState.todos,
+        {
+          _id: uuidv4(),
+          task,
+          isComplete: false,
+        },
+      ],
+    }));
 
     setError(false);
     reset();
@@ -154,7 +160,10 @@ const TodoInput = () => {
 
   useEffect(() => {
     if (writeLoadable) {
-      setTodoResult(writeLoadable);
+      setTodoResult({
+        loadable: writeLoadable,
+        handling: todoStatusHandling,
+      });
     }
   }, [writeLoadable]);
 

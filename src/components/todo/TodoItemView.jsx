@@ -71,7 +71,7 @@ const TodoItemView = ({
 }) => {
   const isMobileScreen = useMediaQuery({ query: '(max-width: 450px)' });
 
-  const { task, isComplete, id } = item;
+  const { task, isComplete, _id } = item;
 
   return (
     <TodoItemViewWrapper>
@@ -84,14 +84,14 @@ const TodoItemView = ({
       <TodoItemTextWrapper
         isComplete={isComplete}
         data-tip
-        data-for={id}
+        data-for={_id}
         data-testid="todo-text"
         onDoubleClick={isMobileScreen ? undefined : onShowEdit}
       >
         {task}
       </TodoItemTextWrapper>
       <EditShowTool
-        id={id}
+        id={_id}
         isMobile={isMobileScreen}
         onShowEdit={onShowEdit}
       />

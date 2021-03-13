@@ -38,6 +38,16 @@ export const todoStatusHandling = {
   }),
 };
 
+export const loadTodosHandling = {
+  success: ({ data }) => ({
+    todos: data,
+    todoError: null,
+  }),
+  error: (todoError) => ({
+    todoError,
+  }),
+};
+
 export const logoutCheckHandling = {
   success: () => {
     removeItem('user');

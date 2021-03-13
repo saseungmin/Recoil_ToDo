@@ -9,13 +9,13 @@ import { removeItem } from '../services/storage';
 jest.mock('../services/storage');
 describe('newTodos', () => {
   const initialState = [
-    { id: '1', task: 'task', isComplete: false },
-    { id: '2', task: 'task', isComplete: false },
+    { _id: '1', task: 'task', isComplete: false },
+    { _id: '2', task: 'task', isComplete: false },
   ];
 
   it('Change the value of the key of the array', () => {
     const todos = newTodos(initialState)({
-      id: '1',
+      _id: '1',
       key: 'task',
       value: 'some task',
     });

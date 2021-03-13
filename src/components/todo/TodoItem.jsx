@@ -1,6 +1,6 @@
 import React, { useState, createRef, useEffect } from 'react';
 
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState, useRecoilValue } from 'recoil';
 
 import _ from 'lodash';
 
@@ -9,7 +9,7 @@ import styled from '@emotion/styled';
 import mq from '../../styles/responsive';
 import palette from '../../styles/palette';
 
-import todosAtom from '../../recoil/todos/atom';
+import { todosResultAtom, todosWithListQuery } from '../../recoil/todos';
 
 import { isCheckInputTrim, newTodos } from '../../utils/utils';
 
@@ -39,22 +39,23 @@ const EditItemWrapper = styled.input`
 `;
 
 const TodoItem = ({ item }) => {
-  const { id, task, isComplete } = item;
+  const { _id, task, isComplete } = item;
 
   const editInput = createRef();
 
+  const { todos } = useRecoilValue(todosResultAtom);
+  const setTodos = useSetRecoilState(todosWithListQuery);
   const [editToggleState, setEditToggleState] = useState(false);
-  const [todos, setTodos] = useRecoilState(todosAtom);
 
   const settingTodos = newTodos(todos);
 
   const handleRemove = (nowId) => {
-    setTodos(todos.filter((todo) => todo.id !== nowId));
+    setTodos(todos.filter((todo) => todo._id !== nowId));
   };
 
   const handleToggle = (nowId, toggle) => {
     setTodos(settingTodos({
-      id: nowId,
+      _id: nowId,
       key: 'isComplete',
       value: !toggle,
     }));
@@ -72,14 +73,14 @@ const TodoItem = ({ item }) => {
       return;
     }
 
-    handleRemove(id);
+    handleRemove(_id);
   };
 
   const handleChangeEdit = (e, nowId) => {
     const { value } = e.target;
 
     setTodos(settingTodos({
-      id: nowId,
+      _id: nowId,
       key: 'task',
       value,
     }));
@@ -107,8 +108,8 @@ const TodoItem = ({ item }) => {
           <TodoItemView
             item={item}
             onShowEdit={handleShowEdit}
-            onRemove={() => handleRemove(id)}
-            onToggle={() => handleToggle(id, isComplete)}
+            onRemove={() => handleRemove(_id)}
+            onToggle={() => handleToggle(_id, isComplete)}
           />
         </>
       )
@@ -121,7 +122,7 @@ const TodoItem = ({ item }) => {
               onBlur={handleBlurEdit}
               data-testid="todo-edit-input"
               onKeyPress={handleSubmitEdit}
-              onChange={(e) => handleChangeEdit(e, id)}
+              onChange={(e) => handleChangeEdit(e, _id)}
             />
           </EditWrapper>
         )}

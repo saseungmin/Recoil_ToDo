@@ -53,5 +53,6 @@ module.exports = {
     'react/prop-types': 'off',
     'linebreak-style': 'off',
     'no-proto': 'off',
+    'no-underscore-dangle': ['error', { allow: ['_id'] }],
   },
 };

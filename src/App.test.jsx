@@ -9,6 +9,7 @@ import mockAxios from 'axios';
 import { SnackbarProvider } from 'notistack';
 
 import { loadItem } from './services/storage';
+import { todoResultState } from '../fixtures/recoil-atom-state';
 
 import App from './App';
 import InjectTestingRecoilState from './components/common/InjectTestingRecoilState';
@@ -25,11 +26,11 @@ const mockUser = {
 
 jest.mock('./services/storage');
 describe('App', () => {
-  const renderApp = ({ todos, auth = mockAuth, user = mockUser }) => render((
+  const renderApp = ({ auth = mockAuth, user = mockUser }) => render((
     <RecoilRoot>
       <SnackbarProvider>
         <InjectTestingRecoilState
-          todos={todos}
+          todos={given.todos}
           auth={auth}
           user={user}
         />
@@ -40,10 +41,15 @@ describe('App', () => {
 
   it('renders App text', () => {
     const todos = [
-      { id: '1', task: '할 일1', isComplete: true },
+      { _id: '1', task: '할 일1', isComplete: true },
     ];
 
-    const { container } = renderApp({ todos });
+    given('todos', () => ({
+      ...todoResultState,
+      todos,
+    }));
+
+    const { container } = renderApp({});
 
     expect(container).toHaveTextContent('What are your plans for today?');
     expect(container).toHaveTextContent('ALL');
@@ -53,11 +59,17 @@ describe('App', () => {
 
   describe("render according to todo's filter state", () => {
     const todos = [
-      { id: '1', task: 'some task', isComplete: false },
-      { id: '2', task: '할 일2', isComplete: true },
+      { _id: '1', task: 'some task', isComplete: false },
+      { _id: '2', task: '할 일2', isComplete: true },
     ];
+
+    given('todos', () => ({
+      ...todoResultState,
+      todos,
+    }));
+
     it('When the filter is ALL', () => {
-      const { container, getByText } = renderApp({ todos });
+      const { container, getByText } = renderApp({});
 
       fireEvent.click(getByText('ALL'));
 
@@ -66,7 +78,7 @@ describe('App', () => {
     });
 
     it('When the filter is ACTIVE', () => {
-      const { container, getByText } = renderApp({ todos });
+      const { container, getByText } = renderApp({});
 
       fireEvent.click(getByText('ACTIVE'));
 
@@ -75,7 +87,7 @@ describe('App', () => {
     });
 
     it('When the filter is COMPLETED', () => {
-      const { container, getByText } = renderApp({ todos });
+      const { container, getByText } = renderApp({});
 
       fireEvent.click(getByText('COMPLETED'));
 
@@ -86,10 +98,15 @@ describe('App', () => {
 
   it('When you click the Clear completed button, the completed todo is deleted.', () => {
     const todos = [
-      { id: '1', task: '할 일1', isComplete: true },
+      { _id: '1', task: '할 일1', isComplete: true },
     ];
 
-    const { container, getByText } = renderApp({ todos });
+    given('todos', () => ({
+      ...todoResultState,
+      todos,
+    }));
+
+    const { container, getByText } = renderApp({});
 
     expect(container).toHaveTextContent('할 일1');
 
@@ -100,12 +117,17 @@ describe('App', () => {
 
   describe('When the button is clicked, the member authentication modal window is displayed.', () => {
     const todos = [
-      { id: '1', task: '할 일1', isComplete: true },
+      { _id: '1', task: '할 일1', isComplete: true },
     ];
+
+    given('todos', () => ({
+      ...todoResultState,
+      todos,
+    }));
 
     context('Is Sign in Modal', () => {
       it('When you click the "Sign in" button, the Sign in modal is shown.', async () => {
-        const { getByPlaceholderText, getByText } = renderApp({ todos });
+        const { getByPlaceholderText, getByText } = renderApp({});
 
         await act(async () => {
           fireEvent.click(getByText('Sign in'));
@@ -117,7 +139,7 @@ describe('App', () => {
 
     context('Is Sign up Modal', () => {
       it('When you click the "Sing in" button, the Sign in modal is shown.', async () => {
-        const { getByPlaceholderText, getByText } = renderApp({ todos });
+        const { getByPlaceholderText, getByText } = renderApp({});
 
         await act(async () => {
           fireEvent.click(getByText('Sign up'));
@@ -183,7 +205,7 @@ describe('App', () => {
         let response;
 
         await act(async () => {
-          response = renderApp({ todos: [], user: mockUserState });
+          response = renderApp({ user: mockUserState });
         });
 
         expect(response.container).toHaveTextContent('Sign out');
@@ -199,7 +221,7 @@ describe('App', () => {
       checkError: null,
     };
 
-    const { container, getByText } = renderApp({ todos: [], user: mockUserState });
+    const { container, getByText } = renderApp({ user: mockUserState });
 
     await act(async () => {
       fireEvent.click(getByText('Sign out'));

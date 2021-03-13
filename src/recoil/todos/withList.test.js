@@ -3,18 +3,18 @@ import { snapshot_UNSTABLE } from 'recoil';
 
 import mockAxios from 'axios';
 
-import todosWithWriteQuery from './withWrite';
+import todosWithListQuery from './withList';
 
 jest.mock('axios');
-describe('todosWithWriteQuery', () => {
+describe('todosWithListQuery', () => {
   const data = { userId: 'id', password: 'test' };
 
   beforeEach(() => {
-    mockAxios.post.mockResolvedValueOnce(data);
+    mockAxios.get.mockResolvedValueOnce(data);
   });
 
-  it('When new todo task is empty', () => {
+  it('When user is empty', () => {
     const initialSnapshot = snapshot_UNSTABLE();
-    expect(initialSnapshot.getLoadable(todosWithWriteQuery).valueOrThrow()).toBeNull();
+    expect(initialSnapshot.getLoadable(todosWithListQuery).valueOrThrow()).toBeNull();
   });
 });

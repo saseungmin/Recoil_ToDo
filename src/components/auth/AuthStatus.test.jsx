@@ -6,9 +6,9 @@ import { RecoilRoot } from 'recoil';
 
 import { SnackbarProvider } from 'notistack';
 
+import { act } from 'react-dom/test-utils';
 import { render, fireEvent } from '@testing-library/react';
 
-import { act } from 'react-dom/test-utils';
 import AuthStatus from './AuthStatus';
 import InjectTestingRecoilState from '../common/InjectTestingRecoilState';
 

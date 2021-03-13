@@ -1,12 +1,12 @@
 import { selector } from 'recoil';
 
-import todosAtom from './atom';
+import { todosResultAtom } from './atom';
 import { isCompleted, isActive } from '../../utils/utils';
 
 const todosWithStats = selector({
   key: 'todosWithStats',
   get: ({ get }) => {
-    const todos = get(todosAtom);
+    const { todos } = get(todosResultAtom);
 
     const totalNum = todos.length;
     const totalCompletedNum = todos.filter(isCompleted).length;

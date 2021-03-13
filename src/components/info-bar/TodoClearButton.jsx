@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState, useRecoilValue } from 'recoil';
 
 import _ from 'lodash';
 
@@ -13,7 +13,7 @@ import palette from '../../styles/palette';
 import { isCompleted, isActive } from '../../utils/utils';
 import { COMPLETED_CLEAR_BUTTON } from '../../utils/constants/constants';
 
-import todosAtom from '../../recoil/todos/atom';
+import { todosWithListQuery, todosResultAtom } from '../../recoil/todos';
 
 const ClearButtonWrapper = styled.button`
   ${mq({
@@ -39,7 +39,8 @@ const ClearButtonWrapper = styled.button`
 `;
 
 const TodoClearButton = () => {
-  const [todos, setTodos] = useRecoilState(todosAtom);
+  const { todos } = useRecoilValue(todosResultAtom);
+  const setTodos = useSetRecoilState(todosWithListQuery);
 
   const handleClick = () => {
     setTodos(todos.filter(isActive));

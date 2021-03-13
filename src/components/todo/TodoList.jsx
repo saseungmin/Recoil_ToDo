@@ -1,19 +1,34 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import _ from 'lodash';
 
 import { NOTING_TO_DO } from '../../utils/constants/messages';
-import todosAtom, { todosWithFilter } from '../../recoil/todos';
+import { loadTodosHandling } from '../../utils/recoil/statusHandling';
+
+import {
+  todosWithFilter, todosWithListQuery, todosWithHandle, todosResultAtom,
+} from '../../recoil/todos';
 
 import TodoItem from './TodoItem';
 import EmptyStatus from './EmptyStatus';
 import EmptyMessage from '../../styles/EmptyMessage';
 
 const TodoList = () => {
-  const todos = useRecoilValue(todosAtom);
+  const { todos } = useRecoilValue(todosResultAtom);
   const filteredTodos = useRecoilValue(todosWithFilter);
+  const loadTodos = useRecoilValue(todosWithListQuery);
+  const setTodosResult = useSetRecoilState(todosWithHandle);
+
+  useEffect(() => {
+    if (loadTodos) {
+      setTodosResult({
+        loadable: loadTodos,
+        handling: loadTodosHandling,
+      });
+    }
+  }, [loadTodos]);
 
   if (_.isEmpty(todos)) {
     return (
@@ -31,7 +46,7 @@ const TodoList = () => {
     <div>
       {filteredTodos.map((todo) => (
         <TodoItem
-          key={todo.id}
+          key={todo._id}
           item={todo}
         />
       ))}

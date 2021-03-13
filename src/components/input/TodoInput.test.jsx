@@ -4,10 +4,11 @@ import mockAxios from 'axios';
 
 import { RecoilRoot } from 'recoil';
 
+import { SnackbarProvider } from 'notistack';
+
 import { act } from 'react-dom/test-utils';
 import { render, fireEvent } from '@testing-library/react';
 
-import { SnackbarProvider } from 'notistack';
 import TodoInput from './TodoInput';
 import InjectTestingRecoilState from '../common/InjectTestingRecoilState';
 

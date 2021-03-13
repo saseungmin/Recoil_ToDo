@@ -4,6 +4,8 @@ import { RecoilRoot } from 'recoil';
 
 import { render, fireEvent } from '@testing-library/react';
 
+import { todoResultState } from '../../../fixtures/recoil-atom-state';
+
 import TodoSubInfo from './TodoSubInfo';
 import InjectTestingRecoilState from '../common/InjectTestingRecoilState';
 
@@ -17,10 +19,13 @@ describe('TodoSubInfo', () => {
     </RecoilRoot>
   ));
 
-  const initialState = [
-    { id: 1, task: '할 일1', isComplete: false },
-    { id: 2, task: '할 일2', isComplete: true },
-  ];
+  const initialState = {
+    ...todoResultState,
+    todos: [
+      { id: 1, task: '할 일1', isComplete: false },
+      { id: 2, task: '할 일2', isComplete: true },
+    ],
+  };
 
   it('render sub info bar content', () => {
     const { container } = renderTodoSubInfo(initialState);

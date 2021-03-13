@@ -3,9 +3,11 @@ import React from 'react';
 import { render } from '@testing-library/react';
 
 import { RecoilRoot } from 'recoil';
+
+import { todoResultState } from '../../../fixtures/recoil-atom-state';
+
 import TodoStats from './TodoStats';
 import InjectTestingRecoilState from '../common/InjectTestingRecoilState';
-import { todoResultState } from '../../../fixtures/recoil-atom-state';
 
 describe('TodoStats', () => {
   const renderTodoStats = (state) => render((

@@ -24,10 +24,14 @@ const { login, register } = FORM_TYPE;
 const AuthButtonsWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
-  margin: 0.5rem 0;
+  margin: 0.5rem 0 0.4rem 0;
+
+  button:first-of-type {
+    margin-right: .3rem;
+  }
 
   ${mq({
-    width: ['100%', '80vw', '680px'],
+    width: ['100%', '80vw', '700px'],
   })}
 `;
 

@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import {
-  useSetRecoilState, useRecoilValue, useRecoilState,
-} from 'recoil';
+import { useSetRecoilState, useRecoilValue, useRecoilState } from 'recoil';
 
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
@@ -96,7 +94,7 @@ const NewTodoInputWrapper = styled.input`
 const DisableInput = styled.div`
   ${mq({
     width: ['100%', '80vw', '700px'],
-    height: ['60%', '45px', '50px'],
+    height: ['40px', '45px', '50px'],
     fontSize: ['1rem', '1.2rem', '1.3rem'],
   })};
   
@@ -106,7 +104,7 @@ const DisableInput = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 1rem 0 2rem 0;
+  margin: 0.8rem 0 2.2rem 0;
   border: 2px solid ${palette.gray[5]};
   border-radius: 4px;
 `;

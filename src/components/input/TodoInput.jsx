@@ -54,10 +54,15 @@ const NewTodoInputWrapper = styled.input`
   border: none;
   border-radius: 5px;
   box-shadow: none;
-  color: #5f5f5f;
-  background: #f6f6f6;
+  color: ${palette.twoTone[1]};
+  background: ${palette.twoTone[0]};
   transition-timing-function: ease-in-out;
   transition: all 0.2s cubic-bezier(.65,.33,.65,.33);
+
+  &::placeholder {
+    color: ${palette.twoTone[1]};
+    transition: color .5s;
+  }
   
   @keyframes shake {
       0% { left: -5px; }
@@ -72,13 +77,12 @@ const NewTodoInputWrapper = styled.input`
 
     &::placeholder {
       color: ${palette.warn[3]};
-      transition: color .5s;
     }
   `};
 
   &:focus {
     ${({ error }) => !error && css`
-      border: 2px solid ${palette.active[0]};
+      border: 2px solid ${palette.border[1]};
     `};
 
   ${mq({
@@ -87,7 +91,7 @@ const NewTodoInputWrapper = styled.input`
   })};
 
     padding: 0;
-    box-shadow: ${palette.gray[3]} 0px 4px 9px 0px;
+    box-shadow: ${palette.gray[3]} 0px 2px 7px 0px;
   };
 `;
 
@@ -98,14 +102,14 @@ const DisableInput = styled.div`
     fontSize: ['1rem', '1.2rem', '1.3rem'],
   })};
   
-  color: ${palette.gray[5]};
+  color: ${palette.twoTone[0]};
   cursor: not-allowed;
   user-select: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0.8rem 0 2.2rem 0;
-  border: 2px solid ${palette.gray[5]};
+  margin: 0.8rem 0 2.4rem 0;
+  border: 2px solid ${palette.twoTone[0]};
   border-radius: 4px;
 `;
 

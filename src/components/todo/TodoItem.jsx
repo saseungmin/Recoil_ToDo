@@ -29,6 +29,7 @@ const EditItemWrapper = styled.input`
     fontSize: ['1rem', '1.3rem'],
   })};
   
+  color: ${palette.text[2]};
   width: 100%;
   display: block;
   padding: 18px 13px;

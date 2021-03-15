@@ -19,7 +19,6 @@ const ClearButtonWrapper = styled.button`
   ${mq({
     fontSize: ['0.9rem', '1.2rem'],
     marginLeft: ['0px', '9px'],
-
   })};
   
   border: none;
@@ -28,10 +27,14 @@ const ClearButtonWrapper = styled.button`
   transition: color 0.3s;
   
   ${({ disabled }) => disabled && css`
+    color: ${palette.gray[5]};
+
     cursor: unset;
   `};
 
   ${({ disabled }) => !disabled && css`
+    color: ${palette.twoTone[1]};
+
     &:hover {
       color: ${palette.active[0]};
     }

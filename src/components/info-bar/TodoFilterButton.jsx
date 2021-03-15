@@ -23,26 +23,26 @@ const FilterButtonWrapper = styled.button`
   padding: 0;
   background: none;
   transition: color 0.3s;
+  color: #50586C;
 
   &:hover {
     color: ${palette.active[0]};
   };
 
   ${({ value, status }) => value === status && css`
-    color: ${palette.active[1]};
+    color: ${palette.twoTone[1]};
   `};
 
   ${({ value }) => value !== COMPLETED && css`
     &::after {
       content: "";
-      border-right: 1px solid ${palette.gray[6]};
+      border-right: 1px solid ${palette.gray[5]};
 
   ${mq({
     margin: ['0px 5px', '0px 10px'],
   })}
     }
   `};
-
 `;
 
 const TodoFilterButton = ({ type }) => {

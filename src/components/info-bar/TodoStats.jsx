@@ -5,6 +5,7 @@ import { useRecoilValue } from 'recoil';
 import styled from '@emotion/styled';
 
 import mq from '../../styles/responsive';
+import palette from '../../styles/palette';
 import Checkbox from '../../styles/Checkbox';
 
 import todosWithStats from '../../recoil/todos/withStats';
@@ -13,7 +14,7 @@ const StatsWrapper = styled.div`
   ${mq({
     position: ['absolute', 'unset'],
     right: ['9px', 'unset'],
-    top: ['228px', 'unset'],
+    top: ['233px', 'unset'],
   })};
 
   display:flex;
@@ -24,6 +25,7 @@ const StatsWrapper = styled.div`
 const StatsTextWrapper = styled.div`
   ${mq({
     fontSize: ['1rem', '1.2rem'],
+    color: [palette.twoTone[0], palette.twoTone[1]],
   })};
 
   margin: 5px 9px 0 7px;

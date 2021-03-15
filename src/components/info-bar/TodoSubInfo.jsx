@@ -5,6 +5,7 @@ import styled from '@emotion/styled';
 import { FILTER_TYPE_BUTTON } from '../../utils/constants/constants';
 
 import mq from '../../styles/responsive';
+import palette from '../../styles/palette';
 
 import TodoStats from './TodoStats';
 import TodoClearButton from './TodoClearButton';
@@ -20,8 +21,8 @@ const TodoSubInfoWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 2px solid #fab1a0;
-  box-shadow: inset 0 0px 40px #fdcb6e;
+  background: ${palette.twoTone[0]};
+  /* box-shadow: inset 0 0px 40px #fdcb6e; */
 `;
 
 const TodoFilterButtonsWrapper = styled.div`

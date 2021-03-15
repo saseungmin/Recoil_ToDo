@@ -10,6 +10,7 @@ import DeleteSvg from '../../assets/icons/delete.svg';
 import mq from '../../styles/responsive';
 import palette from '../../styles/palette';
 import Checkbox from '../../styles/Checkbox';
+
 import EditShowTool from './EditShowTool';
 
 const TodoItemViewWrapper = styled.div`
@@ -36,11 +37,12 @@ const TodoItemTextWrapper = styled.div`
     fontSize: ['1rem', '1.3rem'],
   })};
 
+  color: ${palette.text[2]};
+  user-select: none;
   display: block;
   margin: 0 1rem;
   transition: color 0.5s;
   cursor: pointer;
-  user-select: none;
 
   ${({ onDoubleClick }) => !onDoubleClick && css`
     cursor: unset;
@@ -57,6 +59,7 @@ const DeleteIcon = styled(DeleteSvg)`
     width: ['23px', '25px'],
     height: ['23px', '25px'],
   })};
+
   top: 0;
   right: 15px;
   position: absolute;

@@ -8,6 +8,8 @@ import { css } from '@emotion/react';
 import BounceLoader from 'react-spinners/BounceLoader';
 
 import mq from '../../styles/responsive';
+import palette from '../../styles/palette';
+
 import isLoadingAtom from '../../recoil/common/atom';
 
 const LoadingSpinnerWrapper = styled.div`
@@ -45,7 +47,7 @@ const LoadingSpinner = () => {
     >
       <BounceLoader
         size={100}
-        color="#9775fa"
+        color={palette.hoverTwoTone[0]}
         css={loaderSpinners}
         loading={isLoading}
       />

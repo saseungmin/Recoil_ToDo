@@ -4,9 +4,11 @@ import styled from '@emotion/styled';
 
 import mq from '../../styles/responsive';
 
+import palette from '../../styles/palette';
 import { FORM_TYPE } from '../../utils/constants/constants';
 
 import UserSvg from '../../assets/icons/profile.svg';
+
 import AuthButton from './AuthButton';
 
 const { logout } = FORM_TYPE;
@@ -30,6 +32,7 @@ const UserProfile = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  color: ${palette.twoTone[0]};
 `;
 
 const UserIcon = styled(UserSvg)`

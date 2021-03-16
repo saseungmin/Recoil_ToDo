@@ -18,11 +18,10 @@ const TodoSubInfoWrapper = styled.div`
     padding: ['17px 12px', '17px 15px'],
   })};
   
+  background: ${palette.twoTone[0]};
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: ${palette.twoTone[0]};
-  /* box-shadow: inset 0 0px 40px #fdcb6e; */
 `;
 
 const TodoFilterButtonsWrapper = styled.div`

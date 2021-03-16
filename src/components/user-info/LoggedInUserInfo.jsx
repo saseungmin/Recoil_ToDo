@@ -20,7 +20,7 @@ const LoggedInUserInfoWrapper = styled.div`
   align-items: center;
 
   ${mq({
-    width: ['100%', '80vw', '680px'],
+    width: ['100%', '80vw', '700px'],
   })}
 `;
 
@@ -29,10 +29,10 @@ const UserProfile = styled.div`
     fontSize: ['1rem', '1.1rem', '1.2rem'],
   })}
 
+  color: ${palette.twoTone[0]};
   display: flex;
   flex-direction: row;
   align-items: center;
-  color: ${palette.twoTone[0]};
 `;
 
 const UserIcon = styled(UserSvg)`

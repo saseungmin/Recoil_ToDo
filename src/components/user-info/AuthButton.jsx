@@ -11,17 +11,16 @@ const Button = styled.button`
     padding: ['0.3rem 0.7rem', '0.5rem 1rem'],
   })};
 
-  border: none;
-  color: ${palette.twoTone[1]};
   background: ${palette.twoTone[0]};
+  color: ${palette.twoTone[1]};
+  border: none;
   border-radius: 5rem;
+  transition: background-color 0.3s;
 
   &:hover {
     color: ${palette.hoverTwoTone[1]};
     background: ${palette.hoverTwoTone[0]};
   }
-
-  transition: background 0.3s;
 `;
 
 const AuthButton = ({ type, onClick }) => (

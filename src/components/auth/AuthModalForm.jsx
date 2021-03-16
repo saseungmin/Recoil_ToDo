@@ -7,10 +7,14 @@ import { css } from '@emotion/react';
 
 import { useForm } from 'react-hook-form';
 
+import mq from '../../styles/responsive';
+import palette from '../../styles/palette';
+
 import { FORM_TYPE } from '../../utils/constants/constants';
 
 import authFieldsAtom, { authFormStatusAtom } from '../../recoil/auth';
 
+import CloseIcon from '../../assets/icons/close.svg';
 import AuthInput from './AuthInput';
 
 const AuthModalFormWrapper = styled.div`
@@ -18,12 +22,12 @@ const AuthModalFormWrapper = styled.div`
   left: 0;
   position: fixed;
   z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   ${({ visible }) => visible && css`
     animation-name: fade-in;
@@ -43,24 +47,55 @@ const AuthModalFormWrapper = styled.div`
 `;
 
 const AuthModalBoxWrapper = styled.div`
+  ${mq({
+    width: ['300px', '320px'],
+  })};
+
+  background: ${palette.twoTone[0]};
   display: flex;
   flex-direction: column;
-  width: 320px;
   padding: 1.5rem;
   border-radius: 6px;
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.125);
-  background: white;
+`;
+
+const FormHeaderWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+
+  button {
+    background: none;
+    height: 22px;
+    border: none;
+    padding: 0;
+  }
 
   h2 {
-    margin-top: 0;
-    margin-bottom: 1rem;
+    color: ${palette.twoTone[1]};
+    margin: 0;
   }
 `;
 
 const AuthFormWrapper = styled.form`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  display: grid;
+  grid-template-rows: repeat(1,1fr);
+  grid-row-gap: 1rem;
+`;
+
+const SubmitButton = styled.button`
+  font-size: 1.2rem;
+  background-color: #E69A8D;
+  color: ${palette.twoTone[0]};
+  height: 42px;
+  border: none;
+  border-radius: 3px;
+  transition: background-color .3s;
+
+  &:hover {
+    color: ${palette.hoverTwoTone[0]};
+    background-color: #f0a497;
+  }
 `;
 
 const AuthModalForm = ({ onSubmit }) => {
@@ -81,7 +116,16 @@ const AuthModalForm = ({ onSubmit }) => {
   return (
     <AuthModalFormWrapper visible={visible}>
       <AuthModalBoxWrapper>
-        <h2>{formType}</h2>
+        <FormHeaderWrapper>
+          <h2>{formType}</h2>
+          <button
+            type="button"
+            data-testid="close-button"
+            onClick={onCloseAuthModal}
+          >
+            <CloseIcon />
+          </button>
+        </FormHeaderWrapper>
         <AuthFormWrapper onSubmit={handleSubmit(onSubmit)}>
           <AuthInput
             inputRef={register}
@@ -97,18 +141,12 @@ const AuthModalForm = ({ onSubmit }) => {
               inputName="passwordConfirm"
             />
           )}
-          <button
+          <SubmitButton
             type="submit"
             data-testid="auth-submit-button"
           >
             {formType}
-          </button>
-          <button
-            type="button"
-            onClick={onCloseAuthModal}
-          >
-            닫기
-          </button>
+          </SubmitButton>
         </AuthFormWrapper>
       </AuthModalBoxWrapper>
     </AuthModalFormWrapper>

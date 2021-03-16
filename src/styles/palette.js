@@ -65,8 +65,14 @@ const palette = {
     '#ff6b6b',
     '#f19066',
   ],
-  twoTone: ['#6A7BA2', '#FFDFDE'],
-  hoverTwoTone: ['#7687ae', '#ffe9e6'],
+  twoTone: [
+    '#6A7BA2',
+    '#FFDFDE',
+  ],
+  hoverTwoTone: [
+    '#7687ae',
+    '#ffe9e6',
+  ],
   border: [
     '#d1ccc0',
     '#7b9acc',

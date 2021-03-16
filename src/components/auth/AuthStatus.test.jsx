@@ -38,9 +38,9 @@ describe('AuthStatus', () => {
 
       describe('When Click close button', () => {
         it('close auth modal', () => {
-          const { container, getByText } = renderAuthStatus();
+          const { container, getByTestId } = renderAuthStatus();
 
-          fireEvent.click(getByText('닫기'));
+          fireEvent.click(getByTestId('close-button'));
 
           expect(container).toBeEmptyDOMElement();
         });

@@ -2,16 +2,16 @@ import React, { useEffect } from 'react';
 
 import styled from '@emotion/styled';
 
-import { useRecoilValue, useRecoilCallback } from 'recoil';
+import { useRecoilValue } from 'recoil';
 
-import { userCheckErrorHandling } from './utils/utils';
 import { MAIN_TITLE } from './utils/constants/constants';
 import { TODOS_RESULT_ATOM_KEY } from './utils/constants/atomKey';
 
-import userAtom, { userWithCheck } from './recoil/user';
 import { todosResultAtom } from './recoil/todos';
 
 import { saveItem, loadItem } from './services/storage';
+
+import useCheckCallback from './hooks/useCheckCallback';
 
 import mq from './styles/responsive';
 import palette from './styles/palette';
@@ -50,10 +50,7 @@ const App = () => {
   const user = loadItem('user');
 
   const { todos } = useRecoilValue(todosResultAtom);
-  const checkUser = useRecoilCallback(({ snapshot, set }) => async () => {
-    const { data } = await userCheckErrorHandling(snapshot.getPromise(userWithCheck()));
-    set(userAtom, { user: data });
-  }, []);
+  const checkUser = useCheckCallback();
 
   useEffect(() => {
     saveItem(TODOS_RESULT_ATOM_KEY, todos);

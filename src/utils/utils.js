@@ -56,7 +56,9 @@ export const userCheckErrorHandling = async (userCheck) => {
   } catch (error) {
     removeItem('user');
 
-    return null;
+    return {
+      data: null,
+    };
   }
 };
 

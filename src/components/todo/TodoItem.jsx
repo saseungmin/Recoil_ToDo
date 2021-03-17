@@ -9,6 +9,8 @@ import styled from '@emotion/styled';
 import mq from '../../styles/responsive';
 import palette from '../../styles/palette';
 
+import useRemoveCallback from '../../hooks/useRemoveCallback';
+
 import { todosResultAtom, todosWithListQuery } from '../../recoil/todos';
 
 import { isCheckInputTrim, newTodos } from '../../utils/utils';
@@ -44,15 +46,14 @@ const TodoItem = ({ item }) => {
 
   const editInput = createRef();
 
+  const deleteTodo = useRemoveCallback();
   const { todos } = useRecoilValue(todosResultAtom);
   const setTodos = useSetRecoilState(todosWithListQuery);
   const [editToggleState, setEditToggleState] = useState(false);
 
   const settingTodos = newTodos(todos);
 
-  const handleRemove = (nowId) => {
-    setTodos(todos.filter((todo) => todo._id !== nowId));
-  };
+  const handleRemove = (nowId) => deleteTodo(nowId);
 
   const handleToggle = (nowId, toggle) => {
     setTodos(settingTodos({

@@ -1,6 +1,6 @@
 import mockAxios from 'axios';
 
-import { write, list } from './todos';
+import { write, list, remove } from './todos';
 
 jest.mock('axios');
 
@@ -10,6 +10,7 @@ describe('todos api', () => {
   beforeEach(() => {
     mockAxios.post.mockResolvedValueOnce(data);
     mockAxios.get.mockResolvedValueOnce(data);
+    mockAxios.delete.mockResolvedValueOnce(data);
   });
   it('POST /api/todos', async () => {
     const result = await write(data);
@@ -19,6 +20,20 @@ describe('todos api', () => {
 
   it('GET /api/todos', async () => {
     const result = await list(data);
+
+    expect(result).toBe(data);
+  });
+
+  it('GET /api/todos', async () => {
+    const result = await list(data);
+
+    expect(result).toBe(data);
+  });
+
+  it('DELETE /api/todos/:id', async () => {
+    const id = '1';
+
+    const result = await remove(id);
 
     expect(result).toBe(data);
   });

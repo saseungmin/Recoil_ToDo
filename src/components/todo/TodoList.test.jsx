@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { act } from 'react-dom/test-utils';
 import { render, fireEvent } from '@testing-library/react';
 
 import { RecoilRoot } from 'recoil';
@@ -40,11 +41,13 @@ describe('TodoList', () => {
         });
       });
 
-      it('click remove button call handleRemove and remove todoItem', () => {
+      it('click remove button call handleRemove and remove todoItem', async () => {
         const { container, getAllByTestId } = renderTodoList();
 
-        getAllByTestId('todo-delete').forEach((button) => {
-          fireEvent.click(button);
+        await act(async () => {
+          getAllByTestId('todo-delete').forEach((button) => {
+            fireEvent.click(button);
+          });
         });
 
         expect(container).toHaveTextContent('할 일이 없어요!');
@@ -133,7 +136,7 @@ describe('TodoList', () => {
           todos: setTodos(''),
         }));
 
-        it('remove to todo', () => {
+        it('remove to todo', async () => {
           const { container, getByTestId } = renderTodoList();
 
           fireEvent.doubleClick(getByTestId('todo-text'));
@@ -142,7 +145,9 @@ describe('TodoList', () => {
 
           expect(input).toHaveFocus();
 
-          fireEvent.blur(input);
+          await act(async () => {
+            fireEvent.blur(input);
+          });
 
           expect(container).toHaveTextContent('할 일이 없어요!');
         });

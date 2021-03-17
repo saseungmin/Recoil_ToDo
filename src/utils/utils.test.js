@@ -1,5 +1,5 @@
 import {
-  newTodos, filteredTodos, setPath, userCheckErrorHandling, authSetErrorMessage,
+  newTodos, filteredTodos, setPath, userCheckErrorHandling, authSetErrorMessage, todoErrorMessage,
 } from './utils';
 
 import { BASE_URL } from './constants/url';
@@ -160,6 +160,46 @@ describe('authSetErrorMessage', () => {
       const errorMessage = setErrorMessage(errorStatus);
 
       expect(errorMessage).toBe('Failure Sign in!');
+    });
+  });
+});
+
+describe('todoErrorMessage', () => {
+  const setErrorStatus = (status) => ({
+    response: {
+      status,
+    },
+  });
+
+  describe('status is 400 and 404', () => {
+    it('Error message should be "해당 할 일은 이미 삭제되었거나, 존재하지 않습니다."', () => {
+      const errorMessage = todoErrorMessage(setErrorStatus(400));
+
+      expect(errorMessage).toBe('해당 할 일은 이미 삭제되었거나, 존재하지 않습니다.');
+    });
+  });
+
+  describe('status is 403', () => {
+    it('Error message should be "해당 할 일에 대한 권한이 없습니다."', () => {
+      const errorMessage = todoErrorMessage(setErrorStatus(403));
+
+      expect(errorMessage).toBe('해당 할 일에 대한 권한이 없습니다.');
+    });
+  });
+
+  describe('status is 500', () => {
+    it('Error message should be "서버에 문제가 발생하였습니다. 관리자에게 문의하세요."', () => {
+      const errorMessage = todoErrorMessage(setErrorStatus(500));
+
+      expect(errorMessage).toBe('서버에 문제가 발생하였습니다. 관리자에게 문의하세요.');
+    });
+  });
+
+  describe('Another status', () => {
+    it('Error message should be "알 수 없는 오류가 생겼습니다.. 잠시 후 다시 시도해주세요!"', () => {
+      const errorMessage = todoErrorMessage(setErrorStatus(402));
+
+      expect(errorMessage).toBe('알 수 없는 오류가 생겼습니다.. 잠시 후 다시 시도해주세요!');
     });
   });
 });

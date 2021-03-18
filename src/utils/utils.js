@@ -14,6 +14,14 @@ export const newTodos = (todos) => ({ _id, key, value }) => todos.map((todo) => 
   return todo;
 });
 
+export const updateTodos = (todos, newTodo) => todos.map((todo) => {
+  if (todo._id === newTodo._id) {
+    return newTodo;
+  }
+
+  return todo;
+});
+
 export const setPath = (env) => {
   if (env === 'development') {
     return {

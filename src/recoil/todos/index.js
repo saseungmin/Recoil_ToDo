@@ -5,6 +5,7 @@ import todosWithWriteQuery from './withWrite';
 import todosWithHandle from './withTodosHandle';
 import todosWithListQuery from './withList';
 import todoWithRemove from './withRemove';
+import todoWithUpdate from './withUpdate';
 
 export {
   filterAtom,
@@ -15,6 +16,7 @@ export {
   todosWithHandle,
   todosWithListQuery,
   todoWithRemove,
+  todoWithUpdate,
 };
 
 export default atom;

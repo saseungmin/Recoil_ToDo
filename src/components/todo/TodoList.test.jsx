@@ -1,9 +1,11 @@
 import React from 'react';
 
+import { RecoilRoot } from 'recoil';
+
+import mockAxios from 'axios';
+
 import { act } from 'react-dom/test-utils';
 import { render, fireEvent } from '@testing-library/react';
-
-import { RecoilRoot } from 'recoil';
 
 import { todoResultState } from '../../../fixtures/recoil-atom-state';
 
@@ -22,10 +24,9 @@ describe('TodoList', () => {
   ));
 
   context('with todos', () => {
-    describe('When there are multiple todos', () => {
+    describe('When there are todos', () => {
       const todos = [
         { _id: '1', task: '할 일1', isComplete: false },
-        { _id: '2', task: '할 일2', isComplete: false },
       ];
 
       given('todos', () => ({
@@ -36,33 +37,31 @@ describe('TodoList', () => {
       it('render todo list contents', () => {
         const { container } = renderTodoList();
 
-        todos.forEach(({ task }) => {
-          expect(container).toHaveTextContent(task);
-        });
+        expect(container).toHaveTextContent('할 일1');
       });
 
       it('click remove button call handleRemove and remove todoItem', async () => {
-        const { container, getAllByTestId } = renderTodoList();
+        const { container, getByTestId } = renderTodoList();
 
         await act(async () => {
-          getAllByTestId('todo-delete').forEach((button) => {
-            fireEvent.click(button);
-          });
+          fireEvent.click(getByTestId('todo-delete'));
         });
 
         expect(container).toHaveTextContent('할 일이 없어요!');
       });
 
-      it('should todo completed change style', () => {
-        const { getAllByTestId } = renderTodoList();
-
-        getAllByTestId('todo-item').forEach((checkbox) => {
-          fireEvent.click(checkbox);
+      it('should todo is completed, Change font style', async () => {
+        mockAxios.patch.mockResolvedValueOnce({
+          data: { _id: '1', task: '할 일1', isComplete: true },
         });
 
-        getAllByTestId('todo-text').forEach((todo) => {
-          expect(todo).toHaveStyle('text-decoration: line-through;');
+        const { getByTestId } = renderTodoList();
+
+        await act(async () => {
+          fireEvent.click(getByTestId('todo-item'));
         });
+
+        expect(getByTestId('todo-text')).toHaveStyle('text-decoration: line-through;');
       });
     });
 

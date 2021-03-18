@@ -66,7 +66,7 @@ describe('TodoItem', () => {
     });
   });
 
-  describe('Fail todo delete', () => {
+  describe('Action Fail Status', () => {
     const error = {
       response: {
         status: 400,
@@ -76,19 +76,35 @@ describe('TodoItem', () => {
     const state = {
       id: '1',
       task: '할 일1',
-      isComplete: true,
+      isComplete: false,
     };
 
-    mockAxios.delete.mockRejectedValueOnce(error);
+    describe('Fail todo delete', () => {
+      mockAxios.delete.mockRejectedValueOnce(error);
 
-    it('The to-do should not be deleted.', async () => {
-      const { container, getByTestId } = renderTodoItem(state);
+      it('The to-do should not be deleted.', async () => {
+        const { container, getByTestId } = renderTodoItem(state);
 
-      await act(async () => {
-        fireEvent.click(getByTestId('todo-delete'));
+        await act(async () => {
+          fireEvent.click(getByTestId('todo-delete'));
+        });
+
+        expect(container).toHaveTextContent(state.task);
       });
+    });
 
-      expect(container).toHaveTextContent(state.task);
+    describe('Fail todo update', () => {
+      mockAxios.patch.mockRejectedValueOnce(error);
+
+      it('The to-do should not be updated, the style has not changed.', async () => {
+        const { getByTestId } = renderTodoItem(state);
+
+        await act(async () => {
+          fireEvent.click(getByTestId('todo-item'));
+        });
+
+        expect(getByTestId('todo-text')).not.toHaveStyle('text-decoration: line-through;');
+      });
     });
   });
 });

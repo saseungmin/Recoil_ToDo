@@ -1,5 +1,5 @@
 import {
-  newTodos, filteredTodos, setPath, userCheckErrorHandling,
+  newTodos, filteredTodos, setPath, userCheckErrorHandling, updateTodos,
 } from './utils';
 
 import { BASE_URL } from './constants/url';
@@ -23,6 +23,23 @@ describe('newTodos', () => {
     expect(todos).toEqual([
       { ...initialState[0], task: 'some task' },
       { ...initialState[1] },
+    ]);
+  });
+});
+
+describe('updateTodos', () => {
+  const oldTodos = [
+    { _id: '1', task: 'task', isComplete: false },
+    { _id: '2', task: 'task', isComplete: false },
+  ];
+
+  const newTodo = { _id: '1', task: 'task', isComplete: true };
+  it('Only the Todo that matches the _id will be changed to the new ToDo.', () => {
+    const todos = updateTodos(oldTodos, newTodo);
+
+    expect(todos).toEqual([
+      newTodo,
+      oldTodos[1],
     ]);
   });
 });

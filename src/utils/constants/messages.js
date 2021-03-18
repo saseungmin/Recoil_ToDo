@@ -18,6 +18,10 @@ export const TODO_ERROR = {
   SOMETHING_WRONG: '알 수 없는 오류가 생겼습니다.. 잠시 후 다시 시도해주세요!',
 };
 
+export const TODO_SUCCESS = {
+  DELETE: 'Todo has been deleted successfully!',
+};
+
 export const EMPTY_AUTH_INPUT = '입력이 안된 사항이 있습니다.';
 
 export const NOT_MATCH_PASSWORD = '입력하신 비밀번호가 일치하지 않습니다.';

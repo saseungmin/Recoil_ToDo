@@ -17,4 +17,5 @@ export const todoResultState = {
   todos: [],
   todo: null,
   todoError: null,
+  todoSuccess: null,
 };

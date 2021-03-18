@@ -6,10 +6,11 @@ import { useUnmount } from 'react-use';
 
 import { useSnackbar } from 'notistack';
 
-import { isCheckValidate, authSetErrorMessage } from '../../utils/utils';
-import { userCheckHandling } from '../../utils/recoil/statusHandling';
-import { EMPTY_AUTH_INPUT } from '../../utils/constants/messages';
+import { isCheckValidate } from '../../utils/utils';
 import { FORM_TYPE } from '../../utils/constants/constants';
+import { EMPTY_AUTH_INPUT } from '../../utils/constants/messages';
+import { authErrorMessage } from '../../utils/errorMessageHandling';
+import { userCheckHandling } from '../../utils/recoil/statusHandling';
 
 import userAtom, { userWithHandle, userWithCheckQuery } from '../../recoil/user';
 import authFieldsAtom, {
@@ -20,7 +21,7 @@ import AuthModalForm from './AuthModalForm';
 
 const LoginForm = () => {
   const { enqueueSnackbar } = useSnackbar();
-  const setErrorMessage = authSetErrorMessage(FORM_TYPE.login);
+  const setErrorMessage = authErrorMessage(FORM_TYPE.login);
 
   const setAuthFields = useSetRecoilState(authFieldsAtom);
   const setLoginResult = useSetRecoilState(authWithHandle);

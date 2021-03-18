@@ -2,7 +2,6 @@ import _ from 'lodash';
 
 import { BASE_URL } from './constants/url';
 import { removeItem } from '../services/storage';
-import { AUTH_ERROR, TODO_ERROR } from './constants/messages';
 
 export const newTodos = (todos) => ({ _id, key, value }) => todos.map((todo) => {
   if (todo._id === _id) {
@@ -58,48 +57,4 @@ export const userCheckErrorHandling = async (userCheck) => {
       data: null,
     };
   }
-};
-
-export const authSetErrorMessage = (auth) => ({ status, data }) => {
-  const { UNAUTHORIZED, CONFLICT, INTERNAL_SERVER_ERROR } = AUTH_ERROR;
-
-  if (status === 400) {
-    return data.details[0].message;
-  }
-
-  if (status === 401) {
-    return UNAUTHORIZED;
-  }
-
-  if (status === 409) {
-    return CONFLICT;
-  }
-
-  if (status === 500) {
-    return INTERNAL_SERVER_ERROR;
-  }
-
-  return `Failure ${auth}!`;
-};
-
-export const todoErrorMessage = ({ response }) => {
-  const {
-    NOT_FOUND, INTERNAL_SERVER_ERROR, UNAUTHORIZED, SOMETHING_WRONG,
-  } = TODO_ERROR;
-
-  const { status } = response;
-
-  if (status === 400 || status === 404) {
-    return NOT_FOUND;
-  }
-
-  if (status === 403) {
-    return UNAUTHORIZED;
-  }
-
-  if (status === 500) {
-    return INTERNAL_SERVER_ERROR;
-  }
-
-  return SOMETHING_WRONG;
 };

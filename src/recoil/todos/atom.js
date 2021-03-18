@@ -20,6 +20,7 @@ export const todosResultAtom = atom({
     todos: loadItem(TODOS_RESULT_ATOM_KEY) || [],
     todo: null,
     todoError: null,
+    todoSuccess: null,
   },
 });
 

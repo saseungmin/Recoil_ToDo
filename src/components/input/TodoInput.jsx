@@ -7,8 +7,6 @@ import styled from '@emotion/styled';
 
 import _ from 'lodash';
 
-import { v4 as uuidv4 } from 'uuid';
-
 import { useForm } from 'react-hook-form';
 
 import { useSnackbar } from 'notistack';
@@ -132,20 +130,6 @@ const TodoInput = () => {
     }
 
     setTask(task);
-
-    // TODO - 추후 삭제
-    setTodos((oldTodoState) => ({
-      ...oldTodoState,
-      todos: [
-        ...oldTodoState.todos,
-        {
-          _id: uuidv4(),
-          task,
-          isComplete: false,
-        },
-      ],
-    }));
-
     setError(false);
     reset();
   };
@@ -174,6 +158,14 @@ const TodoInput = () => {
       enqueueSnackbar('Success in entering To-Do', {
         variant: 'success',
       });
+
+      setTodos((oldTodoState) => ({
+        ...oldTodoState,
+        todos: [
+          todo,
+          ...oldTodoState.todos,
+        ],
+      }));
     }
   }, [todo]);
 

@@ -3,17 +3,6 @@ import _ from 'lodash';
 import { BASE_URL } from './constants/url';
 import { removeItem } from '../services/storage';
 
-export const newTodos = (todos) => ({ _id, key, value }) => todos.map((todo) => {
-  if (todo._id === _id) {
-    return {
-      ...todo,
-      [key]: value,
-    };
-  }
-
-  return todo;
-});
-
 export const updateTodos = (todos, newTodo) => todos.map((todo) => {
   if (todo._id === newTodo._id) {
     return newTodo;

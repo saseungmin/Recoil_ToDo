@@ -1,7 +1,5 @@
 import React, { useState, createRef, useEffect } from 'react';
 
-import { useSetRecoilState, useRecoilValue } from 'recoil';
-
 import _ from 'lodash';
 
 import styled from '@emotion/styled';
@@ -12,9 +10,7 @@ import palette from '../../styles/palette';
 import useRemoveCallback from '../../hooks/useRemoveCallback';
 import useUpdateCallback from '../../hooks/useUpdateCallback';
 
-import { todosResultAtom, todosWithListQuery } from '../../recoil/todos';
-
-import { isCheckInputTrim, newTodos } from '../../utils/utils';
+import { isCheckInputTrim } from '../../utils/utils';
 
 import TodoItemView from './TodoItemView';
 
@@ -45,16 +41,13 @@ const EditItemWrapper = styled.input`
 const TodoItem = ({ item }) => {
   const { _id, task, isComplete } = item;
 
-  const editInput = createRef();
-
   const onRemoveTodo = useRemoveCallback();
   const onUpdateTodo = useUpdateCallback();
 
-  const { todos } = useRecoilValue(todosResultAtom);
-  const setTodos = useSetRecoilState(todosWithListQuery);
+  const editInput = createRef();
   const [editToggleState, setEditToggleState] = useState(false);
 
-  const settingTodos = newTodos(todos);
+  const checkKeyPress = (key) => (key === 'Enter' || key === 'Escape');
 
   const handleToggle = (id, toggle) => onUpdateTodo(id, {
     isComplete: !toggle,
@@ -66,6 +59,10 @@ const TodoItem = ({ item }) => {
     const { value } = e.currentTarget;
 
     if (isCheckInputTrim(value)) {
+      onUpdateTodo(id, {
+        task: value,
+      });
+
       setEditToggleState(false);
       return;
     }
@@ -73,28 +70,23 @@ const TodoItem = ({ item }) => {
     onRemoveTodo(id);
   };
 
-  const handleChangeEdit = (e, id) => {
-    const { value } = e.target;
+  const handleSubmitEdit = (e, id) => {
+    const { key, currentTarget: { value } } = e;
 
-    setTodos(settingTodos({
-      _id: id,
-      key: 'task',
-      value,
-    }));
-  };
+    if (checkKeyPress(key) && isCheckInputTrim(value)) {
+      onUpdateTodo(id, {
+        task: value,
+      });
 
-  const handleSubmitEdit = (e) => {
-    const { key, currentTarget } = e;
-
-    if (key === 'Enter' || key === 'Escape') {
-      // eslint-disable-next-line no-unused-expressions
-      isCheckInputTrim(currentTarget.value) && setEditToggleState(false);
+      setEditToggleState(false);
     }
   };
 
   useEffect(() => {
-    if (_.eq(editToggleState, true) && !_.isNull(editInput.current)) {
-      editInput.current.focus();
+    const { current } = editInput;
+
+    if (_.eq(editToggleState, true) && !_.isNull(current)) {
+      current.focus();
     }
   }, [editToggleState, editInput]);
 
@@ -112,12 +104,11 @@ const TodoItem = ({ item }) => {
           <EditWrapper>
             <EditSpaceWrapper />
             <EditItemWrapper
-              value={task}
               ref={editInput}
+              defaultValue={task}
               data-testid="todo-edit-input"
-              onKeyPress={handleSubmitEdit}
               onBlur={(e) => handleBlurEdit(e, _id)}
-              onChange={(e) => handleChangeEdit(e, _id)}
+              onKeyPress={(e) => handleSubmitEdit(e, _id)}
             />
           </EditWrapper>
         )}

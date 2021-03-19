@@ -77,21 +77,29 @@ describe('TodoList', () => {
 
       context('with Enter key', () => {
         const value = 'tasks';
-        it('Call handleChangeEdit and then Call handleSubmitEdit', () => {
+        it('Call handleChangeEdit and then Call handleSubmitEdit', async () => {
+          mockAxios.patch.mockResolvedValueOnce({
+            data: { _id: '1', task: value, isComplete: true },
+          });
+
           const { container, getByTestId } = renderTodoList();
 
-          fireEvent.doubleClick(getByTestId('todo-text'));
+          await act(async () => {
+            fireEvent.doubleClick(getByTestId('todo-text'));
+          });
 
           const input = getByTestId('todo-edit-input');
 
-          fireEvent.change(input, {
-            target: { value },
-          });
+          await act(async () => {
+            fireEvent.change(input, {
+              target: { value },
+            });
 
-          fireEvent.keyPress(input, {
-            key: 'Enter',
-            code: 13,
-            charCode: 13,
+            fireEvent.keyPress(input, {
+              key: 'Enter',
+              code: 13,
+              charCode: 13,
+            });
           });
 
           expect(container).toHaveTextContent(value);

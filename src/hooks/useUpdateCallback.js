@@ -19,7 +19,7 @@ const useUpdateCallback = () => useRecoilCallback(({
       (prevState) => ({
         ...prevState,
         // TODO - 추후 메시지 변경
-        todoSuccess: 'success',
+        todoSuccess: 'success update!',
         todos: updateTodos(prevState.todos, data),
       }),
     );

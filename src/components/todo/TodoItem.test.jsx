@@ -2,11 +2,11 @@ import React from 'react';
 
 import { RecoilRoot } from 'recoil';
 
+import { act } from 'react-dom/test-utils';
 import { render, fireEvent } from '@testing-library/react';
 
 import mockAxios from 'axios';
 
-import { act } from 'react-dom/test-utils';
 import TodoItem from './TodoItem';
 import InjectTestingRecoilState from '../common/InjectTestingRecoilState';
 
@@ -94,9 +94,11 @@ describe('TodoItem', () => {
     });
 
     describe('Fail todo update', () => {
-      mockAxios.patch.mockRejectedValueOnce(error);
+      beforeEach(() => {
+        mockAxios.patch.mockRejectedValueOnce(error);
+      });
 
-      it('The to-do should not be updated, the style has not changed.', async () => {
+      it('The to-do should not be updated, the style has not changed. With Checkbox', async () => {
         const { getByTestId } = renderTodoItem(state);
 
         await act(async () => {
@@ -104,6 +106,30 @@ describe('TodoItem', () => {
         });
 
         expect(getByTestId('todo-text')).not.toHaveStyle('text-decoration: line-through;');
+      });
+
+      it("The value doesn't change because the to-do was not updated. With task input", async () => {
+        const { container, getByTestId } = renderTodoItem(state);
+
+        await act(async () => {
+          fireEvent.doubleClick(getByTestId('todo-text'));
+        });
+
+        const input = getByTestId('todo-edit-input');
+
+        await act(async () => {
+          fireEvent.change(input, {
+            target: { value: 'task' },
+          });
+
+          fireEvent.keyPress(input, {
+            key: 'Enter',
+            code: 13,
+            charCode: 13,
+          });
+        });
+
+        expect(container).toHaveTextContent('할 일1');
       });
     });
   });

@@ -59,10 +59,6 @@ const TodoItem = ({ item }) => {
     const { value } = e.currentTarget;
 
     if (isCheckInputTrim(value)) {
-      onUpdateTodo(id, {
-        task: value,
-      });
-
       setEditToggleState(false);
       return;
     }

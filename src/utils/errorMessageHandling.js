@@ -33,7 +33,7 @@ export const todoErrorMessage = ({ response }) => {
     return NOT_FOUND;
   }
 
-  if (status === 403) {
+  if (status === 403 || status === 401) {
     return UNAUTHORIZED;
   }
 

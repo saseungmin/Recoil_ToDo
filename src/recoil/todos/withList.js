@@ -4,7 +4,7 @@ import { list } from '../../services/api/todos';
 import recoilLoadable from '../../utils/recoil/recoilLoadable';
 
 import userAtom from '../user';
-import { filterAtom, todosResultAtom } from './atom';
+import { filterAtom } from './atom';
 
 export const todosWithList = selectorFamily({
   key: 'todosWithList',
@@ -28,15 +28,6 @@ const todosWithListQuery = selector({
     const loadable = recoilLoadable(get(noWait(todosWithList(filter))));
 
     return loadable;
-  },
-  set: ({ set }, todos) => {
-    set(
-      todosResultAtom,
-      (prevState) => ({
-        ...prevState,
-        todos,
-      }),
-    );
   },
 });
 

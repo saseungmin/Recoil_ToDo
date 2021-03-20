@@ -1,7 +1,7 @@
 import mockAxios from 'axios';
 
 import {
-  write, list, remove, update,
+  write, list, remove, update, multipleRemove,
 } from './todos';
 
 describe('todos api', () => {
@@ -28,6 +28,17 @@ describe('todos api', () => {
 
     expect(result).toBe(data);
     expect(mockAxios.get).toBeCalledWith('/api/todos');
+  });
+
+  it('DELETE /api/todos/', async () => {
+    const ids = ['1', '2'];
+
+    const result = await multipleRemove(ids);
+
+    expect(result).toBe(data);
+    expect(mockAxios.delete).toBeCalledWith('/api/todos', {
+      data: { ids },
+    });
   });
 
   it('DELETE /api/todos/:id', async () => {

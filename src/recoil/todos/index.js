@@ -6,6 +6,7 @@ import todosWithHandle from './withTodosHandle';
 import todosWithListQuery from './withList';
 import todoWithRemove from './withRemove';
 import todoWithUpdate from './withUpdate';
+import todoWithMultipleRemove from './withMultipleRemove';
 
 export {
   filterAtom,
@@ -17,6 +18,7 @@ export {
   todosWithListQuery,
   todoWithRemove,
   todoWithUpdate,
+  todoWithMultipleRemove,
 };
 
 export default atom;

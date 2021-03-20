@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { render, fireEvent, act } from '@testing-library/react';
+import { act } from 'react-dom/test-utils';
+import { render, fireEvent } from '@testing-library/react';
 
 import { RecoilRoot } from 'recoil';
 
@@ -96,7 +97,7 @@ describe('App', () => {
     });
   });
 
-  it('When you click the Clear completed button, the completed todo is deleted.', () => {
+  it('When you click the Clear completed button, the completed todo is deleted.', async () => {
     const todos = [
       { _id: '1', task: '할 일1', isComplete: true },
     ];
@@ -110,9 +111,12 @@ describe('App', () => {
 
     expect(container).toHaveTextContent('할 일1');
 
-    fireEvent.click(getByText('CLEAR COMPLETED'));
+    await act(async () => {
+      fireEvent.click(getByText('CLEAR COMPLETED'));
+    });
 
     expect(container).toHaveTextContent('할 일이 없어요!');
+    expect(container).toHaveTextContent('All completed To-Dos have been deleted!');
   });
 
   describe('When the button is clicked, the member authentication modal window is displayed.', () => {
@@ -132,6 +136,7 @@ describe('App', () => {
         await act(async () => {
           fireEvent.click(getByText('Sign in'));
         });
+
         expect(getByPlaceholderText('아이디')).not.toBeNull();
         expect(getByPlaceholderText('비밀번호')).not.toBeNull();
       });
@@ -173,8 +178,8 @@ describe('App', () => {
     } = renderApp(props);
 
     await act(async () => {
-      input.forEach(async ({ placeholder, value }) => {
-        await fireEvent.change(getByPlaceholderText(placeholder), { target: { value } });
+      input.forEach(({ placeholder, value }) => {
+        fireEvent.change(getByPlaceholderText(placeholder), { target: { value } });
       });
     });
 

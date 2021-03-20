@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useSetRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 
 import _ from 'lodash';
 
@@ -10,10 +10,12 @@ import { css } from '@emotion/react';
 import mq from '../../styles/responsive';
 import palette from '../../styles/palette';
 
-import { isCompleted, isActive } from '../../utils/utils';
+import { isCompleted } from '../../utils/utils';
 import { COMPLETED_CLEAR_BUTTON } from '../../utils/constants/constants';
 
-import { todosWithListQuery, todosResultAtom } from '../../recoil/todos';
+import { todosResultAtom } from '../../recoil/todos';
+
+import useMultipleRemoveCallback from '../../hooks/useMultipleRemoveCallback';
 
 const ClearButtonWrapper = styled.button`
   ${mq({
@@ -41,13 +43,16 @@ const ClearButtonWrapper = styled.button`
   `};
 `;
 
-const TodoClearButton = () => {
-  const { todos } = useRecoilValue(todosResultAtom);
-  const setTodos = useSetRecoilState(todosWithListQuery);
+const separateObjectId = (todos) => todos
+  .filter(isCompleted)
+  .map(({ _id }) => _id);
 
-  const handleClick = () => {
-    setTodos(todos.filter(isActive));
-  };
+const TodoClearButton = () => {
+  const multipleRemove = useMultipleRemoveCallback();
+
+  const { todos } = useRecoilValue(todosResultAtom);
+
+  const handleClick = () => multipleRemove(separateObjectId(todos));
 
   if (_.isEmpty(todos.filter(isCompleted))) {
     return (

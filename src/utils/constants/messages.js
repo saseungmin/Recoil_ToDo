@@ -20,6 +20,7 @@ export const TODO_ERROR = {
 
 export const TODO_SUCCESS = {
   DELETE: 'Todo has been deleted successfully!',
+  MULTIPLE_DELETE: 'All completed To-Dos have been deleted!',
 };
 
 export const EMPTY_AUTH_INPUT = '입력이 안된 사항이 있습니다.';

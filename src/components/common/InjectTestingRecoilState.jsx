@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useSetRecoilState } from 'recoil';
 
 import userAtom from '../../recoil/user';
-import { filterAtom, todosResultAtom } from '../../recoil/todos';
+import todosResultAtom, { filterAtom } from '../../recoil/todos';
 import authFieldsAtom, { authFormStatusAtom, authResultAtom } from '../../recoil/auth';
 import isLoadingAtom from '../../recoil/common/atom';
 

@@ -1,7 +1,7 @@
 import { useRecoilCallback } from 'recoil';
 
 import isLoadingAtom from '../recoil/common/atom';
-import { todosResultAtom, todoWithMultipleRemove } from '../recoil/todos';
+import todosResultAtom, { todoWithMultipleRemove } from '../recoil/todos';
 
 import { isActive } from '../utils/utils';
 import { TODO_SUCCESS } from '../utils/constants/messages';

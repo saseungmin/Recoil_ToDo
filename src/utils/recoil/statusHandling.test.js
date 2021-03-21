@@ -1,5 +1,5 @@
 import {
-  authStatusHandling, logoutCheckHandling, userCheckHandling, todoStatusHandling, loadTodosHandling,
+  authStatusHandling, logoutCheckHandling, userCheckHandling, loadTodosHandling,
 } from './statusHandling';
 
 describe('statusHandling', () => {
@@ -56,35 +56,6 @@ describe('statusHandling', () => {
 
         expect(result).toEqual({
           checkError: error,
-        });
-      });
-    });
-  });
-
-  describe('todoStatusHandling', () => {
-    context('Have Success', () => {
-      const mock = {
-        data: {
-          task: 'some task',
-        },
-      };
-      it('Should have todo value', () => {
-        const result = todoStatusHandling.success(mock);
-
-        expect(result).toEqual({
-          todo: mock.data,
-          todoError: null,
-        });
-      });
-    });
-
-    context('Have Error', () => {
-      const error = 'error';
-      it('There is a error in todoError', () => {
-        const result = todoStatusHandling.error(error);
-
-        expect(result).toEqual({
-          todoError: error,
         });
       });
     });

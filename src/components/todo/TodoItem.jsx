@@ -86,28 +86,29 @@ const TodoItem = ({ item }) => {
     }
   }, [editToggleState, editInput]);
 
+  if (!editToggleState) {
+    return (
+      <TodoItemView
+        item={item}
+        onShowEdit={handleShowEdit}
+        onRemove={() => onRemoveTodo(_id)}
+        onToggle={() => handleToggle(_id, isComplete)}
+      />
+    );
+  }
+
   return (
     <>
-      {!editToggleState ? (
-        <TodoItemView
-          item={item}
-          onShowEdit={handleShowEdit}
-          onRemove={() => onRemoveTodo(_id)}
-          onToggle={() => handleToggle(_id, isComplete)}
+      <EditWrapper>
+        <EditSpaceWrapper />
+        <EditItemWrapper
+          ref={editInput}
+          defaultValue={task}
+          data-testid="todo-edit-input"
+          onBlur={(e) => handleBlurEdit(e, _id)}
+          onKeyPress={(e) => handleSubmitEdit(e, _id)}
         />
-      )
-        : (
-          <EditWrapper>
-            <EditSpaceWrapper />
-            <EditItemWrapper
-              ref={editInput}
-              defaultValue={task}
-              data-testid="todo-edit-input"
-              onBlur={(e) => handleBlurEdit(e, _id)}
-              onKeyPress={(e) => handleSubmitEdit(e, _id)}
-            />
-          </EditWrapper>
-        )}
+      </EditWrapper>
     </>
   );
 };

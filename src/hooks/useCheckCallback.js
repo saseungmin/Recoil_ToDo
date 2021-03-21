@@ -5,7 +5,9 @@ import isLoadingAtom from '../recoil/common/atom';
 
 import { userCheckErrorHandling } from '../utils/utils';
 
-const useCheckCallback = () => useRecoilCallback(({ snapshot, set, reset }) => async () => {
+const useCheckCallback = () => useRecoilCallback(({
+  snapshot, set, reset,
+}) => async () => {
   set(isLoadingAtom, true);
 
   const { data } = await userCheckErrorHandling(snapshot.getPromise(userWithCheck()));

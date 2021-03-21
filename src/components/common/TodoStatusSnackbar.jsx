@@ -4,7 +4,7 @@ import { useRecoilState } from 'recoil';
 
 import { useSnackbar } from 'notistack';
 
-import { todosResultAtom } from '../../recoil/todos/atom';
+import todosResultAtom from '../../recoil/todos/atom';
 
 const TodoStatusSnackbar = () => {
   const [{ todoError, todoSuccess }, setTodoState] = useRecoilState(todosResultAtom);

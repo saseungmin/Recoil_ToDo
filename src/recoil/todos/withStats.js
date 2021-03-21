@@ -1,6 +1,7 @@
 import { selector } from 'recoil';
 
-import { todosResultAtom } from './atom';
+import todosResultAtom from './atom';
+
 import { isCompleted, isActive } from '../../utils/utils';
 
 const todosWithStats = selector({

@@ -12,6 +12,4 @@ export const USER_ATOM_KEY = 'userAtom';
 
 export const IS_LOADING_ATOM_KEY = 'loadingAtom';
 
-export const TASK_INPUT_ATOM_KEY = 'taskInputAtom';
-
 export const TODOS_RESULT_ATOM_KEY = 'todosResultAtom';

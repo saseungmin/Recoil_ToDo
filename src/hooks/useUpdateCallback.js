@@ -1,7 +1,7 @@
 import { useRecoilCallback } from 'recoil';
 
 import isLoadingAtom from '../recoil/common/atom';
-import { todosResultAtom, todoWithUpdate } from '../recoil/todos';
+import todosResultAtom, { todoWithUpdate } from '../recoil/todos';
 
 import { updateTodos } from '../utils/utils';
 import { todoErrorMessage } from '../utils/errorMessageHandling';

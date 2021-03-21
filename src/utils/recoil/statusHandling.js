@@ -28,16 +28,6 @@ export const userCheckHandling = {
   },
 };
 
-export const todoStatusHandling = {
-  success: ({ data }) => ({
-    todo: data,
-    todoError: null,
-  }),
-  error: (todoError) => ({
-    todoError,
-  }),
-};
-
 export const loadTodosHandling = {
   success: ({ data }) => ({
     todos: data,

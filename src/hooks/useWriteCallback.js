@@ -1,25 +1,27 @@
 import { useRecoilCallback } from 'recoil';
 
 import isLoadingAtom from '../recoil/common/atom';
-import todosResultAtom, { todoWithRemove } from '../recoil/todos';
+import todosResultAtom, { todoWithWrite } from '../recoil/todos';
 
-import { TODO_SUCCESS } from '../utils/constants/messages';
 import { todoErrorMessage } from '../utils/errorMessageHandling';
 
-const useRemoveCallback = () => useRecoilCallback(({
+const useWriteCallback = () => useRecoilCallback(({
   snapshot, set, reset,
-}) => async (id) => {
+}) => async (task) => {
   set(isLoadingAtom, true);
 
   try {
-    await snapshot.getPromise(todoWithRemove(id));
+    const { data } = await snapshot.getPromise(todoWithWrite(task));
 
     set(
       todosResultAtom,
       (prevState) => ({
         ...prevState,
-        todos: prevState.todos.filter((todo) => todo._id !== id),
-        todoSuccess: TODO_SUCCESS.DELETE,
+        todoSuccess: 'Success in entering To-Do!',
+        todos: [
+          data,
+          ...prevState.todos,
+        ],
       }),
     );
   } catch (error) {
@@ -30,6 +32,6 @@ const useRemoveCallback = () => useRecoilCallback(({
   } finally {
     reset(isLoadingAtom);
   }
-}, [todosResultAtom, isLoadingAtom]);
+}, [isLoadingAtom, todosResultAtom]);
 
-export default useRemoveCallback;
+export default useWriteCallback;

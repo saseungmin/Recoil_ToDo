@@ -40,14 +40,16 @@ describe('TodoInput', () => {
     describe('Listen event form submit', () => {
       context('With input value', () => {
         const value = '할 일1';
-        it('The input value disappears and Renders Success message', async () => {
-          const mockData = {
-            data: 'mockData',
+        it('When Error status, The input value disappears and calls write api', async () => {
+          const mockError = {
+            response: {
+              status: 400,
+            },
           };
 
-          mockAxios.post.mockResolvedValueOnce(mockData);
+          mockAxios.post.mockRejectedValueOnce(mockError);
 
-          const { getByPlaceholderText, container } = renderTodoInput();
+          const { getByPlaceholderText } = renderTodoInput();
           const input = getByPlaceholderText(INPUT);
 
           await act(async () => {
@@ -64,7 +66,7 @@ describe('TodoInput', () => {
           });
 
           expect(input).toHaveValue('');
-          expect(container).toHaveTextContent('Success in entering To-Do');
+          expect(mockAxios.post).toBeCalledWith('/api/todos', { task: '할 일1' });
         });
 
         it('When the input value is present, the keypress action does not occur.', async () => {

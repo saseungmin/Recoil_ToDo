@@ -97,28 +97,6 @@ describe('App', () => {
     });
   });
 
-  it('When you click the Clear completed button, the completed todo is deleted.', async () => {
-    const todos = [
-      { _id: '1', task: '할 일1', isComplete: true },
-    ];
-
-    given('todos', () => ({
-      ...todoResultState,
-      todos,
-    }));
-
-    const { container, getByText } = renderApp({});
-
-    expect(container).toHaveTextContent('할 일1');
-
-    await act(async () => {
-      fireEvent.click(getByText('CLEAR COMPLETED'));
-    });
-
-    expect(container).toHaveTextContent('할 일이 없어요!');
-    expect(container).toHaveTextContent('All completed To-Dos have been deleted!');
-  });
-
   describe('When the button is clicked, the member authentication modal window is displayed.', () => {
     const todos = [
       { _id: '1', task: '할 일1', isComplete: true },
@@ -133,9 +111,7 @@ describe('App', () => {
       it('When you click the "Sign in" button, the Sign in modal is shown.', async () => {
         const { getByPlaceholderText, getByText } = renderApp({});
 
-        await act(async () => {
-          fireEvent.click(getByText('Sign in'));
-        });
+        fireEvent.click(getByText('Sign in'));
 
         expect(getByPlaceholderText('아이디')).not.toBeNull();
         expect(getByPlaceholderText('비밀번호')).not.toBeNull();
@@ -146,9 +122,7 @@ describe('App', () => {
       it('When you click the "Sing in" button, the Sign in modal is shown.', async () => {
         const { getByPlaceholderText, getByText } = renderApp({});
 
-        await act(async () => {
-          fireEvent.click(getByText('Sign up'));
-        });
+        fireEvent.click(getByText('Sign up'));
 
         expect(getByPlaceholderText('아이디')).not.toBeNull();
         expect(getByPlaceholderText('비밀번호')).not.toBeNull();
@@ -157,54 +131,88 @@ describe('App', () => {
     });
   });
 
-  it('Success logged in', async () => {
-    mockAxios.post.mockResolvedValueOnce({ data: 'test' });
-    mockAxios.get.mockResolvedValueOnce({ data: 'test' });
-
-    const props = {
-      auth: {
-        type: 'login',
-        visible: true,
-      },
-    };
-
-    const input = [
-      { placeholder: '아이디', value: 'test' },
-      { placeholder: '비밀번호', value: 'test' },
-    ];
-
-    const {
-      container, getByTestId, getByPlaceholderText,
-    } = renderApp(props);
-
-    await act(async () => {
-      input.forEach(({ placeholder, value }) => {
-        fireEvent.change(getByPlaceholderText(placeholder), { target: { value } });
-      });
-    });
-
-    await act(async () => {
-      fireEvent.submit(getByTestId('auth-submit-button'));
-    });
-
-    expect(container).toHaveTextContent('Success Sign in!');
-  });
-
-  describe('when logged in', () => {
-    const user = {
-      id: 'test',
-    };
-
+  describe('When the recoil API call is successful, a success message appears.', () => {
     const mockUserState = {
       user: 'test',
       checkError: null,
     };
 
-    beforeEach(() => {
-      loadItem.mockImplementation(() => user);
+    it('When you click the Clear completed button, the completed todo is deleted.', async () => {
+      const todos = [
+        { _id: '1', task: '할 일1', isComplete: true },
+      ];
+
+      given('todos', () => ({
+        ...todoResultState,
+        todos,
+      }));
+
+      const { container, getByText } = renderApp({});
+
+      expect(container).toHaveTextContent('할 일1');
+
+      await act(async () => {
+        fireEvent.click(getByText('CLEAR COMPLETED'));
+      });
+
+      expect(container).toHaveTextContent('할 일이 없어요!');
+      expect(container).toHaveTextContent('All completed To-Dos have been deleted!');
     });
 
-    context('Have Success', () => {
+    it('Success logged in', async () => {
+      mockAxios.post.mockResolvedValueOnce({ data: 'test' });
+      mockAxios.get.mockResolvedValueOnce({ data: 'test' });
+
+      const props = {
+        auth: {
+          type: 'login',
+          visible: true,
+        },
+      };
+
+      const input = [
+        { placeholder: '아이디', value: 'test' },
+        { placeholder: '비밀번호', value: 'test' },
+      ];
+
+      const {
+        container, getByTestId, getByPlaceholderText,
+      } = renderApp(props);
+
+      await act(async () => {
+        input.forEach(({ placeholder, value }) => {
+          fireEvent.change(getByPlaceholderText(placeholder), { target: { value } });
+        });
+      });
+
+      await act(async () => {
+        fireEvent.submit(getByTestId('auth-submit-button'));
+      });
+
+      expect(container).toHaveTextContent('Success Sign in!');
+    });
+
+    it('success logout', async () => {
+      mockAxios.post.mockResolvedValueOnce({ data: 'mock', status: '204' });
+
+      const { container, getByText } = renderApp({ user: mockUserState });
+
+      await act(async () => {
+        fireEvent.click(getByText('Sign out'));
+      });
+
+      expect(container).toHaveTextContent('Success Sign out!');
+    });
+
+    describe('when logged in have success status', () => {
+      const user = {
+        id: 'test',
+      };
+
+      beforeEach(() => {
+        loadItem.mockImplementation(() => user);
+      });
+
       it('It has the user session value, so the Sign out button is visible.', async () => {
         mockAxios.get.mockResolvedValueOnce({ data: 'test' });
         let response;
@@ -216,22 +224,35 @@ describe('App', () => {
         expect(response.container).toHaveTextContent('Sign out');
       });
     });
-  });
 
-  it('success logout', async () => {
-    mockAxios.post.mockResolvedValueOnce({ data: 'mock', status: '204' });
+    describe('When submit action todo input is successful', () => {
+      const value = '할 일을 입력';
 
-    const mockUserState = {
-      user: 'test',
-      checkError: null,
-    };
+      const mockData = {
+        data: {
+          _id: '1', task: value, isComplete: false,
+        },
+      };
 
-    const { container, getByText } = renderApp({ user: mockUserState });
+      it('Render success message "Success in entering To-Do!"', async () => {
+        mockAxios.post.mockResolvedValueOnce(mockData);
 
-    await act(async () => {
-      fireEvent.click(getByText('Sign out'));
+        const { container, getByPlaceholderText } = renderApp({ user: mockUserState });
+
+        const input = getByPlaceholderText('오늘의 할 일을 입력해주세요!');
+
+        await act(async () => {
+          fireEvent.change(input, { target: { value } });
+
+          fireEvent.submit(
+            input,
+            { key: 'Enter', code: '13' },
+          );
+        });
+
+        expect(input).toHaveValue('');
+        expect(container).toHaveTextContent('Success in entering To-Do!');
+      });
     });
-
-    expect(container).toHaveTextContent('Success Sign out!');
   });
 });

@@ -2,14 +2,9 @@ import React, { useEffect } from 'react';
 
 import styled from '@emotion/styled';
 
-import { useRecoilValue } from 'recoil';
-
 import { MAIN_TITLE } from './utils/constants/constants';
-import { TODOS_RESULT_ATOM_KEY } from './utils/constants/atomKey';
 
-import { todosResultAtom } from './recoil/todos';
-
-import { saveItem, loadItem } from './services/storage';
+import { loadItem } from './services/storage';
 
 import useCheckCallback from './hooks/useCheckCallback';
 
@@ -50,12 +45,7 @@ const TodoContentWrapper = styled.div`
 const App = () => {
   const user = loadItem('user');
 
-  const { todos } = useRecoilValue(todosResultAtom);
   const checkUser = useCheckCallback();
-
-  useEffect(() => {
-    saveItem(TODOS_RESULT_ATOM_KEY, todos);
-  }, [todos]);
 
   useEffect(() => {
     if (user) {

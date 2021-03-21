@@ -1,6 +1,6 @@
 import { selector } from 'recoil';
 
-import { filterAtom, todosResultAtom } from './atom';
+import todosResultAtom, { filterAtom } from './atom';
 
 import { filteredTodos } from '../../utils/utils';
 

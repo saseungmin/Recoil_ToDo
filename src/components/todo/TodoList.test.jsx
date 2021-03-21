@@ -7,21 +7,30 @@ import mockAxios from 'axios';
 import { act } from 'react-dom/test-utils';
 import { render, fireEvent } from '@testing-library/react';
 
-import { todoResultState } from '../../../fixtures/recoil-atom-state';
+import { todoResultState, userState } from '../../../fixtures/recoil-atom-state';
 
 import TodoList from './TodoList';
 import InjectTestingRecoilState from '../common/InjectTestingRecoilState';
 
 describe('TodoList', () => {
-  const renderTodoList = (filter = 'ALL') => render((
+  const renderTodoList = (filter = 'ALL', user = userState) => render((
     <RecoilRoot>
       <InjectTestingRecoilState
+        user={user}
         todos={given.todos}
         filter={filter}
       />
       <TodoList />
     </RecoilRoot>
   ));
+
+  const mockGetApi = (data) => mockAxios.get.mockResolvedValueOnce({
+    data,
+  });
+
+  const mockPatchApi = (data) => mockAxios.patch.mockResolvedValueOnce({
+    data,
+  });
 
   context('with todos', () => {
     describe('When there are todos', () => {
@@ -34,10 +43,18 @@ describe('TodoList', () => {
         todos,
       }));
 
-      it('render todo list contents', () => {
-        const { container } = renderTodoList();
+      it('render todo list contents', async () => {
+        mockGetApi([
+          { _id: '2', task: '할 일2', isComplete: false },
+        ]);
 
-        expect(container).toHaveTextContent('할 일1');
+        let response;
+
+        await act(async () => {
+          response = renderTodoList('ALL', { user: 'test', checkError: null });
+        });
+
+        expect(response.container).toHaveTextContent('할 일2');
       });
 
       it('click remove button call handleRemove and remove todoItem', async () => {
@@ -51,9 +68,7 @@ describe('TodoList', () => {
       });
 
       it('should todo is completed, Change font style', async () => {
-        mockAxios.patch.mockResolvedValueOnce({
-          data: { _id: '1', task: '할 일1', isComplete: true },
-        });
+        mockPatchApi({ _id: '1', task: '할 일1', isComplete: true });
 
         const { getByTestId } = renderTodoList();
 
@@ -78,9 +93,7 @@ describe('TodoList', () => {
       context('with Enter key', () => {
         const value = 'tasks';
         it('Call handleChangeEdit and then Call handleSubmitEdit', async () => {
-          mockAxios.patch.mockResolvedValueOnce({
-            data: { _id: '1', task: value, isComplete: true },
-          });
+          mockPatchApi({ _id: '1', task: value, isComplete: true });
 
           const { container, getByTestId } = renderTodoList();
 
@@ -108,21 +121,25 @@ describe('TodoList', () => {
 
       context('without Enter Key', () => {
         const value = 'tasks';
-        it('Call handleChangeEdit and then Call handleSubmitEdit', () => {
+        it('Call handleChangeEdit and then Call handleSubmitEdit', async () => {
           const { container, getByTestId } = renderTodoList();
 
-          fireEvent.doubleClick(getByTestId('todo-text'));
+          await act(async () => {
+            fireEvent.doubleClick(getByTestId('todo-text'));
+          });
 
           const input = getByTestId('todo-edit-input');
 
-          fireEvent.change(input, {
-            target: { value },
-          });
+          await act(async () => {
+            fireEvent.change(input, {
+              target: { value },
+            });
 
-          fireEvent.keyPress(input, {
-            key: 'space',
-            code: 32,
-            charCode: 32,
+            fireEvent.keyPress(input, {
+              key: 'space',
+              code: 32,
+              charCode: 32,
+            });
           });
 
           expect(container).not.toHaveTextContent(value);
@@ -146,7 +163,9 @@ describe('TodoList', () => {
         it('remove to todo', async () => {
           const { container, getByTestId } = renderTodoList();
 
-          fireEvent.doubleClick(getByTestId('todo-text'));
+          await act(async () => {
+            fireEvent.doubleClick(getByTestId('todo-text'));
+          });
 
           const input = getByTestId('todo-edit-input');
 
@@ -166,16 +185,20 @@ describe('TodoList', () => {
           todos: setTodos('some task'),
         }));
 
-        it('call edit blur event', () => {
+        it('call edit blur event', async () => {
           const { container, getByTestId } = renderTodoList();
 
-          fireEvent.doubleClick(getByTestId('todo-text'));
+          await act(async () => {
+            fireEvent.doubleClick(getByTestId('todo-text'));
+          });
 
           const input = getByTestId('todo-edit-input');
 
           expect(input).toHaveFocus();
 
-          fireEvent.blur(input);
+          await act(async () => {
+            fireEvent.blur(input);
+          });
 
           expect(input).not.toHaveFocus();
 

@@ -13,7 +13,7 @@ import palette from '../../styles/palette';
 import { isCompleted } from '../../utils/utils';
 import { COMPLETED_CLEAR_BUTTON } from '../../utils/constants/constants';
 
-import { todosResultAtom } from '../../recoil/todos';
+import todosResultAtom from '../../recoil/todos';
 
 import useMultipleRemoveCallback from '../../hooks/useMultipleRemoveCallback';
 

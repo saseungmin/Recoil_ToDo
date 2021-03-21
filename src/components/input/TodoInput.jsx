@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
-import { useSetRecoilState, useRecoilValue, useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
@@ -9,11 +9,8 @@ import _ from 'lodash';
 
 import { useForm } from 'react-hook-form';
 
-import { useSnackbar } from 'notistack';
+import useWriteCallback from '../../hooks/useWriteCallback';
 
-import { todoStatusHandling } from '../../utils/recoil/statusHandling';
-
-import { todosWithWriteQuery, todosWithHandle, todosResultAtom } from '../../recoil/todos';
 import userAtom from '../../recoil/user';
 
 import mq from '../../styles/responsive';
@@ -112,16 +109,12 @@ const DisableInput = styled.div`
 `;
 
 const TodoInput = () => {
-  const { enqueueSnackbar } = useSnackbar();
-
   const [error, setError] = useState(false);
+
+  const setTodo = useWriteCallback();
   const { register, handleSubmit, reset } = useForm();
 
-  const setTodos = useSetRecoilState(todosResultAtom);
   const { user } = useRecoilValue(userAtom);
-  const [writeLoadable, setTask] = useRecoilState(todosWithWriteQuery);
-  const setTodoResult = useSetRecoilState(todosWithHandle);
-  const { todo } = useRecoilValue(todosResultAtom);
 
   const onSubmit = ({ task }) => {
     if (!_.trim(task)) {
@@ -129,7 +122,7 @@ const TodoInput = () => {
       return;
     }
 
-    setTask(task);
+    setTodo(task);
     setError(false);
     reset();
   };
@@ -143,31 +136,6 @@ const TodoInput = () => {
       handleResetError();
     }
   };
-
-  useEffect(() => {
-    if (writeLoadable) {
-      setTodoResult({
-        loadable: writeLoadable,
-        handling: todoStatusHandling,
-      });
-    }
-  }, [writeLoadable]);
-
-  useEffect(() => {
-    if (todo) {
-      enqueueSnackbar('Success in entering To-Do', {
-        variant: 'success',
-      });
-
-      setTodos((oldTodoState) => ({
-        ...oldTodoState,
-        todos: [
-          todo,
-          ...oldTodoState.todos,
-        ],
-      }));
-    }
-  }, [todo]);
 
   if (!user) {
     return (

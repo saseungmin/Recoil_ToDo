@@ -5,10 +5,9 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import _ from 'lodash';
 
 import { NOTING_TO_DO } from '../../utils/constants/messages';
-import { loadTodosHandling } from '../../utils/recoil/statusHandling';
 
-import {
-  todosWithFilter, todosWithListQuery, todosWithHandle, todosResultAtom,
+import todosResultAtom, {
+  todosWithFilter, todosWithListQuery, todosWithHandle,
 } from '../../recoil/todos';
 
 import TodoItem from './TodoItem';
@@ -23,10 +22,7 @@ const TodoList = () => {
 
   useEffect(() => {
     if (loadTodos) {
-      setTodosResult({
-        loadable: loadTodos,
-        handling: loadTodosHandling,
-      });
+      setTodosResult(loadTodos);
     }
   }, [loadTodos]);
 

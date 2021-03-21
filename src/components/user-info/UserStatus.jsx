@@ -18,6 +18,7 @@ import { authWithLogoutQuery, authFormStatusAtom } from '../../recoil/auth';
 
 import AuthButton from './AuthButton';
 import LoggedInUserInfo from './LoggedInUserInfo';
+import todosResultAtom from '../../recoil/todos/index';
 
 const { login, register } = FORM_TYPE;
 
@@ -44,6 +45,7 @@ const UserStatus = () => {
 
   const setLogoutResult = useSetRecoilState(userWithHandle);
   const resetAuthFormStatus = useResetRecoilState(authFormStatusAtom);
+  const resetTodosStatus = useResetRecoilState(todosResultAtom);
 
   const snackbar = (variant) => (message) => enqueueSnackbar(message, { variant });
   const successSnackbar = snackbar('success');
@@ -68,6 +70,7 @@ const UserStatus = () => {
     if (!user && type === 'logout') {
       successSnackbar('Success Sign out!');
       resetAuthFormStatus();
+      resetTodosStatus();
     }
   }, [user, type]);
 

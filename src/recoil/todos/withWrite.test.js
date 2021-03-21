@@ -3,18 +3,23 @@ import { snapshot_UNSTABLE } from 'recoil';
 
 import mockAxios from 'axios';
 
-import todosWithWriteQuery from './withWrite';
+import todoWithWrite from './withWrite';
 
-jest.mock('axios');
-describe('todosWithWriteQuery', () => {
-  const data = { userId: 'id', password: 'test' };
+describe('todoWithRemove', () => {
+  const data = {
+    status: 204,
+  };
 
   beforeEach(() => {
     mockAxios.post.mockResolvedValueOnce(data);
   });
 
-  it('When new todo task is empty', () => {
+  it('Should Call api delete', async () => {
     const initialSnapshot = snapshot_UNSTABLE();
-    expect(initialSnapshot.getLoadable(todosWithWriteQuery).valueOrThrow()).toBeNull();
+
+    const response = await initialSnapshot.getPromise(todoWithWrite('task'));
+
+    expect(response).toBe(data);
+    expect(mockAxios.post).toBeCalledWith('/api/todos', { task: 'task' });
   });
 });

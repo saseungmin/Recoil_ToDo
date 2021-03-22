@@ -4,8 +4,8 @@ import { remove } from '../../services/api/todos';
 
 const todoWithRemove = selectorFamily({
   key: 'todoWithRemove',
-  get: (task) => async () => {
-    const response = await remove(task);
+  get: (id) => async () => {
+    const response = await remove(id);
 
     return response;
   },

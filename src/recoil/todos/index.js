@@ -2,8 +2,7 @@ import todosResultAtom, { filterAtom } from './atom';
 
 import todosWithFilter from './withFilter';
 import todoWithWrite from './withWrite';
-import todosWithHandle from './withTodosHandle';
-import todosWithListQuery from './withList';
+import todosWithLoad from './withLoad';
 import todoWithRemove from './withRemove';
 import todoWithUpdate from './withUpdate';
 import todoWithMultipleRemove from './withMultipleRemove';
@@ -11,8 +10,7 @@ import todoWithMultipleRemove from './withMultipleRemove';
 export {
   filterAtom,
   todosWithFilter,
-  todosWithHandle,
-  todosWithListQuery,
+  todosWithLoad,
   todoWithWrite,
   todoWithRemove,
   todoWithUpdate,

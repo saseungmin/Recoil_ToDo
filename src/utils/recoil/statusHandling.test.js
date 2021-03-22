@@ -1,5 +1,5 @@
 import {
-  authStatusHandling, logoutCheckHandling, userCheckHandling, loadTodosHandling,
+  authStatusHandling, logoutCheckHandling, userCheckHandling,
 } from './statusHandling';
 
 describe('statusHandling', () => {
@@ -56,35 +56,6 @@ describe('statusHandling', () => {
 
         expect(result).toEqual({
           checkError: error,
-        });
-      });
-    });
-  });
-
-  describe('loadTodosHandling', () => {
-    context('Have Success', () => {
-      const mock = {
-        data: [
-          { id: '1', task: 'some task', isComplete: false },
-        ],
-      };
-      it('Should load todo list', () => {
-        const result = loadTodosHandling.success(mock);
-
-        expect(result).toEqual({
-          todos: mock.data,
-          todoError: null,
-        });
-      });
-    });
-
-    context('Have Error', () => {
-      const error = 'error';
-      it('There is a error in todoError', () => {
-        const result = loadTodosHandling.error(error);
-
-        expect(result).toEqual({
-          todoError: error,
         });
       });
     });

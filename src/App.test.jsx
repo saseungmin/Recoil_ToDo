@@ -10,24 +10,18 @@ import mockAxios from 'axios';
 import { SnackbarProvider } from 'notistack';
 
 import { loadItem } from './services/storage';
-import { todoResultState } from '../fixtures/recoil-atom-state';
+import { todoResultState, userState, authState } from '../fixtures/recoil-atom-state';
 
 import App from './App';
 import InjectTestingRecoilState from './components/common/InjectTestingRecoilState';
 
-const mockAuth = {
-  type: '',
-  visible: false,
-};
+const mockGetApi = (response) => mockAxios.get.mockResolvedValueOnce(response);
 
-const mockUser = {
-  user: null,
-  checkError: null,
-};
+const mockPostApi = (response) => mockAxios.post.mockResolvedValueOnce(response);
 
 jest.mock('./services/storage');
 describe('App', () => {
-  const renderApp = ({ auth = mockAuth, user = mockUser }) => render((
+  const renderApp = ({ auth = authState, user = userState }) => render((
     <RecoilRoot>
       <SnackbarProvider>
         <InjectTestingRecoilState
@@ -132,6 +126,14 @@ describe('App', () => {
   });
 
   describe('When the recoil API call is successful, a success message appears.', () => {
+    mockPostApi({ data: 'test' });
+    mockGetApi({ data: 'test' });
+    mockGetApi({
+      data: [
+        { _id: '2', task: '할 일2', isComplete: false },
+      ],
+    });
+
     const mockUserState = {
       user: 'test',
       checkError: null,
@@ -160,9 +162,6 @@ describe('App', () => {
     });
 
     it('Success logged in', async () => {
-      mockAxios.post.mockResolvedValueOnce({ data: 'test' });
-      mockAxios.get.mockResolvedValueOnce({ data: 'test' });
-
       const props = {
         auth: {
           type: 'login',
@@ -192,8 +191,18 @@ describe('App', () => {
       expect(container).toHaveTextContent('Success Sign in!');
     });
 
+    it('render todo list contents', async () => {
+      let response;
+
+      await act(async () => {
+        response = renderApp({ user: mockUserState });
+      });
+
+      expect(response.container).toHaveTextContent('할 일2');
+    });
+
     it('success logout', async () => {
-      mockAxios.post.mockResolvedValueOnce({ data: 'mock', status: '204' });
+      mockPostApi({ data: 'mock', status: '204' });
 
       const { container, getByText } = renderApp({ user: mockUserState });
 
@@ -214,7 +223,7 @@ describe('App', () => {
       });
 
       it('It has the user session value, so the Sign out button is visible.', async () => {
-        mockAxios.get.mockResolvedValueOnce({ data: 'test' });
+        mockGetApi({ data: 'test' });
         let response;
 
         await act(async () => {
@@ -235,7 +244,7 @@ describe('App', () => {
       };
 
       it('Render success message "Success in entering To-Do!"', async () => {
-        mockAxios.post.mockResolvedValueOnce(mockData);
+        mockPostApi(mockData);
 
         const { container, getByPlaceholderText } = renderApp({ user: mockUserState });
 

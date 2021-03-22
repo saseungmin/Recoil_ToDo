@@ -24,9 +24,7 @@ describe('TodoList', () => {
     </RecoilRoot>
   ));
 
-  const mockGetApi = (data) => mockAxios.get.mockResolvedValueOnce({
-    data,
-  });
+  const mockGetApi = (data) => mockAxios.get.mockRejectedValueOnce(data);
 
   const mockPatchApi = (data) => mockAxios.patch.mockResolvedValueOnce({
     data,
@@ -42,20 +40,6 @@ describe('TodoList', () => {
         ...todoResultState,
         todos,
       }));
-
-      it('render todo list contents', async () => {
-        mockGetApi([
-          { _id: '2', task: '할 일2', isComplete: false },
-        ]);
-
-        let response;
-
-        await act(async () => {
-          response = renderTodoList('ALL', { user: 'test', checkError: null });
-        });
-
-        expect(response.container).toHaveTextContent('할 일2');
-      });
 
       it('click remove button call handleRemove and remove todoItem', async () => {
         const { container, getByTestId } = renderTodoList();
@@ -231,6 +215,24 @@ describe('TodoList', () => {
       const { container } = renderTodoList();
 
       expect(container).toHaveTextContent('할 일이 없어요!');
+    });
+
+    it("Fail load To-do's", async () => {
+      const mockError = {
+        response: {
+          status: 400,
+        },
+      };
+
+      mockGetApi(mockError);
+
+      let response;
+
+      await act(async () => {
+        response = renderTodoList('ALL', { user: 'test', checkError: null });
+      });
+
+      expect(response.container).toHaveTextContent('할 일이 없어요!');
     });
   });
 });

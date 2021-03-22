@@ -1,30 +1,31 @@
 import React, { useEffect } from 'react';
 
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 
 import _ from 'lodash';
 
 import { NOTING_TO_DO } from '../../utils/constants/messages';
 
-import todosResultAtom, {
-  todosWithFilter, todosWithListQuery, todosWithHandle,
-} from '../../recoil/todos';
+import userAtom from '../../recoil/user';
+import todosResultAtom, { todosWithFilter } from '../../recoil/todos';
 
 import TodoItem from './TodoItem';
 import EmptyStatus from './EmptyStatus';
 import EmptyMessage from '../../styles/EmptyMessage';
+import useLoadCallback from '../../hooks/useLoadCallback';
 
 const TodoList = () => {
+  const loadTodos = useLoadCallback();
+
+  const { user } = useRecoilValue(userAtom);
   const { todos } = useRecoilValue(todosResultAtom);
   const filteredTodos = useRecoilValue(todosWithFilter);
-  const loadTodos = useRecoilValue(todosWithListQuery);
-  const setTodosResult = useSetRecoilState(todosWithHandle);
 
   useEffect(() => {
-    if (loadTodos) {
-      setTodosResult(loadTodos);
+    if (user) {
+      loadTodos();
     }
-  }, [loadTodos]);
+  }, [user]);
 
   if (_.isEmpty(todos)) {
     return (

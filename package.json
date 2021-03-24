@@ -32,7 +32,6 @@
     "facepaint": "^1.2.1",
     "lodash": "^4.17.20",
     "notistack": "^1.0.4",
-    "query-string": "^4.3.4",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-hook-form": "^6.15.4",
@@ -40,7 +39,8 @@
     "react-spinners": "^0.10.6",
     "react-tooltip": "^4.2.13",
     "react-use": "^17.1.1",
-    "recoil": "^0.1.2"
+    "recoil": "^0.1.2",
+    "universal-cookie": "^4.0.4"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",

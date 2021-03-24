@@ -92,7 +92,7 @@ describe('AuthStatus', () => {
 
         it('when login is successful, renders success message', async () => {
           mockAxios.post.mockResolvedValueOnce({ data: 'test' });
-          mockAxios.get.mockResolvedValueOnce({ data: 'test' });
+          mockAxios.get.mockResolvedValueOnce({ data: { user: 'test' } });
 
           const { container, getByPlaceholderText, getByTestId } = renderAuthStatus();
 

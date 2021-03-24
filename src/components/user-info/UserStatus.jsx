@@ -1,24 +1,18 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
-import {
-  useSetRecoilState, useRecoilValue, useResetRecoilState, useRecoilState,
-} from 'recoil';
+import { useSetRecoilState, useRecoilValue } from 'recoil';
 
 import styled from '@emotion/styled';
-
-import { useSnackbar } from 'notistack';
 
 import mq from '../../styles/responsive';
 
 import { FORM_TYPE } from '../../utils/constants/constants';
-import { logoutCheckHandling } from '../../utils/recoil/statusHandling';
 
-import userAtom, { userWithHandle } from '../../recoil/user';
-import { authWithLogoutQuery, authFormStatusAtom } from '../../recoil/auth';
+import userAtom from '../../recoil/user';
+import { authFormStatusAtom, authWithLogout } from '../../recoil/auth';
 
 import AuthButton from './AuthButton';
 import LoggedInUserInfo from './LoggedInUserInfo';
-import todosResultAtom from '../../recoil/todos/index';
 
 const { login, register } = FORM_TYPE;
 
@@ -37,18 +31,10 @@ const AuthButtonsWrapper = styled.div`
 `;
 
 const UserStatus = () => {
-  const { enqueueSnackbar } = useSnackbar();
-
   const { user } = useRecoilValue(userAtom);
-  const [loadable, setLogout] = useRecoilState(authWithLogoutQuery);
-  const [{ type }, setAuthStatus] = useRecoilState(authFormStatusAtom);
 
-  const setLogoutResult = useSetRecoilState(userWithHandle);
-  const resetAuthFormStatus = useResetRecoilState(authFormStatusAtom);
-  const resetTodosStatus = useResetRecoilState(todosResultAtom);
-
-  const snackbar = (variant) => (message) => enqueueSnackbar(message, { variant });
-  const successSnackbar = snackbar('success');
+  const setAuthStatus = useSetRecoilState(authFormStatusAtom);
+  const setLogout = useSetRecoilState(authWithLogout);
 
   const onClickOpenModal = (formType) => {
     setAuthStatus({
@@ -56,23 +42,6 @@ const UserStatus = () => {
       visible: true,
     });
   };
-
-  useEffect(() => {
-    if (loadable) {
-      setLogoutResult({
-        loadable,
-        handling: logoutCheckHandling,
-      });
-    }
-  }, [loadable]);
-
-  useEffect(() => {
-    if (!user && type === 'logout') {
-      successSnackbar('Success Sign out!');
-      resetAuthFormStatus();
-      resetTodosStatus();
-    }
-  }, [user, type]);
 
   if (user) {
     return (

@@ -1,42 +1,21 @@
-import { selector, noWait } from 'recoil';
+import { selector } from 'recoil';
 
+import userAtom from '../user/atom';
+import todosResultAtom from '../todos';
 import { authFormStatusAtom } from './atom';
 
-import { logout } from '../../services/api/auth';
-import recoilLoadable from '../../utils/recoil/recoilLoadable';
+import { removeItem } from '../../services/storage';
+import { removeCookie } from '../../services/cookie';
 
 const authWithLogout = selector({
   key: 'authWithLogout',
-  get: async () => {
-    const response = await logout();
-
-    return response;
+  set: ({ reset }) => {
+    reset(userAtom);
+    reset(authFormStatusAtom);
+    reset(todosResultAtom);
+    removeItem('user');
+    removeCookie('access_token');
   },
 });
 
-const authWithLogoutQuery = selector({
-  key: 'authWithLogoutQuery',
-  get: ({ get }) => {
-    const { type } = get(authFormStatusAtom);
-
-    if (type !== 'logout') {
-      return null;
-    }
-
-    const loadable = recoilLoadable(get(noWait(authWithLogout)));
-
-    return loadable;
-  },
-  set: ({ set }) => {
-    set(
-      authFormStatusAtom,
-      (prevState) => ({
-        ...prevState,
-        type: 'logout',
-        visible: false,
-      }),
-    );
-  },
-});
-
-export default authWithLogoutQuery;
+export default authWithLogout;

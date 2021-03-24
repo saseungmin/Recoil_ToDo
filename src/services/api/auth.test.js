@@ -1,8 +1,6 @@
 import mockAxios from 'axios';
 
-import {
-  register, login, logout, check,
-} from './auth';
+import { register, login, check } from './auth';
 
 jest.mock('axios');
 
@@ -21,12 +19,6 @@ describe('auth api', () => {
 
   it('/api/auth/login', async () => {
     const result = await login(data);
-
-    expect(result).toBe(data);
-  });
-
-  it('/api/auth/logout', async () => {
-    const result = await logout(data);
 
     expect(result).toBe(data);
   });

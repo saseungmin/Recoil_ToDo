@@ -127,7 +127,7 @@ describe('App', () => {
 
   describe('When the recoil API call is successful, a success message appears.', () => {
     mockPostApi({ data: 'test' });
-    mockGetApi({ data: 'test' });
+    mockGetApi({ data: { user: 'test' } });
     mockGetApi({
       data: [
         { _id: '2', task: '할 일2', isComplete: false },
@@ -201,18 +201,6 @@ describe('App', () => {
       expect(response.container).toHaveTextContent('할 일2');
     });
 
-    it('success logout', async () => {
-      mockPostApi({ data: 'mock', status: '204' });
-
-      const { container, getByText } = renderApp({ user: mockUserState });
-
-      await act(async () => {
-        fireEvent.click(getByText('Sign out'));
-      });
-
-      expect(container).toHaveTextContent('Success Sign out!');
-    });
-
     describe('when logged in have success status', () => {
       const user = {
         id: 'test',
@@ -223,7 +211,7 @@ describe('App', () => {
       });
 
       it('It has the user session value, so the Sign out button is visible.', async () => {
-        mockGetApi({ data: 'test' });
+        mockGetApi({ data: { user: 'test' } });
         let response;
 
         await act(async () => {

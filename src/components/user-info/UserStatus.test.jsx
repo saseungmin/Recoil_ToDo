@@ -1,26 +1,19 @@
 import React from 'react';
 
-import mockAxios from 'axios';
-
 import { RecoilRoot } from 'recoil';
 
 import { render, fireEvent } from '@testing-library/react';
 
-import { SnackbarProvider } from 'notistack';
-
-import { act } from 'react-dom/test-utils';
 import UserStatus from './UserStatus';
 import InjectTestingRecoilState from '../common/InjectTestingRecoilState';
 
 describe('UserStatus', () => {
   const renderUserStatus = () => render((
     <RecoilRoot>
-      <SnackbarProvider>
-        <InjectTestingRecoilState
-          user={given.user}
-        />
-        <UserStatus />
-      </SnackbarProvider>
+      <InjectTestingRecoilState
+        user={given.user}
+      />
+      <UserStatus />
     </RecoilRoot>
   ));
 
@@ -38,15 +31,14 @@ describe('UserStatus', () => {
 
     describe('When click Sign out button, call event', () => {
       it('when sign out is successful, renders success message', async () => {
-        mockAxios.post.mockResolvedValueOnce({ data: 'test' });
-
         const { container, getByTestId } = renderUserStatus();
 
-        await act(async () => {
-          fireEvent.click(getByTestId('sign-out-button'));
-        });
+        expect(container).toHaveTextContent('Sign out');
 
-        expect(container).toHaveTextContent('Success Sign out!');
+        fireEvent.click(getByTestId('sign-out-button'));
+
+        expect(container).toHaveTextContent('Sign in');
+        expect(container).toHaveTextContent('Sign up');
       });
     });
   });

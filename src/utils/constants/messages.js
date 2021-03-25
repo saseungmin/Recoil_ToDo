@@ -9,6 +9,7 @@ export const AUTH_ERROR = {
   CONFLICT: '이미 존재하는 아이디입니다.',
   UNAUTHORIZED: '아이디 또는 비밀번호가 다릅니다.',
   INTERNAL_SERVER_ERROR: '서버에 문제가 발생하였습니다. 관리자에게 문의하세요.',
+  SOMETHING_WRONG: '알 수 없는 오류가 생겼습니다.. 잠시 후 다시 시도해주세요!',
 };
 
 export const TODO_ERROR = {
@@ -21,6 +22,7 @@ export const TODO_ERROR = {
 export const TODO_SUCCESS = {
   DELETE: 'Todo has been deleted successfully!',
   MULTIPLE_DELETE: 'All completed To-Dos have been deleted!',
+  WRITE: 'Success in entering To-Do!',
 };
 
 export const EMPTY_AUTH_INPUT = '입력이 안된 사항이 있습니다.';

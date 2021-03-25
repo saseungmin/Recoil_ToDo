@@ -53,8 +53,9 @@ describe('AuthStatus', () => {
           { placeholder: '비밀번호 확인', value: 'test' },
         ];
 
-        it('when sign up is successful, renders success message', async () => {
-          mockAxios.post.mockResolvedValueOnce({ data: 'test' });
+        it('when sign up is successful, renders Sign in modal', async () => {
+          mockAxios.post.mockResolvedValueOnce({ data: { access_token: 'test' } });
+          mockAxios.get.mockRejectedValueOnce({ response: { status: 403 } });
 
           const { container, getByPlaceholderText, getByTestId } = renderAuthStatus();
 
@@ -68,7 +69,7 @@ describe('AuthStatus', () => {
             fireEvent.submit(getByTestId('auth-submit-button'));
           });
 
-          expect(container).toHaveTextContent('Success Sign up!');
+          expect(container).toHaveTextContent('Sign in');
         });
       });
     });
@@ -91,8 +92,8 @@ describe('AuthStatus', () => {
         ];
 
         it('when login is successful, renders success message', async () => {
-          mockAxios.post.mockResolvedValueOnce({ data: 'test' });
-          mockAxios.get.mockResolvedValueOnce({ data: { user: 'test' } });
+          mockAxios.post.mockResolvedValueOnce({ data: { access_token: 'test' } });
+          mockAxios.get.mockRejectedValueOnce({ response: { status: 403 } });
 
           const { container, getByPlaceholderText, getByTestId } = renderAuthStatus();
 
@@ -106,7 +107,7 @@ describe('AuthStatus', () => {
             fireEvent.submit(getByTestId('auth-submit-button'));
           });
 
-          expect(container).toHaveTextContent('Success Sign in!');
+          expect(container).toHaveTextContent('Failure Sign in!');
         });
       });
     });

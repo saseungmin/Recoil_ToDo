@@ -59,6 +59,7 @@ describe('LoginForm', () => {
         };
 
         mockAxios.post.mockRejectedValueOnce(mockData);
+        mockAxios.get.mockResolvedValueOnce(mockData);
 
         const { container, getByTestId, getByPlaceholderText } = renderLoginForm();
 
@@ -72,7 +73,9 @@ describe('LoginForm', () => {
           fireEvent.submit(getByTestId('auth-submit-button'));
         });
 
-        expect(container).toHaveTextContent('Failure Sign in!');
+        expect(mockAxios.post).toBeCalledTimes(1);
+        expect(mockAxios.get).not.toBeCalled();
+        expect(container).not.toHaveTextContent('Success Sign in!');
       });
 
       it('When have some check server error, renders error message', () => {

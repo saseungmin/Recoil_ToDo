@@ -107,7 +107,8 @@ describe('AuthStatus', () => {
             fireEvent.submit(getByTestId('auth-submit-button'));
           });
 
-          expect(container).toHaveTextContent('Failure Sign in!');
+          expect(container).toHaveTextContent('Sign in');
+          expect(mockAxios.get).toBeCalledTimes(1);
         });
       });
     });

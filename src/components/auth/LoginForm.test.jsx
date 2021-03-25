@@ -77,17 +77,6 @@ describe('LoginForm', () => {
         expect(mockAxios.get).not.toBeCalled();
         expect(container).not.toHaveTextContent('Success Sign in!');
       });
-
-      it('When have some check server error, renders error message', () => {
-        const user = {
-          user: null,
-          checkError: 'some check error',
-        };
-
-        const { container } = renderLoginForm(user);
-
-        expect(container).toHaveTextContent('Failure Sign in!');
-      });
     });
   });
 });

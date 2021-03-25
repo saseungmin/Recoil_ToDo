@@ -1,4 +1,3 @@
-// eslint-disable-next-line camelcase
 import { snapshot_UNSTABLE } from 'recoil';
 
 import mockAxios from 'axios';

@@ -1,15 +1,14 @@
 import React, { useEffect } from 'react';
 
-import { useSetRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
+import { useSetRecoilState, useRecoilValue } from 'recoil';
 
 import { useSnackbar } from 'notistack';
 
-import authFieldsAtom, {
-  authWithHandle, authResultAtom, authFormStatusAtom, authWithRegisterQuery,
-} from '../../recoil/auth';
+import { authResultAtom, authFormStatusAtom, authWithRegister } from '../../recoil/auth';
+
+import useAuthCallback from '../../hooks/useAuthCallback';
 
 import { FORM_TYPE } from '../../utils/constants/constants';
-import { authErrorMessage } from '../../utils/errorMessageHandling';
 import { isCheckValidate, isEqualPassword } from '../../utils/utils';
 import { EMPTY_AUTH_INPUT, NOT_MATCH_PASSWORD } from '../../utils/constants/messages';
 
@@ -17,20 +16,15 @@ import AuthModalForm from './AuthModalForm';
 
 const RegisterForm = () => {
   const { enqueueSnackbar } = useSnackbar();
-  const setErrorMessage = authErrorMessage(FORM_TYPE.register);
 
-  const setAuthFields = useSetRecoilState(authFieldsAtom);
-  const setRegisterResult = useSetRecoilState(authWithHandle);
+  const registerCallback = useAuthCallback(FORM_TYPE.register);
+
   const setLoginVisible = useSetRecoilState(authFormStatusAtom);
+  const { authSuccess } = useRecoilValue(authResultAtom);
 
-  const { auth, authError } = useRecoilValue(authResultAtom);
-  const registerLoadable = useRecoilValue(authWithRegisterQuery);
-
-  const setResetAuth = useResetRecoilState(authResultAtom);
-
-  const snackbar = (variant) => (message) => enqueueSnackbar(message, { variant });
-  const errorSnackbar = snackbar('error');
-  const successSnackbar = snackbar('success');
+  const errorSnackbar = (message) => enqueueSnackbar(message, {
+    variant: 'error',
+  });
 
   const onSubmit = (formData) => {
     if (!isCheckValidate(formData)) {
@@ -45,28 +39,14 @@ const RegisterForm = () => {
       return;
     }
 
-    setAuthFields(formData);
+    registerCallback(authWithRegister(formData));
   };
 
   useEffect(() => {
-    if (registerLoadable) {
-      setRegisterResult(registerLoadable);
-    }
-  }, [registerLoadable]);
-
-  useEffect(() => {
-    if (auth) {
-      successSnackbar('Success Sign up!');
-      setResetAuth();
-      setAuthFields(null);
+    if (authSuccess) {
       setLoginVisible({ type: 'login', visible: true });
     }
-
-    if (authError) {
-      errorSnackbar(setErrorMessage(authError));
-      setResetAuth();
-    }
-  }, [auth, authError]);
+  }, [authSuccess]);
 
   return (
     <AuthModalForm

@@ -62,7 +62,7 @@ describe('RegisterForm', () => {
         expect(container).toHaveTextContent('입력하신 비밀번호가 일치하지 않습니다.');
       });
 
-      it('When there is an empty value, renders error message', async () => {
+      it('When there is an empty value, call axios response rejected', async () => {
         const input = [
           { placeholder: '아이디', value: 'test' },
           { placeholder: '비밀번호', value: 'test' },
@@ -78,7 +78,7 @@ describe('RegisterForm', () => {
 
         mockAxios.post.mockRejectedValueOnce(mockData);
 
-        const { container, getByTestId, getByPlaceholderText } = renderRegisterForm();
+        const { getByTestId, getByPlaceholderText } = renderRegisterForm();
 
         await act(async () => {
           input.forEach(async ({ placeholder, value }) => {
@@ -90,7 +90,7 @@ describe('RegisterForm', () => {
           fireEvent.submit(getByTestId('auth-submit-button'));
         });
 
-        expect(container).toHaveTextContent('Failure Sign up!');
+        expect(mockAxios.post).toBeCalledTimes(1);
       });
     });
   });

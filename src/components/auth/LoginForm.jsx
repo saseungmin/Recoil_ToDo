@@ -22,11 +22,10 @@ const LoginForm = () => {
   const loginCallback = useAuthCallback(FORM_TYPE.login);
   const checkCallback = useCheckCallback();
 
+  const { user } = useRecoilValue(userAtom);
   const { authSuccess } = useRecoilValue(authResultAtom);
-  const { user, checkError } = useRecoilValue(userAtom);
 
-  const setResetUser = useResetRecoilState(userAtom);
-  const resetAuthStatusState = useResetRecoilState(authFormStatusAtom);
+  const resetAuthFormState = useResetRecoilState(authFormStatusAtom);
 
   const snackbar = (variant) => (message) => enqueueSnackbar(message, { variant });
   const errorSnackbar = snackbar('error');
@@ -51,14 +50,9 @@ const LoginForm = () => {
   useEffect(() => {
     if (user) {
       successSnackbar('Success Sign in!');
-      resetAuthStatusState();
+      resetAuthFormState();
     }
-
-    if (checkError) {
-      errorSnackbar('Failure Sign in!');
-      setResetUser();
-    }
-  }, [user, checkError]);
+  }, [user]);
 
   return (
     <AuthModalForm

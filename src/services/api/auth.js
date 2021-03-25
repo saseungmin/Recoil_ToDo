@@ -18,4 +18,8 @@ export const login = ({
   password,
 });
 
-export const check = () => client.get(`${AUTH_PATH}/check`);
+export const check = (token) => client.get(`${AUTH_PATH}/check`, {
+  headers: {
+    Authorization: token,
+  },
+});

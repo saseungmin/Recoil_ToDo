@@ -9,9 +9,7 @@ import { FORM_TYPE } from '../../utils/constants/constants';
 import { EMPTY_AUTH_INPUT } from '../../utils/constants/messages';
 
 import userAtom from '../../recoil/user';
-import {
-  authResultAtom, authFormStatusAtom, authWithLogin,
-} from '../../recoil/auth';
+import authResultAtom, { authFormStatusAtom, authWithLogin } from '../../recoil/auth';
 
 import useAuthCallback from '../../hooks/useAuthCallback';
 import useCheckCallback from '../../hooks/useCheckCallback';

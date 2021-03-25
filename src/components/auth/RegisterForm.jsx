@@ -4,7 +4,7 @@ import { useSetRecoilState, useRecoilValue } from 'recoil';
 
 import { useSnackbar } from 'notistack';
 
-import { authResultAtom, authFormStatusAtom, authWithRegister } from '../../recoil/auth';
+import authResultAtom, { authFormStatusAtom, authWithRegister } from '../../recoil/auth';
 
 import useAuthCallback from '../../hooks/useAuthCallback';
 

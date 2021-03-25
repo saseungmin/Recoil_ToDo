@@ -36,12 +36,10 @@ const UserStatus = () => {
   const setAuthStatus = useSetRecoilState(authFormStatusAtom);
   const setLogout = useSetRecoilState(authWithLogout);
 
-  const onClickOpenModal = (formType) => {
-    setAuthStatus({
-      type: formType,
-      visible: true,
-    });
-  };
+  const onClickOpenModal = (formType) => setAuthStatus({
+    type: formType,
+    visible: true,
+  });
 
   if (user) {
     return (

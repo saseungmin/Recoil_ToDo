@@ -1,9 +1,10 @@
 import { useRecoilCallback } from 'recoil';
 
 import isLoadingAtom from '../recoil/common/atom';
-import { authResultAtom } from '../recoil/auth';
+import authResultAtom from '../recoil/auth';
 
-import { authErrorMessages } from '../utils/errorMessageHandling';
+import { authErrorMessage } from '../utils/errorMessageHandling';
+
 import { setCookie } from '../services/cookie';
 
 const useAuthCallback = (authType) => useRecoilCallback(({
@@ -26,7 +27,7 @@ const useAuthCallback = (authType) => useRecoilCallback(({
   } catch (error) {
     set(authResultAtom, (prevState) => ({
       ...prevState,
-      authError: authErrorMessages(error),
+      authError: authErrorMessage(error),
     }));
   } finally {
     reset(isLoadingAtom);

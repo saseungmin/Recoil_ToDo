@@ -3,6 +3,7 @@ import { useRecoilCallback } from 'recoil';
 import isLoadingAtom from '../recoil/common/atom';
 import todosResultAtom, { todoWithWrite } from '../recoil/todos';
 
+import { TODO_SUCCESS } from '../utils/constants/messages';
 import { todoErrorMessage } from '../utils/errorMessageHandling';
 
 const useWriteCallback = () => useRecoilCallback(({
@@ -17,7 +18,7 @@ const useWriteCallback = () => useRecoilCallback(({
       todosResultAtom,
       (prevState) => ({
         ...prevState,
-        todoSuccess: 'Success in entering To-Do!',
+        todoSuccess: TODO_SUCCESS.WRITE,
         todos: [
           data,
           ...prevState.todos,

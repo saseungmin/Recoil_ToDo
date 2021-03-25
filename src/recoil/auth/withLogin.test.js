@@ -1,20 +1,30 @@
-// eslint-disable-next-line camelcase
 import { snapshot_UNSTABLE } from 'recoil';
 
 import mockAxios from 'axios';
 
-import authWithLoginQuery from './withLogin';
+import authWithLogin from './withLogin';
 
-jest.mock('axios');
-describe('authWithLoginQuery', () => {
-  const data = { userId: 'id', password: 'test' };
+describe('authWithLogin', () => {
+  const data = {
+    status: 204,
+  };
 
   beforeEach(() => {
     mockAxios.post.mockResolvedValueOnce(data);
   });
 
-  it('When auth input fields is empty', () => {
+  it('Should Call api login', async () => {
     const initialSnapshot = snapshot_UNSTABLE();
-    expect(initialSnapshot.getLoadable(authWithLoginQuery).valueOrThrow()).toBeNull();
+
+    const response = await initialSnapshot.getPromise(authWithLogin({
+      userId: 'test',
+      password: 'test',
+    }));
+
+    expect(response).toBe(data);
+    expect(mockAxios.post).toBeCalledWith('/api/auth/login', {
+      id: 'test',
+      password: 'test',
+    });
   });
 });

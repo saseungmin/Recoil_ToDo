@@ -20,6 +20,7 @@ import TodoSubInfo from './components/info-bar/TodoSubInfo';
 import UserStatus from './components/user-info/UserStatus';
 import LoadingSpinner from './components/common/LoadingSpinner';
 import TodoStatusSnackbar from './components/common/TodoStatusSnackbar';
+import AuthStatusSnackbar from './components/common/AuthStatusSnackbar';
 
 const HeaderWrapper = styled.h1`
   ${mq({
@@ -67,6 +68,7 @@ const App = () => {
       <Footer />
       <AuthStatus />
       <LoadingSpinner />
+      <AuthStatusSnackbar />
       <TodoStatusSnackbar />
     </AppBlock>
   );

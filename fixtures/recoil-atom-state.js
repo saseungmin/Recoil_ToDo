@@ -6,6 +6,7 @@ export const authState = {
 export const authResultState = {
   auth: null,
   authError: null,
+  authSuccess: null,
 };
 
 export const userState = {

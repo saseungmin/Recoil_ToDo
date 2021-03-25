@@ -1,39 +1,33 @@
 import React, { useEffect } from 'react';
 
-import { useSetRecoilState, useResetRecoilState, useRecoilValue } from 'recoil';
-
-import { useUnmount } from 'react-use';
+import { useResetRecoilState, useRecoilValue } from 'recoil';
 
 import { useSnackbar } from 'notistack';
 
 import { isCheckValidate } from '../../utils/utils';
 import { FORM_TYPE } from '../../utils/constants/constants';
 import { EMPTY_AUTH_INPUT } from '../../utils/constants/messages';
-import { authErrorMessage } from '../../utils/errorMessageHandling';
-import { userCheckHandling } from '../../utils/recoil/statusHandling';
 
-import userAtom, { userWithHandle, userWithCheckQuery } from '../../recoil/user';
-import authFieldsAtom, {
-  authResultAtom, authFormStatusAtom, authWithLoginQuery, authWithHandle,
+import userAtom from '../../recoil/user';
+import {
+  authResultAtom, authFormStatusAtom, authWithLogin,
 } from '../../recoil/auth';
+
+import useAuthCallback from '../../hooks/useAuthCallback';
+import useCheckCallback from '../../hooks/useCheckCallback';
 
 import AuthModalForm from './AuthModalForm';
 
 const LoginForm = () => {
   const { enqueueSnackbar } = useSnackbar();
-  const setErrorMessage = authErrorMessage(FORM_TYPE.login);
 
-  const setAuthFields = useSetRecoilState(authFieldsAtom);
-  const setLoginResult = useSetRecoilState(authWithHandle);
-  const setUserResult = useSetRecoilState(userWithHandle);
+  const loginCallback = useAuthCallback(FORM_TYPE.login);
+  const checkCallback = useCheckCallback();
 
-  const authLoadable = useRecoilValue(authWithLoginQuery);
-  const checkLoadable = useRecoilValue(userWithCheckQuery);
-  const { authError } = useRecoilValue(authResultAtom);
+  const { authSuccess } = useRecoilValue(authResultAtom);
   const { user, checkError } = useRecoilValue(userAtom);
 
   const setResetUser = useResetRecoilState(userAtom);
-  const setResetAuth = useResetRecoilState(authResultAtom);
   const resetAuthStatusState = useResetRecoilState(authFormStatusAtom);
 
   const snackbar = (variant) => (message) => enqueueSnackbar(message, { variant });
@@ -47,30 +41,14 @@ const LoginForm = () => {
       return;
     }
 
-    setAuthFields(formData);
+    loginCallback(authWithLogin(formData));
   };
 
   useEffect(() => {
-    if (authLoadable) {
-      setLoginResult(authLoadable);
+    if (authSuccess) {
+      checkCallback();
     }
-  }, [authLoadable]);
-
-  useEffect(() => {
-    if (checkLoadable) {
-      setUserResult({
-        loadable: checkLoadable,
-        handling: userCheckHandling,
-      });
-    }
-  }, [checkLoadable]);
-
-  useEffect(() => {
-    if (authError) {
-      errorSnackbar(setErrorMessage(authError));
-      setResetAuth();
-    }
-  }, [authError]);
+  }, [authSuccess]);
 
   useEffect(() => {
     if (user) {
@@ -83,11 +61,6 @@ const LoginForm = () => {
       setResetUser();
     }
   }, [user, checkError]);
-
-  useUnmount(() => {
-    setResetAuth();
-    setAuthFields(null);
-  });
 
   return (
     <AuthModalForm

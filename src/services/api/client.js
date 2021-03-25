@@ -3,14 +3,19 @@ import axios from 'axios';
 import { setPath } from '../../utils/utils';
 import { getCookie } from '../cookie';
 
-const client = axios.create(setPath(process.env.NODE_ENV));
+const fetchClient = () => {
+  const client = axios.create(setPath(process.env.NODE_ENV));
 
-client.interceptors.request.use((config) => {
-  const token = getCookie('access_token');
-  // eslint-disable-next-line no-param-reassign
-  config.headers.Authorization = token || '';
+  client.interceptors.request.use((config) => {
+    const token = getCookie('access_token');
 
-  return config;
-});
+    // eslint-disable-next-line no-param-reassign
+    config.headers.Authorization = token || '';
 
-export default client;
+    return config;
+  });
+
+  return client;
+};
+
+export default fetchClient();

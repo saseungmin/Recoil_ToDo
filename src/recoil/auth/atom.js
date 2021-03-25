@@ -17,6 +17,7 @@ export const authResultAtom = atom({
   default: {
     auth: null,
     authError: null,
+    authSuccess: null,
   },
 });
 

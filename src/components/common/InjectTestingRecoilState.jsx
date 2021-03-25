@@ -4,7 +4,7 @@ import { useSetRecoilState } from 'recoil';
 
 import userAtom from '../../recoil/user';
 import todosResultAtom, { filterAtom } from '../../recoil/todos';
-import authFieldsAtom, { authFormStatusAtom, authResultAtom } from '../../recoil/auth';
+import authResultAtom, { authFormStatusAtom } from '../../recoil/auth';
 import isLoadingAtom from '../../recoil/common/atom';
 
 import {
@@ -16,7 +16,6 @@ const InjectTestingRecoilState = ({
   filter = 'ALL',
   user = userState,
   auth = authState,
-  authFields = null,
   authResult = authResultState,
   isLoading = false,
 }) => {
@@ -24,7 +23,6 @@ const InjectTestingRecoilState = ({
   const setFilterState = useSetRecoilState(filterAtom);
   const setUserState = useSetRecoilState(userAtom);
   const setAuthState = useSetRecoilState(authFormStatusAtom);
-  const setAuthFieldsState = useSetRecoilState(authFieldsAtom);
   const setAuthResultState = useSetRecoilState(authResultAtom);
   const setLoadingState = useSetRecoilState(isLoadingAtom);
 
@@ -33,7 +31,6 @@ const InjectTestingRecoilState = ({
     setAuthState(auth);
     setTodosState(todos);
     setFilterState(filter);
-    setAuthFieldsState(authFields);
     setAuthResultState(authResult);
     setLoadingState(isLoading);
   }, []);

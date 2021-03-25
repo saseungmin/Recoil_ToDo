@@ -4,7 +4,7 @@ import userAtom, { userWithCheck } from '../recoil/user';
 import isLoadingAtom from '../recoil/common/atom';
 
 import { removeItem } from '../services/storage';
-import { removeCookie } from '../services/cookie';
+import { removeCookie, getCookie } from '../services/cookie';
 
 const useCheckCallback = () => useRecoilCallback(({
   snapshot, set, reset,
@@ -12,7 +12,7 @@ const useCheckCallback = () => useRecoilCallback(({
   set(isLoadingAtom, true);
 
   try {
-    const { data } = await snapshot.getPromise(userWithCheck());
+    const { data } = await snapshot.getPromise(userWithCheck(getCookie('access_token')));
 
     set(userAtom, (prevState) => ({
       ...prevState,

@@ -1,28 +1,6 @@
 import { TODO_ERROR, AUTH_ERROR } from './constants/messages';
 
-export const authErrorMessage = (auth) => ({ status, data }) => {
-  const { UNAUTHORIZED, CONFLICT, INTERNAL_SERVER_ERROR } = AUTH_ERROR;
-
-  if (status === 400) {
-    return data.details[0].message;
-  }
-
-  if (status === 401) {
-    return UNAUTHORIZED;
-  }
-
-  if (status === 409) {
-    return CONFLICT;
-  }
-
-  if (status === 500) {
-    return INTERNAL_SERVER_ERROR;
-  }
-
-  return `Failure ${auth}!`;
-};
-
-export const authErrorMessages = ({ response }) => {
+export const authErrorMessage = ({ response }) => {
   const {
     UNAUTHORIZED, CONFLICT, INTERNAL_SERVER_ERROR, SOMETHING_WRONG,
   } = AUTH_ERROR;

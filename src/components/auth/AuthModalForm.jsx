@@ -12,7 +12,7 @@ import palette from '../../styles/palette';
 
 import { FORM_TYPE } from '../../utils/constants/constants';
 
-import authFieldsAtom, { authFormStatusAtom } from '../../recoil/auth';
+import { authFormStatusAtom } from '../../recoil/auth';
 
 import CloseIcon from '../../assets/icons/close.svg';
 import AuthInput from './AuthInput';
@@ -103,13 +103,7 @@ const AuthModalForm = ({ onSubmit }) => {
 
   const { type, visible } = useRecoilValue(authFormStatusAtom);
 
-  const resetAuthStatusState = useResetRecoilState(authFormStatusAtom);
-  const resetAuthFieldsState = useResetRecoilState(authFieldsAtom);
-
-  const onCloseAuthModal = () => {
-    resetAuthStatusState();
-    resetAuthFieldsState();
-  };
+  const onCloseAuthModal = useResetRecoilState(authFormStatusAtom);
 
   const formType = FORM_TYPE[type];
 

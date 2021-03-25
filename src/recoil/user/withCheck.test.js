@@ -16,9 +16,11 @@ describe('authWithLogin', () => {
   it('Should Call api check', async () => {
     const initialSnapshot = snapshot_UNSTABLE();
 
-    const response = await initialSnapshot.getPromise(userWithCheck());
+    const response = await initialSnapshot.getPromise(userWithCheck('token'));
 
     expect(response).toBe(data);
-    expect(mockAxios.get).toBeCalledWith('/api/auth/check');
+    expect(mockAxios.get).toBeCalledWith('/api/auth/check', {
+      headers: { Authorization: 'token' },
+    });
   });
 });

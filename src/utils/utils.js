@@ -2,9 +2,6 @@ import _ from 'lodash';
 
 import { BASE_URL } from './constants/url';
 
-import { removeItem } from '../services/storage';
-import { removeCookie } from '../services/cookie';
-
 export const updateTodos = (todos, newTodo) => todos.map((todo) => {
   if (todo._id === newTodo._id) {
     return newTodo;
@@ -43,21 +40,3 @@ export const isCheckValidate = (inputValue) => Object
 
 export const isEqualPassword = ({ password, passwordConfirm }) => passwordConfirm
   && (password !== passwordConfirm);
-
-export const userCheckErrorHandling = async (userCheck) => {
-  try {
-    const response = await userCheck;
-
-    return response;
-  } catch (error) {
-    removeItem('user');
-    removeCookie('access_token');
-
-    return {
-      data: {
-        user: null,
-        access_token: null,
-      },
-    };
-  }
-};

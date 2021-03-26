@@ -54,6 +54,6 @@ module.exports = {
     'linebreak-style': 'off',
     'no-proto': 'off',
     'no-underscore-dangle': ['error', { allow: ['_id'] }],
-    camelcase: ['error', { allow: ['snapshot_UNSTABLE', 'access_token'] }],
+    camelcase: ['error', { allow: ['snapshot_UNSTABLE', 'access_token', 'drop_console'] }],
   },
 };

@@ -75,8 +75,8 @@ module.exports = {
       banner: `
         Build Date: ${new Date().toLocaleString()}
         Commit Version: ${childProcess.execSync('git rev-parse --short HEAD')}
-        Author: ${childProcess.execSync('git config user.name')}
-        Author-Email: ${childProcess.execSync('git config user.email')}
+        Author: seungmin sa
+        Author-Email: dbd02169@naver.com
       `,
     }),
     new HtmlWebpackPlugin({

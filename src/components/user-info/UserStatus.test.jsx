@@ -2,6 +2,8 @@ import React from 'react';
 
 import { RecoilRoot } from 'recoil';
 
+import { SnackbarProvider } from 'notistack';
+
 import { render, fireEvent } from '@testing-library/react';
 
 import UserStatus from './UserStatus';
@@ -10,10 +12,12 @@ import InjectTestingRecoilState from '../common/InjectTestingRecoilState';
 describe('UserStatus', () => {
   const renderUserStatus = () => render((
     <RecoilRoot>
-      <InjectTestingRecoilState
-        user={given.user}
-      />
-      <UserStatus />
+      <SnackbarProvider>
+        <InjectTestingRecoilState
+          user={given.user}
+        />
+        <UserStatus />
+      </SnackbarProvider>
     </RecoilRoot>
   ));
 
@@ -39,6 +43,7 @@ describe('UserStatus', () => {
 
         expect(container).toHaveTextContent('Sign in');
         expect(container).toHaveTextContent('Sign up');
+        expect(container).toHaveTextContent('Successful Sign out!');
       });
     });
   });

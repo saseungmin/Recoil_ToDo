@@ -75,7 +75,7 @@ describe('LoginForm', () => {
 
         expect(mockAxios.post).toBeCalledTimes(1);
         expect(mockAxios.get).not.toBeCalled();
-        expect(container).not.toHaveTextContent('Success Sign in!');
+        expect(container).not.toHaveTextContent('Successful Sign in!');
       });
     });
   });

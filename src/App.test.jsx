@@ -188,7 +188,7 @@ describe('App', () => {
         fireEvent.submit(getByTestId('auth-submit-button'));
       });
 
-      expect(container).toHaveTextContent('Success Sign in!');
+      expect(container).toHaveTextContent('Successful Sign in!');
     });
 
     it('render todo list contents', async () => {
@@ -250,6 +250,39 @@ describe('App', () => {
         expect(input).toHaveValue('');
         expect(container).toHaveTextContent('Success in entering To-Do!');
       });
+    });
+
+    it('Success Sign up', async () => {
+      mockPostApi({ data: 'test' });
+
+      const props = {
+        auth: {
+          type: 'register',
+          visible: true,
+        },
+      };
+
+      const input = [
+        { placeholder: '아이디', value: 'test' },
+        { placeholder: '비밀번호', value: 'test' },
+        { placeholder: '비밀번호 확인', value: 'test' },
+      ];
+
+      const {
+        container, getByTestId, getByPlaceholderText,
+      } = renderApp(props);
+
+      await act(async () => {
+        input.forEach(({ placeholder, value }) => {
+          fireEvent.change(getByPlaceholderText(placeholder), { target: { value } });
+        });
+      });
+
+      await act(async () => {
+        fireEvent.submit(getByTestId('auth-submit-button'));
+      });
+
+      expect(container).toHaveTextContent('Successful Sign up!');
     });
   });
 });

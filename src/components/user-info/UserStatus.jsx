@@ -4,6 +4,7 @@ import { useSetRecoilState, useRecoilValue } from 'recoil';
 
 import styled from '@emotion/styled';
 
+import { useSnackbar } from 'notistack';
 import mq from '../../styles/responsive';
 
 import { FORM_TYPE } from '../../utils/constants/constants';
@@ -36,16 +37,25 @@ const UserStatus = () => {
   const setAuthStatus = useSetRecoilState(authFormStatusAtom);
   const setLogout = useSetRecoilState(authWithLogout);
 
+  const { enqueueSnackbar } = useSnackbar();
+
   const onClickOpenModal = (formType) => setAuthStatus({
     type: formType,
     visible: true,
   });
 
+  const onLogout = () => {
+    setLogout();
+    enqueueSnackbar('Successful Sign out!', {
+      variant: 'success',
+    });
+  };
+
   if (user) {
     return (
       <LoggedInUserInfo
         user={user}
-        onLogout={setLogout}
+        onLogout={onLogout}
       />
     );
   }

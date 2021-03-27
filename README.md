@@ -108,5 +108,5 @@
 
 - mobile
 
-<img src="images/demo-mobile.gif">
+<img src="images/demo-mobile.gif" width="300px" height="590px" >
 

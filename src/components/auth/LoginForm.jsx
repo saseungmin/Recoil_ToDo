@@ -49,7 +49,7 @@ const LoginForm = () => {
 
   useEffect(() => {
     if (user) {
-      successSnackbar('Success Sign in!');
+      successSnackbar('Successful Sign in!');
       resetAuthFormState();
     }
   }, [user]);

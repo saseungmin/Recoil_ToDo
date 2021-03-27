@@ -1,11 +1,11 @@
-import { selector } from 'recoil';
+import { selectorFamily } from 'recoil';
 
 import { list } from '../../services/api/todos';
 
-const todosWithLoad = selector({
+const todosWithLoad = selectorFamily({
   key: 'todosWithLoad',
-  get: async () => {
-    const response = await list();
+  get: (token) => async () => {
+    const response = await list(token);
 
     return response;
   },

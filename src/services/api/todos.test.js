@@ -24,10 +24,14 @@ describe('todos api', () => {
   });
 
   it('GET /api/todos', async () => {
-    const result = await list(data);
+    const result = await list('token');
 
     expect(result).toBe(data);
-    expect(mockAxios.get).toBeCalledWith('/api/todos');
+    expect(mockAxios.get).toBeCalledWith('/api/todos', {
+      headers: {
+        Authorization: 'token',
+      },
+    });
   });
 
   it('DELETE /api/todos/', async () => {

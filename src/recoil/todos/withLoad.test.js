@@ -16,9 +16,13 @@ describe('todosWithLoad', () => {
   it('Should Call api load', async () => {
     const initialSnapshot = snapshot_UNSTABLE();
 
-    const response = await initialSnapshot.getPromise(todosWithLoad);
+    const response = await initialSnapshot.getPromise(todosWithLoad('token'));
 
     expect(response).toBe(data);
-    expect(mockAxios.get).toBeCalledWith('/api/todos');
+    expect(mockAxios.get).toBeCalledWith('/api/todos', {
+      headers: {
+        Authorization: 'token',
+      },
+    });
   });
 });

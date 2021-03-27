@@ -4,7 +4,11 @@ import { TODOS_PATH } from '../../utils/constants/url';
 
 export const write = (task) => client.post(TODOS_PATH, { task });
 
-export const list = () => client.get(TODOS_PATH);
+export const list = (token) => client.get(TODOS_PATH, {
+  headers: {
+    Authorization: token,
+  },
+});
 
 export const multipleRemove = (ids) => client.delete(TODOS_PATH, {
   data: { ids },

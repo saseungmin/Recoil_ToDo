@@ -21,7 +21,7 @@ const useAuthCallback = (authType) => useRecoilCallback(({
       authResultAtom,
       (prevState) => ({
         ...prevState,
-        authSuccess: `Success ${authType}!`,
+        authSuccess: `Successful ${authType}!`,
       }),
     );
   } catch (error) {

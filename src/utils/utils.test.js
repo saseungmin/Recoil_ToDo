@@ -77,11 +77,11 @@ describe('getExpire', () => {
 });
 
 describe('getTheme', () => {
-  context('theme is Dart', () => {
+  context('theme is dark', () => {
     it('Should be return 1', () => {
-      const result = getTheme(1);
+      const result = getTheme(true);
 
-      expect(result).toBe(1);
+      expect(result).toBe(true);
     });
   });
 
@@ -89,7 +89,7 @@ describe('getTheme', () => {
     it('Should be return 0', () => {
       const result = getTheme();
 
-      expect(result).toBe(0);
+      expect(result).toBe(false);
     });
   });
 });

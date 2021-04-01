@@ -1,5 +1,5 @@
-const LIGHT = 0;
+const LIGHT = false;
 
-const DARK = 1;
+const DARK = true;
 
 export { LIGHT, DARK };

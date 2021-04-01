@@ -44,9 +44,7 @@ export const isEqualPassword = ({ password, passwordConfirm }) => passwordConfir
 
 export const getExpire = (token) => new Date(JSON.parse(atob(token.split('.')[1])).exp * 1000);
 
-export const getTheme = (themeStorage) => {
-  const theme = Number(themeStorage || LIGHT);
-
+export const getTheme = (theme) => {
   if (theme === DARK) {
     return DARK;
   }

@@ -19,6 +19,7 @@ import AuthStatus from './components/auth/AuthStatus';
 import TodoSubInfo from './components/info-bar/TodoSubInfo';
 import UserStatus from './components/user-info/UserStatus';
 import LoadingSpinner from './components/common/LoadingSpinner';
+import ToggleThemeButton from './components/common/ToggleThemeButton';
 import TodoStatusSnackbar from './components/common/TodoStatusSnackbar';
 import AuthStatusSnackbar from './components/common/AuthStatusSnackbar';
 
@@ -56,6 +57,7 @@ const App = () => {
 
   return (
     <AppBlock>
+      <ToggleThemeButton />
       <HeaderWrapper>
         {MAIN_TITLE}
       </HeaderWrapper>

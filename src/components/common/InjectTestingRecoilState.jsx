@@ -5,7 +5,7 @@ import { useSetRecoilState } from 'recoil';
 import userAtom from '../../recoil/user';
 import todosResultAtom, { filterAtom } from '../../recoil/todos';
 import authResultAtom, { authFormStatusAtom } from '../../recoil/auth';
-import isLoadingAtom from '../../recoil/common/atom';
+import isLoadingAtom, { themeModeAtom } from '../../recoil/common/atom';
 
 import {
   todoResultState, userState, authState, authResultState,
@@ -18,6 +18,7 @@ const InjectTestingRecoilState = ({
   auth = authState,
   authResult = authResultState,
   isLoading = false,
+  theme = 0,
 }) => {
   const setTodosState = useSetRecoilState(todosResultAtom);
   const setFilterState = useSetRecoilState(filterAtom);
@@ -25,6 +26,7 @@ const InjectTestingRecoilState = ({
   const setAuthState = useSetRecoilState(authFormStatusAtom);
   const setAuthResultState = useSetRecoilState(authResultAtom);
   const setLoadingState = useSetRecoilState(isLoadingAtom);
+  const setThemeState = useSetRecoilState(themeModeAtom);
 
   useEffect(() => {
     setUserState(user);
@@ -33,6 +35,7 @@ const InjectTestingRecoilState = ({
     setFilterState(filter);
     setAuthResultState(authResult);
     setLoadingState(isLoading);
+    setThemeState(theme);
   }, []);
 
   return null;

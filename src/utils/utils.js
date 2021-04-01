@@ -1,6 +1,7 @@
 import _ from 'lodash';
 
 import { BASE_URL } from './constants/url';
+import { DARK, LIGHT } from './constants/theme';
 
 export const updateTodos = (todos, newTodo) => todos.map((todo) => {
   if (todo._id === newTodo._id) {
@@ -42,3 +43,11 @@ export const isEqualPassword = ({ password, passwordConfirm }) => passwordConfir
   && (password !== passwordConfirm);
 
 export const getExpire = (token) => new Date(JSON.parse(atob(token.split('.')[1])).exp * 1000);
+
+export const getTheme = (theme) => {
+  if (theme === DARK) {
+    return DARK;
+  }
+
+  return LIGHT;
+};

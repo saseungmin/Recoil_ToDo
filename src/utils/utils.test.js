@@ -1,5 +1,5 @@
 import {
-  filteredTodos, setPath, updateTodos, getExpire,
+  filteredTodos, setPath, updateTodos, getExpire, getTheme,
 } from './utils';
 
 import mockToken from '../../fixtures/token';
@@ -73,5 +73,23 @@ describe('getExpire', () => {
     const result = getExpire(mockToken);
 
     expect(result).toEqual(new Date(1617696042 * 1000));
+  });
+});
+
+describe('getTheme', () => {
+  context('theme is dark', () => {
+    it('Should be return 1', () => {
+      const result = getTheme(true);
+
+      expect(result).toBe(true);
+    });
+  });
+
+  context('theme is without dark', () => {
+    it('Should be return 0', () => {
+      const result = getTheme();
+
+      expect(result).toBe(false);
+    });
   });
 });

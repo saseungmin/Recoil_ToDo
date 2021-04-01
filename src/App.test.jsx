@@ -48,6 +48,7 @@ describe('App', () => {
 
     const { container } = renderApp({});
 
+    expect(container).toHaveTextContent('Light');
     expect(container).toHaveTextContent('What are your plans for today?');
     expect(container).toHaveTextContent('ALL');
     expect(container).toHaveTextContent('할 일1');

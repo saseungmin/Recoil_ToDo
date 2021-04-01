@@ -11,3 +11,5 @@ export const USER_ATOM_KEY = 'userAtom';
 export const IS_LOADING_ATOM_KEY = 'loadingAtom';
 
 export const TODOS_RESULT_ATOM_KEY = 'todosResultAtom';
+
+export const THEME_MODE_ATOM_KEY = 'themeModeAtom';

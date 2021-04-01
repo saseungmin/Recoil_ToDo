@@ -40,3 +40,5 @@ export const isCheckValidate = (inputValue) => Object
 
 export const isEqualPassword = ({ password, passwordConfirm }) => passwordConfirm
   && (password !== passwordConfirm);
+
+export const getExpire = (token) => new Date(JSON.parse(atob(token.split('.')[1])).exp * 1000);

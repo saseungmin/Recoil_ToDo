@@ -1,0 +1,5 @@
+const mockToken = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
+eyJfaWQiOiJ0ZXN064ukLiIsImlkIjoi66mU66GxIiwiaWF0IjoxNjE3MjY0MDQyLCJleHAiOjE2MTc2OTYwNDJ9.
+_rKkeFeqXQs2JxtkIYRvg-xkekPKZ1JRElUHyoOOhcs`;
+
+export default mockToken;

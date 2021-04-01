@@ -9,6 +9,8 @@ import { SnackbarProvider } from 'notistack';
 import { act } from 'react-dom/test-utils';
 import { render, fireEvent } from '@testing-library/react';
 
+import mockToken from '../../../fixtures/token';
+
 import AuthStatus from './AuthStatus';
 import InjectTestingRecoilState from '../common/InjectTestingRecoilState';
 
@@ -54,7 +56,7 @@ describe('AuthStatus', () => {
         ];
 
         it('when sign up is successful, renders Sign in modal', async () => {
-          mockAxios.post.mockResolvedValueOnce({ data: { access_token: 'test' } });
+          mockAxios.post.mockResolvedValueOnce({ data: { access_token: mockToken } });
           mockAxios.get.mockRejectedValueOnce({ response: { status: 403 } });
 
           const { container, getByPlaceholderText, getByTestId } = renderAuthStatus();
@@ -92,7 +94,7 @@ describe('AuthStatus', () => {
         ];
 
         it('when login is successful, renders success message', async () => {
-          mockAxios.post.mockResolvedValueOnce({ data: { access_token: 'test' } });
+          mockAxios.post.mockResolvedValueOnce({ data: { access_token: mockToken } });
           mockAxios.get.mockRejectedValueOnce({ response: { status: 403 } });
 
           const { container, getByPlaceholderText, getByTestId } = renderAuthStatus();

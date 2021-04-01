@@ -10,6 +10,8 @@ import mockAxios from 'axios';
 import { SnackbarProvider } from 'notistack';
 
 import { loadItem } from './services/storage';
+
+import mockToken from '../fixtures/token';
 import { todoResultState, userState, authState } from '../fixtures/recoil-atom-state';
 
 import App from './App';
@@ -126,7 +128,11 @@ describe('App', () => {
   });
 
   describe('When the recoil API call is successful, a success message appears.', () => {
-    mockPostApi({ data: 'test' });
+    mockPostApi({
+      data: {
+        access_token: mockToken,
+      },
+    });
     mockGetApi({ data: { user: 'test' } });
     mockGetApi({
       data: [
@@ -253,7 +259,11 @@ describe('App', () => {
     });
 
     it('Success Sign up', async () => {
-      mockPostApi({ data: 'test' });
+      mockPostApi({
+        data: {
+          access_token: mockToken,
+        },
+      });
 
       const props = {
         auth: {

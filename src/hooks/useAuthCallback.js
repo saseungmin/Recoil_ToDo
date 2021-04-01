@@ -3,6 +3,7 @@ import { useRecoilCallback } from 'recoil';
 import isLoadingAtom from '../recoil/common/atom';
 import authResultAtom from '../recoil/auth';
 
+import { getExpire } from '../utils/utils';
 import { authErrorMessage } from '../utils/errorMessageHandling';
 
 import { setCookie } from '../services/cookie';
@@ -13,9 +14,9 @@ const useAuthCallback = (authType) => useRecoilCallback(({
   set(isLoadingAtom, true);
 
   try {
-    const { data } = await snapshot.getPromise(authApi);
+    const { data: { access_token } } = await snapshot.getPromise(authApi);
 
-    setCookie('access_token', data.access_token);
+    setCookie('access_token', access_token, getExpire(access_token));
 
     set(
       authResultAtom,

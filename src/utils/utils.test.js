@@ -1,6 +1,8 @@
 import {
-  filteredTodos, setPath, updateTodos,
+  filteredTodos, setPath, updateTodos, getExpire,
 } from './utils';
+
+import mockToken from '../../fixtures/token';
 
 import { BASE_URL } from './constants/url';
 
@@ -63,5 +65,13 @@ describe('setPath', () => {
       baseURL: BASE_URL,
       withCredentials: true,
     });
+  });
+});
+
+describe('getExpire', () => {
+  it('Should be decoded jwt and get expire data', () => {
+    const result = getExpire(mockToken);
+
+    expect(result).toEqual(new Date(1617696042 * 1000));
   });
 });

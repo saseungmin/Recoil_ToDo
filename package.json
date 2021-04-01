@@ -39,7 +39,7 @@
     "react-spinners": "^0.10.6",
     "react-tooltip": "^4.2.13",
     "react-use": "^17.1.1",
-    "recoil": "^0.1.2",
+    "recoil": "^0.2.0",
     "universal-cookie": "^4.0.4"
   },
   "devDependencies": {

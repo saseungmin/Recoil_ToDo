@@ -7,10 +7,13 @@ import { RecoilRoot } from 'recoil';
 
 import mockAxios from 'axios';
 
+import { ThemeProvider } from '@emotion/react';
+
 import { SnackbarProvider } from 'notistack';
 
 import { loadItem } from './services/storage';
 
+import { lightTheme, darkTheme } from './styles/theme';
 import mockToken from '../fixtures/token';
 import { todoResultState, userState, authState } from '../fixtures/recoil-atom-state';
 
@@ -23,15 +26,20 @@ const mockPostApi = (response) => mockAxios.post.mockResolvedValueOnce(response)
 
 jest.mock('./services/storage');
 describe('App', () => {
-  const renderApp = ({ auth = authState, user = userState }) => render((
+  const renderApp = ({
+    auth = authState, user = userState, theme = lightTheme, themState = 0,
+  }) => render((
     <RecoilRoot>
       <SnackbarProvider>
         <InjectTestingRecoilState
           todos={given.todos}
           auth={auth}
           user={user}
+          theme={themState}
         />
-        <App />
+        <ThemeProvider theme={theme}>
+          <App />
+        </ThemeProvider>
       </SnackbarProvider>
     </RecoilRoot>
   ));
@@ -53,6 +61,26 @@ describe('App', () => {
     expect(container).toHaveTextContent('ALL');
     expect(container).toHaveTextContent('할 일1');
     expect(container).toHaveTextContent('CLEAR COMPLETED');
+  });
+
+  describe('Render App with Theme', () => {
+    given('todos', () => todoResultState);
+
+    context('When theme is Light', () => {
+      it('renders light theme css attribute', () => {
+        const { getByText } = renderApp({ theme: lightTheme });
+
+        expect(getByText('What are your plans for today?')).toHaveStyle('color: #6A7BA2;');
+      });
+    });
+
+    context('When theme is Dark', () => {
+      it('renders dark theme css attribute', () => {
+        const { getByText } = renderApp({ theme: darkTheme, themState: 1 });
+
+        expect(getByText('What are your plans for today?')).toHaveStyle('color: #FFDFDE;');
+      });
+    });
   });
 
   describe("render according to todo's filter state", () => {

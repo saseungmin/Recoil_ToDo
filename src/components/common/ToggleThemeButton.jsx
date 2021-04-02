@@ -7,6 +7,7 @@ import styled from '@emotion/styled';
 import { themeWithChange } from '../../recoil/common';
 
 import mq from '../../styles/responsive';
+import ThemeToggle from '../../styles/ThemeToggle';
 
 const ThemeButtonWrapper = styled.div`
   ${mq({
@@ -24,12 +25,10 @@ const ToggleThemeButton = () => {
 
   return (
     <ThemeButtonWrapper>
-      <button
-        type="button"
-        onClick={handleToggle}
-      >
-        {theme ? 'Dark' : 'Light'}
-      </button>
+      <ThemeToggle
+        theme={theme}
+        onChange={handleToggle}
+      />
     </ThemeButtonWrapper>
   );
 };

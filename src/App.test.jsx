@@ -27,7 +27,7 @@ const mockPostApi = (response) => mockAxios.post.mockResolvedValueOnce(response)
 jest.mock('./services/storage');
 describe('App', () => {
   const renderApp = ({
-    auth = authState, user = userState, theme = lightTheme, themState = 0,
+    auth = authState, user = userState, theme = lightTheme, themState = false,
   }) => render((
     <RecoilRoot>
       <SnackbarProvider>
@@ -54,31 +54,33 @@ describe('App', () => {
       todos,
     }));
 
-    const { container } = renderApp({});
+    const { getByTestId, container } = renderApp({});
 
-    expect(container).toHaveTextContent('Light');
     expect(container).toHaveTextContent('What are your plans for today?');
     expect(container).toHaveTextContent('ALL');
     expect(container).toHaveTextContent('할 일1');
     expect(container).toHaveTextContent('CLEAR COMPLETED');
+    expect(getByTestId('theme-toggle')).toHaveAttribute('title', 'light');
   });
 
   describe('Render App with Theme', () => {
     given('todos', () => todoResultState);
 
     context('When theme is Light', () => {
-      it('renders light theme css attribute', () => {
-        const { getByText } = renderApp({ theme: lightTheme });
+      it('renders light theme css attribute and light toggle', () => {
+        const { getByText, getByTestId } = renderApp({ theme: lightTheme });
 
         expect(getByText('What are your plans for today?')).toHaveStyle('color: #6A7BA2;');
+        expect(getByTestId('theme-toggle')).toHaveAttribute('title', 'light');
       });
     });
 
     context('When theme is Dark', () => {
-      it('renders dark theme css attribute', () => {
-        const { getByText } = renderApp({ theme: darkTheme, themState: 1 });
+      it('renders dark theme css attribute and dark toggle', () => {
+        const { getByText, getByTestId } = renderApp({ theme: darkTheme, themState: true });
 
         expect(getByText('What are your plans for today?')).toHaveStyle('color: #FFDFDE;');
+        expect(getByTestId('theme-toggle')).toHaveAttribute('title', 'dark');
       });
     });
   });

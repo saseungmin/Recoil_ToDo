@@ -2,9 +2,9 @@ import React from 'react';
 
 import styled from '@emotion/styled';
 
-import { FILTER_TYPE_BUTTON } from '../../utils/constants/constants';
+import facepaint from 'facepaint';
 
-import mq from '../../styles/responsive';
+import { FILTER_TYPE_BUTTON } from '../../utils/constants/constants';
 
 import TodoStats from './TodoStats';
 import TodoClearButton from './TodoClearButton';
@@ -12,9 +12,15 @@ import TodoFilterButton from './TodoFilterButton';
 
 const { ALL, ACTIVE, COMPLETED } = FILTER_TYPE_BUTTON;
 
+const mq = facepaint([
+  '@media(min-width: 383px)',
+  '@media(min-width: 450px)',
+  '@media(min-width: 760px)',
+]);
+
 const TodoSubInfoWrapper = styled.div`
   ${mq({
-    padding: ['17px 12px', '17px 15px'],
+    padding: ['9px 10px', '17px 10px', '17px 15px'],
   })};
   
   background: ${({ theme }) => theme.subTone};

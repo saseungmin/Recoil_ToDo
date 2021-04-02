@@ -1,16 +1,21 @@
 import React, { useEffect } from 'react';
 
+import { useRecoilValue } from 'recoil';
+
 import styled from '@emotion/styled';
+import { ThemeProvider } from '@emotion/react';
 
 import { MAIN_TITLE } from './utils/constants/constants';
 
 import { loadItem } from './services/storage';
 
+import { themeModeAtom } from './recoil/common';
 import useCheckCallback from './hooks/useCheckCallback';
 
 import mq from './styles/responsive';
-import palette from './styles/palette';
 import AppBlock from './styles/AppBlock';
+import GlobalStyles from './styles/GlobalStyles';
+import { lightTheme, darkTheme } from './styles/theme';
 
 import Footer from './components/footer/Footer';
 import TodoList from './components/todo/TodoList';
@@ -30,7 +35,7 @@ const HeaderWrapper = styled.h1`
   })};
   
   font-family: 'Hachi Maru Pop', cursive;
-  color: ${palette.twoTone[0]};
+  color: ${({ theme }) => theme.subTone};
   text-align: center;
 `;
 
@@ -40,14 +45,15 @@ const TodoContentWrapper = styled.div`
   })};
 
   margin-bottom: 3rem;
-  border: 2px solid ${palette.twoTone[0]};
-  box-shadow: ${palette.hoverTwoTone[0]} 0px 2px 10px 0px;
+  border: 2px solid ${({ theme }) => theme.subTone};
+  box-shadow: ${({ theme }) => theme.boxShadow};
 `;
 
 const App = () => {
   const user = loadItem('user');
 
   const checkUser = useCheckCallback();
+  const theme = useRecoilValue(themeModeAtom);
 
   useEffect(() => {
     if (user) {
@@ -56,23 +62,26 @@ const App = () => {
   }, []);
 
   return (
-    <AppBlock>
-      <ToggleThemeButton />
-      <HeaderWrapper>
-        {MAIN_TITLE}
-      </HeaderWrapper>
-      <UserStatus />
-      <TodoInput />
-      <TodoContentWrapper>
-        <TodoSubInfo />
-        <TodoList />
-      </TodoContentWrapper>
-      <Footer />
-      <AuthStatus />
-      <LoadingSpinner />
-      <AuthStatusSnackbar />
-      <TodoStatusSnackbar />
-    </AppBlock>
+    <ThemeProvider theme={theme ? darkTheme : lightTheme}>
+      <GlobalStyles />
+      <AppBlock>
+        <ToggleThemeButton />
+        <HeaderWrapper>
+          {MAIN_TITLE}
+        </HeaderWrapper>
+        <UserStatus />
+        <TodoInput />
+        <TodoContentWrapper>
+          <TodoSubInfo />
+          <TodoList />
+        </TodoContentWrapper>
+        <Footer />
+        <AuthStatus />
+        <LoadingSpinner />
+        <AuthStatusSnackbar />
+        <TodoStatusSnackbar />
+      </AppBlock>
+    </ThemeProvider>
   );
 };
 

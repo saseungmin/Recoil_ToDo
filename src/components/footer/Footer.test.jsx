@@ -1,12 +1,18 @@
 import React from 'react';
 
+import { ThemeProvider } from '@emotion/react';
+
 import { render } from '@testing-library/react';
+
+import { lightTheme } from '../../styles/theme';
 
 import Footer from './Footer';
 
 describe('footer', () => {
   const renderFooter = () => render((
-    <Footer />
+    <ThemeProvider theme={lightTheme}>
+      <Footer />
+    </ThemeProvider>
   ));
 
   it('renders footer contents', () => {

@@ -33,11 +33,11 @@ const CopyrightWrapper = styled.div`
 
   & a {
     text-decoration: none;
-    color: ${palette.gray[6]};
+    color: ${({ theme }) => theme.link[0]};
     transition: color .2s;
 
     &:hover {
-      color: ${palette.gray[7]};
+      color: ${({ theme }) => theme.link[1]};
       text-decoration: underline;
     }
   }

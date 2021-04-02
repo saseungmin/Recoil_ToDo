@@ -19,33 +19,35 @@ describe('ToggleThemeButton', () => {
 
   context('When theme is Light', () => {
     it('renders Light theme button', () => {
-      const { container } = renderToggleThemeButton(0);
+      const { getByTestId } = renderToggleThemeButton(false);
 
-      expect(container).toHaveTextContent('Light');
+      expect(getByTestId('theme-toggle')).toHaveAttribute('title', 'light');
     });
 
     it('Change to dark button when clicking theme button', () => {
-      const { container, getByText } = renderToggleThemeButton(0);
+      const { getByTestId } = renderToggleThemeButton(false);
 
-      fireEvent.click(getByText('Light'));
+      expect(getByTestId('theme-toggle')).toHaveAttribute('title', 'light');
 
-      expect(container).toHaveTextContent('Dark');
+      fireEvent.click(getByTestId('theme-toggle'));
+
+      expect(getByTestId('theme-toggle')).toHaveAttribute('title', 'dark');
     });
   });
 
   context('When theme is Dark', () => {
     it('renders Dark theme button', () => {
-      const { container } = renderToggleThemeButton(1);
+      const { getByTestId } = renderToggleThemeButton(true);
 
-      expect(container).toHaveTextContent('Dark');
+      expect(getByTestId('theme-toggle')).toHaveAttribute('title', 'dark');
     });
 
     it('Change to Light button when clicking theme button', () => {
-      const { container, getByText } = renderToggleThemeButton(1);
+      const { getByTestId } = renderToggleThemeButton(true);
 
-      fireEvent.click(getByText('Dark'));
+      fireEvent.click(getByTestId('theme-toggle'));
 
-      expect(container).toHaveTextContent('Light');
+      expect(getByTestId('theme-toggle')).toHaveAttribute('title', 'light');
     });
   });
 });

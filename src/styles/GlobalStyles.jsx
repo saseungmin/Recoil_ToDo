@@ -1,11 +1,11 @@
 import React from 'react';
 
-import reset from 'styled-reset';
+import emotionReset from 'emotion-reset';
 
 import { Global, useTheme, css } from '@emotion/react';
 
 const setGlobalStyles = (theme) => css`
-  ${reset}
+  ${emotionReset}
 
   * {
     box-sizing: inherit;

@@ -23,7 +23,8 @@
 ### 🚀 Demo URL
 - [Github Page](https://saseungmin.github.io/Recoil_ToDo/)
 - [Demo Image](#-demo)
-
+  - Theme (light, dark)
+  - Desktop, Mobile
 
 ### 🎈 Introduce
 - 이 프로젝트는 React의 상태 관리 라이브러리인 **[Recoil](https://recoiljs.org/)를 배우기 위한** 목적으로 만들어졌습니다.
@@ -102,6 +103,12 @@
 - [JWT 토큰과 쿠키에 대한 해결 방안](https://github.com/saseungmin/Recoil_ToDo/issues/57)
 
 ### 💻 Demo
+- Theme
+
+<img src="images/demo-light-mode.png" width="400px" height="420px" >&nbsp;<img src="images/demo-dark-mode.png" width="400px" height="420px" >
+
+
+
 - Desktop
 
 ![demo-desktop](images/demo-desktop.gif)

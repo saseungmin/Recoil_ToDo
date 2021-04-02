@@ -4,8 +4,12 @@ import mockAxios from 'axios';
 
 import { RecoilRoot } from 'recoil';
 
+import { ThemeProvider } from '@emotion/react';
+
 import { act } from 'react-dom/test-utils';
 import { render, fireEvent } from '@testing-library/react';
+
+import { lightTheme } from '../../styles/theme';
 
 import TodoInput from './TodoInput';
 import InjectTestingRecoilState from '../common/InjectTestingRecoilState';
@@ -16,7 +20,9 @@ describe('TodoInput', () => {
       <InjectTestingRecoilState
         user={given.user}
       />
-      <TodoInput />
+      <ThemeProvider theme={lightTheme}>
+        <TodoInput />
+      </ThemeProvider>
     </RecoilRoot>
   ));
 

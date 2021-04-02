@@ -7,16 +7,17 @@ import FacebookSvg from '../assets/icons/facebook.svg';
 
 import mq from './responsive';
 
-const SvgIconWrapper = () => css`
+const SvgIconWrapper = ({ theme }) => css`
   ${mq({
     width: ['18px', '20px'],
     height: ['18px', '20px'],
   })};
   
+  fill: ${theme.fill[0]};
   transition: fill .2s;
 
   &:hover {
-    fill: gray;
+    fill: ${theme.fill[1]};
   }
 `;
 

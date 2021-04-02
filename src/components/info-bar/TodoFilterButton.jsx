@@ -23,14 +23,14 @@ const FilterButtonWrapper = styled.button`
   padding: 0;
   background: none;
   transition: color 0.3s;
-  color: #50586C;
+  color: ${({ theme }) => theme.gray};
 
   &:hover {
     color: ${palette.active[0]};
   };
 
-  ${({ value, status }) => value === status && css`
-    color: ${palette.twoTone[1]};
+  ${({ value, status, theme }) => value === status && css`
+    color: ${theme.baseTone};
   `};
 
   ${({ value }) => value !== COMPLETED && css`

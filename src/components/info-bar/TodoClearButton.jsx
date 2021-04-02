@@ -28,14 +28,14 @@ const ClearButtonWrapper = styled.button`
   background: none;
   transition: color 0.3s;
   
-  ${({ disabled }) => disabled && css`
-    color: ${palette.gray[5]};
+  ${({ disabled, theme }) => disabled && css`
+    color: ${theme.disabled};
 
     cursor: unset;
   `};
 
-  ${({ disabled }) => !disabled && css`
-    color: ${palette.twoTone[1]};
+  ${({ disabled, theme }) => !disabled && css`
+    color: ${theme.baseTone};
 
     &:hover {
       color: ${palette.active[0]};

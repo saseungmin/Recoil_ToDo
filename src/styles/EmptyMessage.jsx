@@ -2,7 +2,6 @@ import React from 'react';
 
 import styled from '@emotion/styled';
 
-import palette from './palette';
 import mq from './responsive';
 
 const EmptyMessageWrapper = styled.div`
@@ -13,7 +12,7 @@ const EmptyMessageWrapper = styled.div`
   font-weight: bold;
   text-align: center;
   padding: 70px;
-  color: ${palette.text[1]};
+  color: ${({ theme }) => theme.emptyText};
 `;
 
 const EmptyMessage = ({ children }) => (

@@ -15,6 +15,10 @@ import { isCheckInputTrim } from '../../utils/utils';
 import TodoItemView from './TodoItemView';
 
 const EditWrapper = styled.div`
+  ${mq({
+    height: ['57px', '62px'],
+  })};
+
   display: flex;
 `;
 
@@ -31,11 +35,12 @@ const EditItemWrapper = styled.input`
   color: ${palette.text[2]};
   width: 100%;
   display: block;
-  padding: 18px 13px;
+  margin: 0px;
+  padding: 0 13px;
   border: 1px solid #999;
   border-radius: 0px;
   box-shadow: inset 0 -1px 5px 0 rgb(0 0 0 / 20%);
-  background: #f1f2f6;
+  background: ${({ theme }) => theme.edit};
 `;
 
 const TodoItem = ({ item }) => {
@@ -98,18 +103,16 @@ const TodoItem = ({ item }) => {
   }
 
   return (
-    <>
-      <EditWrapper>
-        <EditSpaceWrapper />
-        <EditItemWrapper
-          ref={editInput}
-          defaultValue={task}
-          data-testid="todo-edit-input"
-          onBlur={(e) => handleBlurEdit(e, _id)}
-          onKeyPress={(e) => handleSubmitEdit(e, _id)}
-        />
-      </EditWrapper>
-    </>
+    <EditWrapper>
+      <EditSpaceWrapper />
+      <EditItemWrapper
+        ref={editInput}
+        defaultValue={task}
+        data-testid="todo-edit-input"
+        onBlur={(e) => handleBlurEdit(e, _id)}
+        onKeyPress={(e) => handleSubmitEdit(e, _id)}
+      />
+    </EditWrapper>
   );
 };
 

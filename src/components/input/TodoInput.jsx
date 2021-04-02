@@ -49,13 +49,13 @@ const NewTodoInputWrapper = styled.input`
   border: none;
   border-radius: 5px;
   box-shadow: none;
-  color: ${palette.twoTone[1]};
-  background: ${palette.twoTone[0]};
+  color: ${({ theme }) => theme.baseTone};
+  background: ${({ theme }) => theme.subTone};
   transition-timing-function: ease-in-out;
   transition: all 0.2s cubic-bezier(.65,.33,.65,.33);
 
   &::placeholder {
-    color: ${palette.twoTone[1]};
+    color: ${({ theme }) => theme.baseTone};
     transition: color .5s;
   }
   
@@ -76,17 +76,17 @@ const NewTodoInputWrapper = styled.input`
   `};
 
   &:focus {
-    ${({ error }) => !error && css`
-      border: 2px solid ${palette.border[1]};
+    ${({ error, theme }) => !error && css`
+      border: 2px solid ${theme.border[0]};
     `};
 
   ${mq({
-    height: ['60%', '50px', '55px'],
-    fontSize: ['1.2rem', '1.4rem', '1.5rem'],
+    height: ['66%', '50px', '55px'],
+    fontSize: ['1.1rem', '1.4rem', '1.5rem'],
   })};
 
     padding: 0;
-    box-shadow: ${palette.gray[3]} 0px 2px 7px 0px;
+    box-shadow: ${palette.gray[3]} 0px 2px 5px 0px;
   };
 `;
 
@@ -97,14 +97,14 @@ const DisableInput = styled.div`
     fontSize: ['1rem', '1.2rem', '1.3rem'],
   })};
   
-  color: ${palette.twoTone[0]};
+  color: ${({ theme }) => theme.subTone};
   cursor: not-allowed;
   user-select: none;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0.8rem 0 2.4rem 0;
-  border: 2px solid ${palette.twoTone[0]};
+  border: 2px solid ${({ theme }) => theme.subTone};
   border-radius: 4px;
 `;
 

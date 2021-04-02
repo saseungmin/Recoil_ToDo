@@ -37,7 +37,7 @@ const TodoItemTextWrapper = styled.div`
     fontSize: ['1rem', '1.3rem'],
   })};
 
-  color: ${palette.text[2]};
+  color: ${({ theme }) => theme.subTone};
   user-select: none;
   display: block;
   margin: 0 1rem;
@@ -48,8 +48,8 @@ const TodoItemTextWrapper = styled.div`
     cursor: unset;
   `}
 
-  ${({ isComplete }) => isComplete && css`
-    color: ${palette.gray[6]};
+  ${({ isComplete, theme }) => isComplete && css`
+    color: ${theme.textColor};
     text-decoration: line-through;
   `}
 `;

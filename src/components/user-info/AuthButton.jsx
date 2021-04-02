@@ -3,7 +3,6 @@ import React from 'react';
 import styled from '@emotion/styled';
 
 import mq from '../../styles/responsive';
-import palette from '../../styles/palette';
 
 const Button = styled.button`
   ${mq({
@@ -11,15 +10,15 @@ const Button = styled.button`
     padding: ['0.3rem 0.7rem', '0.5rem 1rem'],
   })};
 
-  background: ${palette.twoTone[0]};
-  color: ${palette.twoTone[1]};
+  color: ${({ theme }) => theme.baseTone};
+  background: ${({ theme }) => theme.subTone};
   border: none;
   border-radius: 5rem;
   transition: background-color 0.3s;
 
   &:hover {
-    color: ${palette.hoverTwoTone[1]};
-    background: ${palette.hoverTwoTone[0]};
+    color: ${({ theme }) => theme.lightBaseTone};
+    background: ${({ theme }) => theme.lightSubTone};
   }
 `;
 

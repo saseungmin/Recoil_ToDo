@@ -48,33 +48,33 @@
 ### 🐶 Project Structure
 
 ```
-📦src
- ┣ 📂assets
- ┃ ┣ 📂css
- ┃ ┗ 📂icons
- ┣ 📂components
- ┃ ┣ 📂auth
- ┃ ┣ 📂common
- ┃ ┣ 📂footer
- ┃ ┣ 📂info-bar
- ┃ ┣ 📂input
- ┃ ┣ 📂todo
- ┃ ┗ 📂user-info
- ┣ 📂hooks
- ┣ 📂recoil
- ┃ ┣ 📂auth
- ┃ ┣ 📂common
- ┃ ┣ 📂todos
- ┃ ┗ 📂user
- ┣ 📂services
- ┃ ┣ 📂api
- ┣ 📂styles
- ┣ 📂utils
- ┃ ┣ 📂constants
- ┃ ┣ 📂recoil
- ┣ 📜App.jsx
- ┣ 📜App.test.jsx
- ┗ 📜index.jsx
+📦 src
+ ┣ 📂 assets
+ ┃ ┣ 📂 css
+ ┃ ┗ 📂 icons
+ ┣ 📂 components
+ ┃ ┣ 📂 auth
+ ┃ ┣ 📂 common
+ ┃ ┣ 📂 footer
+ ┃ ┣ 📂 info-bar
+ ┃ ┣ 📂 input
+ ┃ ┣ 📂 todo
+ ┃ ┗ 📂 user-info
+ ┣ 📂 hooks
+ ┣ 📂 recoil
+ ┃ ┣ 📂 auth
+ ┃ ┣ 📂 common
+ ┃ ┣ 📂 todos
+ ┃ ┗ 📂 user
+ ┣ 📂 services
+ ┃ ┣ 📂 api
+ ┣ 📂 styles
+ ┣ 📂 utils
+ ┃ ┣ 📂 constants
+ ┃ ┣ 📂 recoil
+ ┣ 📜 App.jsx
+ ┣ 📜 App.test.jsx
+ ┗ 📜 index.jsx
 ```
 
 

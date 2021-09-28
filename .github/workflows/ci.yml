@@ -5,13 +5,13 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  ci:
     name: Test & Lint
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [12.x]
+        node-version: [14.x]
 
     steps:
     - uses: actions/checkout@v2
@@ -27,3 +27,18 @@ jobs:
         HEADLESS: true
     - name: Lint
       run: npm run lint
+  check-e2e-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+
+      - name: Cypress run
+        uses: cypress-io/github-action@v2
+        with:
+          start: npm start
+          browser: chrome
+          headless: true

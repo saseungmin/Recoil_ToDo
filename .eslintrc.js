@@ -24,6 +24,17 @@ module.exports = {
     ecmaVersion: 11,
     sourceType: 'module',
   },
+  overrides: [
+    {
+      extends: [
+        'plugin:cypress/recommended',
+      ],
+      files: [
+        'cypress/**/*.js',
+      ],
+      rules: {},
+    },
+  ],
   plugins: [
     'react',
   ],

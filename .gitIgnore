@@ -13,5 +13,8 @@ coverage
 ## build
 build
 
-## examples
+# cypress
 examples/
+cypress/screenshots
+cypress/videos
+cypress/log

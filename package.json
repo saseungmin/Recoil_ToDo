@@ -11,7 +11,8 @@
     "lint": "eslint --ext js,jsx .",
     "build": "cross-env NODE_ENV=production webpack",
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run",
+    "cypress:run": "cypress run --browser chrome",
+    "cypress:record": "npm run cypress:run --record",
     "test:e2e": "start-server-and-test start http://localhost:8080 cypress:run",
     "deploy": "gh-pages -d build"
   },

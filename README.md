@@ -11,13 +11,17 @@
 <a href="https://codecov.io/gh/saseungmin/Recoil_ToDo">
   <img src="https://codecov.io/gh/saseungmin/Recoil_ToDo/branch/main/graph/badge.svg?token=UAQ7YZZCA8"/>
 </a>
-    
+
+<a href="https://dashboard.cypress.io/projects/o6z7cm/runs">
+  <img src="https://img.shields.io/endpoint?url=https://dashboard.cypress.io/badge/detailed/o6z7cm&style=flat-square&logo=cypress" />
+</a>
+
 <a href="https://github.com/saseungmin/Recoil_ToDo/issues">
   <img src="https://img.shields.io/github/issues/saseungmin/Recoil_ToDo?style=flat-square" />
 </a>
 
 <a href="https://github.com/saseungmin/Recoil_ToDo/blob/main/LICENSE"> 
-  <img src="https://img.shields.io/github/license/saseungmin/Recoil_ToDo?style=flat-square">
+  <img src="https://img.shields.io/github/license/saseungmin/Recoil_ToDo?style=flat-square" />
 </a>
 
 ### 🚀 Demo URL
@@ -42,7 +46,7 @@
 - Axios
 - Lodash
 - universal-cookie
-- Jest, React-Testing-Library
+- Jest, React-Testing-Library, Cypress
 - Webpack, Eslint, Babel
 
 ### 🐶 Project Structure

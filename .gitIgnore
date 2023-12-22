@@ -18,3 +18,12 @@ examples/
 cypress/screenshots
 cypress/videos
 cypress/log
+
+# Zero Install: https://yarnpkg.com/features/zero-installs
+.yarn/*
+!.yarn/cache
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions

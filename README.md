@@ -1,11 +1,11 @@
 ## 🦄 ToDo Application created using Recoil and React
 
-<a href="https://github.com/saseungmin/Recoil_ToDo/actions?query=workflow%3ACI">
-  <img src="https://img.shields.io/github/workflow/status/saseungmin/Recoil_ToDo/CI?label=CI&logo=GitHub&style=flat-square" />
+<a href="https://github.com/saseungmin/Recoil_ToDo/actions/workflows/ci.yml">
+  <img src="https://img.shields.io/github/actions/workflow/status/saseungmin/Recoil_ToDo/ci.yml?branch=main&label=CI&logo=GitHub&style=flat-square" />
 </a>
 
-<a href="https://github.com/saseungmin/Recoil_ToDo/actions?query=workflow%3ACD">
-  <img src="https://img.shields.io/github/workflow/status/saseungmin/Recoil_ToDo/CD?label=build&logo=GitHub&style=flat-square" />
+<a href="https://github.com/saseungmin/Recoil_ToDo/actions/workflows/cd.yml">
+  <img src="https://img.shields.io/github/actions/workflow/status/saseungmin/Recoil_ToDo/cd.yml?branch=main&label=build&logo=GitHub&style=flat-square" />
 </a>
 
 <a href="https://codecov.io/gh/saseungmin/Recoil_ToDo">
@@ -154,3 +154,9 @@
 
 <img src="images/demo-mobile.gif" width="300px" height="590px" >
 
+
+## 🐛 Bug reporting
+[Issues](https://github.com/saseungmin/Recoil_ToDo/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc)
+
+## 🔒 LICENSE
+This Project is [MIT licensed](https://github.com/saseungmin/Recoil_ToDo/blob/main/LICENSE).

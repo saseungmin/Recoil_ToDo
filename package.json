@@ -7,7 +7,7 @@
     "start": "webpack-dev-server --progress",
     "test": "jest",
     "test:watch": "yarn run test -- --watch-all",
-    "coverage": "yarn run test -- --coverage",
+    "coverage": "yarn run test --coverage",
     "lint": "eslint --ext js,jsx .",
     "build": "cross-env NODE_ENV=production webpack",
     "cypress:open": "cypress open",

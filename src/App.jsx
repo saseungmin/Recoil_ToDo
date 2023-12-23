@@ -49,7 +49,7 @@ const TodoContentWrapper = styled.div`
   box-shadow: ${({ theme }) => theme.boxShadow};
 `;
 
-const App = () => {
+function App() {
   const user = loadItem('user');
 
   const checkUser = useCheckCallback();
@@ -83,6 +83,6 @@ const App = () => {
       </AppBlock>
     </ThemeProvider>
   );
-};
+}
 
 export default App;

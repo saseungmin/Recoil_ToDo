@@ -247,7 +247,7 @@ describe('App', () => {
         loadItem.mockImplementation(() => user);
       });
 
-      it('It has the user session value, so the Sign out button is visible.', async () => {
+      it('has the user session value, so the Sign out button is visible.', async () => {
         mockGetApi({ data: { user: 'test' } });
         let response;
 

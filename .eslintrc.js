@@ -1,70 +1,68 @@
 module.exports = {
+  root: true,
   env: {
-    browser: true,
     es6: true,
+    browser: true,
     jest: true,
   },
-  extends: [
-    'plugin:react/recommended',
-    'airbnb',
+  ignorePatterns: [
+    'build/',
+    'node_modules/',
+    '.pnp.cjs',
+    '.pnp.loader.cjs',
+    'public/',
   ],
-  globals: {
-    Atomics: 'readonly',
-    SharedArrayBuffer: 'readonly',
-    context: 'readonly',
-    Feature: 'readonly',
-    Scenario: 'readonly',
-    actor: 'readonly',
-    given: 'readonly',
-  },
+  extends: [
+    'airbnb',
+    'eslint:recommended',
+    'plugin:react-hooks/recommended',
+    'plugin:jsx-a11y/recommended',
+    'plugin:react/jsx-runtime',
+    'plugin:react/recommended',
+  ],
+  plugins: [
+    // set your plugins
+  ],
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
     },
-    ecmaVersion: 11,
+    ecmaVersion: 12,
     sourceType: 'module',
   },
   overrides: [
     {
+      files: ['*.ts', '*.tsx'],
       extends: [
-        'plugin:cypress/recommended',
+        'airbnb-typescript',
+        'plugin:@typescript-eslint/recommended',
       ],
-      files: [
-        'cypress/**/*.js',
+      plugins: [
+        '@typescript-eslint',
       ],
-      rules: {},
+      rules: {
+        // set your typescript rules
+      },
+      parser: '@typescript-eslint/parser',
+      parserOptions: {
+        project: ['./tsconfig.json'],
+      },
+    },
+    {
+      files: ['src/hooks/**/**/*.test.ts?(x)'],
+      rules: {
+        'react-hooks/rules-of-hooks': 'off',
+      },
+    },
+    {
+      files: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
+      extends: ['plugin:testing-library/react', 'plugin:jest/recommended'],
+      rules: {
+        // set your test eslint rules
+      },
     },
   ],
-  plugins: [
-    'react',
-  ],
-  ignorePatterns: ['build/', 'node_modules/'],
   rules: {
-    indent: ['error', 2],
-    'no-trailing-spaces': 'error',
-    curly: 'error',
-    'brace-style': 'error',
-    'no-multi-spaces': 'error',
-    'space-infix-ops': 'error',
-    'space-unary-ops': 'error',
-    'no-whitespace-before-property': 'error',
-    'func-call-spacing': 'error',
-    'space-before-blocks': 'error',
-    'keyword-spacing': ['error', { before: true, after: true }],
-    'comma-spacing': ['error', { before: false, after: true }],
-    'comma-style': ['error', 'last'],
-    'comma-dangle': ['error', 'always-multiline'],
-    'space-in-parens': ['error', 'never'],
-    'block-spacing': 'error',
-    'array-bracket-spacing': ['error', 'never'],
-    'object-curly-spacing': ['error', 'always'],
-    'key-spacing': ['error', { mode: 'strict' }],
-    'arrow-spacing': ['error', { before: true, after: true }],
-    'jsx-a11y/label-has-associated-control': ['error', { assert: 'either' }],
-    'react/prop-types': 'off',
-    'linebreak-style': 'off',
-    'no-proto': 'off',
-    'no-underscore-dangle': ['error', { allow: ['_id'] }],
-    camelcase: ['error', { allow: ['snapshot_UNSTABLE', 'access_token', 'drop_console'] }],
+    // set your rules
   },
 };

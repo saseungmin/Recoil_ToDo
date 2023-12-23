@@ -87,51 +87,51 @@
 #### 📢 Install dependencies
 
 ```bash
-> npm install
+> yarn install
 ```
 
 #### 📢 Start Dev Server
 
 ```bash
-> npm start
+> yarn start
 ```
 
 #### 📢 Tests with Jest
 - test
 
 ```bash
-> npm test
+> yarn test
 ```
 
 - test watch
 
 ```bash
-> npm run test:watch
+> yarn run test:watch
 ```
 
 - Run test with Code Coverage
 
 ```bash
-> npm run coverage
+> yarn run coverage
 ```
 
 #### 📢 Build project
 
 ```bash
-> npm run build
+> yarn run build
 ```
 
 #### 📢 Check Lint
 
 ```bash
-> npm run lint
+> yarn run lint
 ```
 
 #### 📢 Deploy to Github Pages
 - However, I used Github Actions for Continuous Delivery
 
 ```bash
-> npm run deploy
+> yarn run deploy
 ```
 
 ### 🤔 추가적인 Issue 사항과 고민해볼점

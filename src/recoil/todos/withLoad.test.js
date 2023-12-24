@@ -19,7 +19,7 @@ describe('todosWithLoad', () => {
     const response = await initialSnapshot.getPromise(todosWithLoad('token'));
 
     expect(response).toBe(data);
-    expect(mockAxios.get).toBeCalledWith('/api/todos', {
+    expect(mockAxios.get).toHaveBeenCalledWith('/api/todos', {
       headers: {
         Authorization: 'token',
       },

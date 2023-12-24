@@ -79,17 +79,19 @@ const ToggleWrapper = styled(Toggle)`
   }
 `;
 
-const ThemeToggle = ({ onChange, theme }) => (
-  <ToggleWrapper
-    defaultChecked={theme}
-    title={theme ? 'dark' : 'light'}
-    aria-label="No label tag"
-    onChange={onChange}
-    icons={{
-      checked: <MoonIcon />,
-      unchecked: <SunIcon />,
-    }}
-    data-testid="theme-toggle"
-  />
-);
+function ThemeToggle({ onChange, theme }) {
+  return (
+    <ToggleWrapper
+      defaultChecked={theme}
+      title={theme ? 'dark' : 'light'}
+      aria-label="No label tag"
+      onChange={onChange}
+      icons={{
+        checked: <MoonIcon />,
+        unchecked: <SunIcon />,
+      }}
+      data-testid="theme-toggle"
+    />
+  );
+}
 export default ThemeToggle;

@@ -22,15 +22,16 @@ const Button = styled.button`
   }
 `;
 
-const AuthButton = ({ type, onClick }) => (
-  <Button
-    type="button"
-    onClick={onClick}
-    data-testid="sign-out-button"
-  >
-    {type}
-  </Button>
-
-);
+function AuthButton({ type, onClick }) {
+  return (
+    <Button
+      type="button"
+      onClick={onClick}
+      data-testid="sign-out-button"
+    >
+      {type}
+    </Button>
+  );
+}
 
 export default AuthButton;

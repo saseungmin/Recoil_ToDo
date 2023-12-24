@@ -1,3 +1,4 @@
+/* eslint-disable no-proto */
 import { saveItem, loadItem, removeItem } from './storage';
 
 describe('storage', () => {
@@ -22,7 +23,7 @@ describe('storage', () => {
     it('calls localStorage setItem', () => {
       saveItem('key', value);
 
-      expect(localStorage.setItem).toBeCalledWith('key', JSON.stringify(value));
+      expect(localStorage.setItem).toHaveBeenCalledWith('key', JSON.stringify(value));
     });
   });
 
@@ -30,7 +31,7 @@ describe('storage', () => {
     it('calls localStorage getItem', () => {
       loadItem('key');
 
-      expect(localStorage.getItem).toBeCalledWith('key');
+      expect(localStorage.getItem).toHaveBeenCalledWith('key');
     });
   });
 
@@ -38,7 +39,7 @@ describe('storage', () => {
     it('calls localStorage removeItem', () => {
       removeItem('key');
 
-      expect(localStorage.removeItem).toBeCalled();
+      expect(localStorage.removeItem).toHaveBeenCalled();
     });
   });
 });

@@ -48,7 +48,7 @@ const authFieldsProperty = {
   },
 };
 
-const AuthInput = ({ inputRef, inputName }) => {
+function AuthInput({ inputRef, inputName }) {
   const { inputType, placeholder, autoComplete } = authFieldsProperty[inputName];
 
   return (
@@ -60,6 +60,6 @@ const AuthInput = ({ inputRef, inputName }) => {
       autoComplete={autoComplete}
     />
   );
-};
+}
 
 export default AuthInput;

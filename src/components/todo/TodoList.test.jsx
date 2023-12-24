@@ -1,11 +1,11 @@
+/* eslint-disable testing-library/prefer-screen-queries */
 import React from 'react';
 
 import { RecoilRoot } from 'recoil';
 
 import mockAxios from 'axios';
 
-import { act } from 'react-dom/test-utils';
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, act } from '@testing-library/react';
 
 import { todoResultState, userState } from '../../../fixtures/recoil-atom-state';
 

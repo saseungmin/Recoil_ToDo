@@ -2,7 +2,7 @@ import React from 'react';
 
 import { RecoilRoot } from 'recoil';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import LoadingSpinner from './LoadingSpinner';
 import InjectTestingRecoilState from './InjectTestingRecoilState';
@@ -21,9 +21,9 @@ describe('LoadingSpinner', () => {
     given('loading', () => (true));
 
     it('renders Loading spinner', () => {
-      const { getByTestId } = renderLoadingSpinner();
+      renderLoadingSpinner();
 
-      expect(getByTestId('loading-spinner')).not.toBeNull();
+      expect(screen.getByTestId('loading-spinner')).not.toBeNull();
     });
   });
 

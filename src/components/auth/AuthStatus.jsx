@@ -7,7 +7,7 @@ import { authFormStatusAtom } from '../../recoil/auth';
 import RegisterForm from './RegisterForm';
 import LoginForm from './LoginForm';
 
-const AuthStatus = () => {
+function AuthStatus() {
   const { type, visible } = useRecoilValue(authFormStatusAtom);
 
   if (!visible) {
@@ -23,6 +23,6 @@ const AuthStatus = () => {
   return (
     <LoginForm />
   );
-};
+}
 
 export default AuthStatus;

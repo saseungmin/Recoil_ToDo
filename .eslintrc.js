@@ -5,6 +5,11 @@ module.exports = {
     browser: true,
     jest: true,
   },
+  globals: {
+    context: 'readonly',
+    given: 'readonly',
+    cy: 'readonly',
+  },
   ignorePatterns: [
     'build/',
     'node_modules/',
@@ -55,14 +60,17 @@ module.exports = {
       },
     },
     {
-      files: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
+      files: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(test).[jt]s?(x)'],
       extends: ['plugin:testing-library/react', 'plugin:jest/recommended'],
       rules: {
-        // set your test eslint rules
+        'jest/no-identical-title': 'off',
+        'testing-library/no-unnecessary-act': 'off',
       },
     },
   ],
   rules: {
-    // set your rules
+    'react/prop-types': 'off',
+    'no-underscore-dangle': ['error', { allow: ['_id'] }],
+    camelcase: ['error', { allow: ['snapshot_UNSTABLE', 'access_token', 'drop_console'] }],
   },
 };

@@ -15,10 +15,12 @@ const EmptyMessageWrapper = styled.div`
   color: ${({ theme }) => theme.emptyText};
 `;
 
-const EmptyMessage = ({ children }) => (
-  <EmptyMessageWrapper>
-    {children}
-  </EmptyMessageWrapper>
-);
+function EmptyMessage({ children }) {
+  return (
+    <EmptyMessageWrapper>
+      {children}
+    </EmptyMessageWrapper>
+  );
+}
 
 export default EmptyMessage;

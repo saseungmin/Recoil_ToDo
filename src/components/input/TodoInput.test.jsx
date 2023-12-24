@@ -7,7 +7,7 @@ import { RecoilRoot } from 'recoil';
 import { ThemeProvider } from '@emotion/react';
 
 import { act } from 'react-dom/test-utils';
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, screen } from '@testing-library/react';
 
 import { lightTheme } from '../../styles/theme';
 
@@ -34,9 +34,9 @@ describe('TodoInput', () => {
     }));
 
     it('renders input placeholder text', () => {
-      const { getByPlaceholderText } = renderTodoInput();
+      renderTodoInput();
 
-      expect(getByPlaceholderText(INPUT)).not.toBeNull();
+      expect(screen.getByPlaceholderText(INPUT)).not.toBeNull();
     });
 
     describe('Listen event form submit', () => {
@@ -51,8 +51,8 @@ describe('TodoInput', () => {
 
           mockAxios.post.mockRejectedValueOnce(mockError);
 
-          const { getByPlaceholderText } = renderTodoInput();
-          const input = getByPlaceholderText(INPUT);
+          renderTodoInput();
+          const input = screen.getByPlaceholderText(INPUT);
 
           await act(async () => {
             fireEvent.change(input, { target: { value } });
@@ -68,12 +68,12 @@ describe('TodoInput', () => {
           });
 
           expect(input).toHaveValue('');
-          expect(mockAxios.post).toBeCalledWith('/api/todos', { task: '할 일1' });
+          expect(mockAxios.post).toHaveBeenCalledWith('/api/todos', { task: '할 일1' });
         });
 
         it('When the input value is present, the keypress action does not occur.', async () => {
-          const { getByPlaceholderText } = renderTodoInput();
-          const input = getByPlaceholderText(INPUT);
+          renderTodoInput();
+          const input = screen.getByPlaceholderText(INPUT);
 
           expect(input).toHaveStyle('border: none;');
 
@@ -97,8 +97,8 @@ describe('TodoInput', () => {
 
       context('Without input value', () => {
         it('The color of the input placeholder changes to red.', async () => {
-          const { getByPlaceholderText } = renderTodoInput();
-          const input = getByPlaceholderText(INPUT);
+          renderTodoInput();
+          const input = screen.getByPlaceholderText(INPUT);
 
           await act(async () => {
             fireEvent.submit(
@@ -111,8 +111,8 @@ describe('TodoInput', () => {
         });
 
         it('When the input focus is out, the border of the input changes.', async () => {
-          const { getByPlaceholderText } = renderTodoInput();
-          const input = getByPlaceholderText(INPUT);
+          renderTodoInput();
+          const input = screen.getByPlaceholderText(INPUT);
 
           await act(async () => {
             fireEvent.submit(
@@ -131,8 +131,8 @@ describe('TodoInput', () => {
         });
 
         it('When you press the enter key the input border changes.', async () => {
-          const { getByPlaceholderText } = renderTodoInput();
-          const input = getByPlaceholderText(INPUT);
+          renderTodoInput();
+          const input = screen.getByPlaceholderText(INPUT);
 
           await act(async () => {
             fireEvent.submit(
@@ -159,8 +159,8 @@ describe('TodoInput', () => {
     });
 
     it('listens event call input change', () => {
-      const { getByPlaceholderText } = renderTodoInput();
-      const input = getByPlaceholderText(INPUT);
+      renderTodoInput();
+      const input = screen.getByPlaceholderText(INPUT);
 
       fireEvent.change(
         input,

@@ -31,7 +31,7 @@ const StatsTextWrapper = styled.div`
   user-select: none;
 `;
 
-const TodoStats = () => {
+function TodoStats() {
   const { totalCompletedNum, totalUnCompletedNum } = useRecoilValue(todosWithStats);
 
   return (
@@ -51,6 +51,6 @@ const TodoStats = () => {
       </StatsTextWrapper>
     </StatsWrapper>
   );
-};
+}
 
 export default TodoStats;

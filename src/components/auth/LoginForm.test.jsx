@@ -5,7 +5,7 @@ import { RecoilRoot } from 'recoil';
 import mockAxios from 'axios';
 
 import { act } from 'react-dom/test-utils';
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, screen } from '@testing-library/react';
 
 import { SnackbarProvider } from 'notistack';
 
@@ -41,10 +41,10 @@ describe('LoginForm', () => {
 
     context('Have Failure status', () => {
       it('When there is an empty value, renders error message', async () => {
-        const { container, getByTestId } = renderLoginForm();
+        const { container } = renderLoginForm();
 
         await act(async () => {
-          fireEvent.submit(getByTestId('auth-submit-button'));
+          fireEvent.submit(screen.getByTestId('auth-submit-button'));
         });
 
         expect(container).toHaveTextContent('입력이 안된 사항이 있습니다.');
@@ -61,20 +61,20 @@ describe('LoginForm', () => {
         mockAxios.post.mockRejectedValueOnce(mockData);
         mockAxios.get.mockResolvedValueOnce(mockData);
 
-        const { container, getByTestId, getByPlaceholderText } = renderLoginForm();
+        const { container } = renderLoginForm();
 
         await act(async () => {
           input.forEach(async ({ placeholder, value }) => {
-            await fireEvent.change(getByPlaceholderText(placeholder), { target: { value } });
+            await fireEvent.change(screen.getByPlaceholderText(placeholder), { target: { value } });
           });
         });
 
         await act(async () => {
-          fireEvent.submit(getByTestId('auth-submit-button'));
+          fireEvent.submit(screen.getByTestId('auth-submit-button'));
         });
 
-        expect(mockAxios.post).toBeCalledTimes(1);
-        expect(mockAxios.get).not.toBeCalled();
+        expect(mockAxios.post).toHaveBeenCalledTimes(1);
+        expect(mockAxios.get).not.toHaveBeenCalled();
         expect(container).not.toHaveTextContent('Successful Sign in!');
       });
     });

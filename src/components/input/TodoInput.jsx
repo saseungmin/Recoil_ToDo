@@ -108,7 +108,7 @@ const DisableInput = styled.div`
   border-radius: 4px;
 `;
 
-const TodoInput = () => {
+function TodoInput() {
   const [error, setError] = useState(false);
 
   const setTodo = useWriteCallback();
@@ -161,6 +161,6 @@ const TodoInput = () => {
       </TodoInputFormWrapper>
     </TodoInputDivWrapper>
   );
-};
+}
 
 export default TodoInput;

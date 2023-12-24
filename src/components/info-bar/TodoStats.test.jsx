@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import { RecoilRoot } from 'recoil';
 
@@ -29,9 +29,9 @@ describe('TodoStats', () => {
       ],
     };
 
-    const { getByTestId } = renderTodoStats(initialState);
+    renderTodoStats(initialState);
 
-    expect(getByTestId('active')).toHaveTextContent('1');
-    expect(getByTestId('completed')).toHaveTextContent('2');
+    expect(screen.getByTestId('active')).toHaveTextContent('1');
+    expect(screen.getByTestId('completed')).toHaveTextContent('2');
   });
 });

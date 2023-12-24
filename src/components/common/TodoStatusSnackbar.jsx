@@ -6,7 +6,7 @@ import { useSnackbar } from 'notistack';
 
 import todosResultAtom from '../../recoil/todos/atom';
 
-const TodoStatusSnackbar = () => {
+function TodoStatusSnackbar() {
   const [{ todoError, todoSuccess }, setTodoState] = useRecoilState(todosResultAtom);
 
   const { enqueueSnackbar } = useSnackbar();
@@ -37,6 +37,6 @@ const TodoStatusSnackbar = () => {
   }, [todoSuccess]);
 
   return null;
-};
+}
 
 export default TodoStatusSnackbar;

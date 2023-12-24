@@ -3,7 +3,7 @@ import React from 'react';
 import { RecoilRoot } from 'recoil';
 
 import { act } from 'react-dom/test-utils';
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, screen } from '@testing-library/react';
 
 import mockAxios from 'axios';
 
@@ -31,21 +31,21 @@ describe('TodoItem', () => {
 
     context('with visible todo contents', () => {
       it("doesn't span double click", () => {
-        const { container, getByTestId } = renderTodoItem(state);
+        const { container } = renderTodoItem(state);
 
         expect(container).toHaveTextContent(state.task);
-        expect(getByTestId('todo-delete')).not.toBeNull();
-        expect(getByTestId('todo-item')).not.toBeNull();
+        expect(screen.getByTestId('todo-delete')).not.toBeNull();
+        expect(screen.getByTestId('todo-item')).not.toBeNull();
       });
     });
 
     context('without visible todo contents', () => {
       it('todo double click so, renders edit input', () => {
-        const { getByTestId } = renderTodoItem(state);
+        renderTodoItem(state);
 
-        fireEvent.doubleClick(getByTestId('todo-text'));
+        fireEvent.doubleClick(screen.getByTestId('todo-text'));
 
-        expect(getByTestId('todo-edit-input')).not.toBeNull();
+        expect(screen.getByTestId('todo-edit-input')).not.toBeNull();
       });
     });
   });
@@ -58,11 +58,11 @@ describe('TodoItem', () => {
     };
 
     it('Call onDoubleClick', () => {
-      const { getByTestId } = renderTodoItem(state);
+      renderTodoItem(state);
 
-      fireEvent.doubleClick(getByTestId('todo-text'));
+      fireEvent.doubleClick(screen.getByTestId('todo-text'));
 
-      expect(getByTestId('todo-edit-input')).toHaveFocus();
+      expect(screen.getByTestId('todo-edit-input')).toHaveFocus();
     });
   });
 
@@ -83,10 +83,10 @@ describe('TodoItem', () => {
       mockAxios.delete.mockRejectedValueOnce(error);
 
       it('The to-do should not be deleted.', async () => {
-        const { container, getByTestId } = renderTodoItem(state);
+        const { container } = renderTodoItem(state);
 
         await act(async () => {
-          fireEvent.click(getByTestId('todo-delete'));
+          fireEvent.click(screen.getByTestId('todo-delete'));
         });
 
         expect(container).toHaveTextContent(state.task);
@@ -99,23 +99,23 @@ describe('TodoItem', () => {
       });
 
       it('The to-do should not be updated, the style has not changed. With Checkbox', async () => {
-        const { getByTestId } = renderTodoItem(state);
+        renderTodoItem(state);
 
         await act(async () => {
-          fireEvent.click(getByTestId('todo-item'));
+          fireEvent.click(screen.getByTestId('todo-item'));
         });
 
-        expect(getByTestId('todo-text')).not.toHaveStyle('text-decoration: line-through;');
+        expect(screen.getByTestId('todo-text')).not.toHaveStyle('text-decoration: line-through;');
       });
 
       it("The value doesn't change because the to-do was not updated. With task input", async () => {
-        const { container, getByTestId } = renderTodoItem(state);
+        const { container } = renderTodoItem(state);
 
         await act(async () => {
-          fireEvent.doubleClick(getByTestId('todo-text'));
+          fireEvent.doubleClick(screen.getByTestId('todo-text'));
         });
 
-        const input = getByTestId('todo-edit-input');
+        const input = screen.getByTestId('todo-edit-input');
 
         await act(async () => {
           fireEvent.change(input, {

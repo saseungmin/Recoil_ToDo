@@ -28,16 +28,16 @@ const UnCheckedIconWrapper = styled(UnCheckedIcon)`
   ${CheckboxWrapper}
 `;
 
-const Checkbox = (props) => {
+function Checkbox(props) {
   const { checked, click } = props;
 
+  if (checked) {
+    return <CheckedIConWrapper {...props} click={click && 1} />;
+  }
+
   return (
-    <>
-      {checked
-        ? <CheckedIConWrapper {...props} click={click && 1} />
-        : <UnCheckedIconWrapper {...props} click={click && 1} />}
-    </>
+    <UnCheckedIconWrapper {...props} click={click && 1} />
   );
-};
+}
 
 export default Checkbox;

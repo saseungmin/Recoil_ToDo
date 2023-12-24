@@ -47,7 +47,7 @@ const separateObjectId = (todos) => todos
   .filter(isCompleted)
   .map(({ _id }) => _id);
 
-const TodoClearButton = () => {
+function TodoClearButton() {
   const multipleRemove = useMultipleRemoveCallback();
 
   const { todos } = useRecoilValue(todosResultAtom);
@@ -70,6 +70,6 @@ const TodoClearButton = () => {
       {COMPLETED_CLEAR_BUTTON}
     </ClearButtonWrapper>
   );
-};
+}
 
 export default TodoClearButton;

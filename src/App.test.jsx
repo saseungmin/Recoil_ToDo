@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { act } from 'react-dom/test-utils';
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, screen } from '@testing-library/react';
 
 import { RecoilRoot } from 'recoil';
 
@@ -54,13 +54,13 @@ describe('App', () => {
       todos,
     }));
 
-    const { getByTestId, container } = renderApp({});
+    const { container } = renderApp({});
 
     expect(container).toHaveTextContent('What are your plans for today?');
     expect(container).toHaveTextContent('ALL');
     expect(container).toHaveTextContent('할 일1');
     expect(container).toHaveTextContent('CLEAR COMPLETED');
-    expect(getByTestId('theme-toggle')).toHaveAttribute('title', 'light');
+    expect(screen.getByTestId('theme-toggle')).toHaveAttribute('title', 'light');
   });
 
   describe('Render App with Theme', () => {
@@ -68,19 +68,19 @@ describe('App', () => {
 
     context('When theme is Light', () => {
       it('renders light theme css attribute and light toggle', () => {
-        const { getByText, getByTestId } = renderApp({ theme: lightTheme });
+        renderApp({ theme: lightTheme });
 
-        expect(getByText('What are your plans for today?')).toHaveStyle('color: #6A7BA2;');
-        expect(getByTestId('theme-toggle')).toHaveAttribute('title', 'light');
+        expect(screen.getByText('What are your plans for today?')).toHaveStyle('color: #6A7BA2;');
+        expect(screen.getByTestId('theme-toggle')).toHaveAttribute('title', 'light');
       });
     });
 
     context('When theme is Dark', () => {
       it('renders dark theme css attribute and dark toggle', () => {
-        const { getByText, getByTestId } = renderApp({ theme: darkTheme, themState: true });
+        renderApp({ theme: darkTheme, themState: true });
 
-        expect(getByText('What are your plans for today?')).toHaveStyle('color: #FFDFDE;');
-        expect(getByTestId('theme-toggle')).toHaveAttribute('title', 'dark');
+        expect(screen.getByText('What are your plans for today?')).toHaveStyle('color: #FFDFDE;');
+        expect(screen.getByTestId('theme-toggle')).toHaveAttribute('title', 'dark');
       });
     });
   });
@@ -97,27 +97,27 @@ describe('App', () => {
     }));
 
     it('When the filter is ALL', () => {
-      const { container, getByText } = renderApp({});
+      const { container } = renderApp({});
 
-      fireEvent.click(getByText('ALL'));
+      fireEvent.click(screen.getByText('ALL'));
 
       expect(container).toHaveTextContent('some task');
       expect(container).toHaveTextContent('할 일2');
     });
 
     it('When the filter is ACTIVE', () => {
-      const { container, getByText } = renderApp({});
+      const { container } = renderApp({});
 
-      fireEvent.click(getByText('ACTIVE'));
+      fireEvent.click(screen.getByText('ACTIVE'));
 
       expect(container).toHaveTextContent('some task');
       expect(container).not.toHaveTextContent('할 일2');
     });
 
     it('When the filter is COMPLETED', () => {
-      const { container, getByText } = renderApp({});
+      const { container } = renderApp({});
 
-      fireEvent.click(getByText('COMPLETED'));
+      fireEvent.click(screen.getByText('COMPLETED'));
 
       expect(container).not.toHaveTextContent('some task');
       expect(container).toHaveTextContent('할 일2');
@@ -136,24 +136,24 @@ describe('App', () => {
 
     context('Is Sign in Modal', () => {
       it('When you click the "Sign in" button, the Sign in modal is shown.', async () => {
-        const { getByPlaceholderText, getByText } = renderApp({});
+        renderApp({});
 
-        fireEvent.click(getByText('Sign in'));
+        fireEvent.click(screen.getByText('Sign in'));
 
-        expect(getByPlaceholderText('아이디')).not.toBeNull();
-        expect(getByPlaceholderText('비밀번호')).not.toBeNull();
+        expect(screen.getByPlaceholderText('아이디')).not.toBeNull();
+        expect(screen.getByPlaceholderText('비밀번호')).not.toBeNull();
       });
     });
 
     context('Is Sign up Modal', () => {
       it('When you click the "Sing in" button, the Sign in modal is shown.', async () => {
-        const { getByPlaceholderText, getByText } = renderApp({});
+        renderApp({});
 
-        fireEvent.click(getByText('Sign up'));
+        fireEvent.click(screen.getByText('Sign up'));
 
-        expect(getByPlaceholderText('아이디')).not.toBeNull();
-        expect(getByPlaceholderText('비밀번호')).not.toBeNull();
-        expect(getByPlaceholderText('비밀번호 확인')).not.toBeNull();
+        expect(screen.getByPlaceholderText('아이디')).not.toBeNull();
+        expect(screen.getByPlaceholderText('비밀번호')).not.toBeNull();
+        expect(screen.getByPlaceholderText('비밀번호 확인')).not.toBeNull();
       });
     });
   });
@@ -186,12 +186,12 @@ describe('App', () => {
         todos,
       }));
 
-      const { container, getByText } = renderApp({});
+      const { container } = renderApp({});
 
       expect(container).toHaveTextContent('할 일1');
 
       await act(async () => {
-        fireEvent.click(getByText('CLEAR COMPLETED'));
+        fireEvent.click(screen.getByText('CLEAR COMPLETED'));
       });
 
       expect(container).toHaveTextContent('할 일이 없어요!');
@@ -211,18 +211,16 @@ describe('App', () => {
         { placeholder: '비밀번호', value: 'test' },
       ];
 
-      const {
-        container, getByTestId, getByPlaceholderText,
-      } = renderApp(props);
+      const { container } = renderApp(props);
 
       await act(async () => {
         input.forEach(({ placeholder, value }) => {
-          fireEvent.change(getByPlaceholderText(placeholder), { target: { value } });
+          fireEvent.change(screen.getByPlaceholderText(placeholder), { target: { value } });
         });
       });
 
       await act(async () => {
-        fireEvent.submit(getByTestId('auth-submit-button'));
+        fireEvent.submit(screen.getByTestId('auth-submit-button'));
       });
 
       expect(container).toHaveTextContent('Successful Sign in!');
@@ -271,9 +269,9 @@ describe('App', () => {
       it('Render success message "Success in entering To-Do!"', async () => {
         mockPostApi(mockData);
 
-        const { container, getByPlaceholderText } = renderApp({ user: mockUserState });
+        const { container } = renderApp({ user: mockUserState });
 
-        const input = getByPlaceholderText('오늘의 할 일을 입력해주세요!');
+        const input = screen.getByPlaceholderText('오늘의 할 일을 입력해주세요!');
 
         await act(async () => {
           fireEvent.change(input, { target: { value } });
@@ -309,18 +307,16 @@ describe('App', () => {
         { placeholder: '비밀번호 확인', value: 'test' },
       ];
 
-      const {
-        container, getByTestId, getByPlaceholderText,
-      } = renderApp(props);
+      const { container } = renderApp(props);
 
       await act(async () => {
         input.forEach(({ placeholder, value }) => {
-          fireEvent.change(getByPlaceholderText(placeholder), { target: { value } });
+          fireEvent.change(screen.getByPlaceholderText(placeholder), { target: { value } });
         });
       });
 
       await act(async () => {
-        fireEvent.submit(getByTestId('auth-submit-button'));
+        fireEvent.submit(screen.getByTestId('auth-submit-button'));
       });
 
       expect(container).toHaveTextContent('Successful Sign up!');

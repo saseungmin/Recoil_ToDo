@@ -17,7 +17,7 @@ describe('request interceptor', () => {
 
     const result = client.interceptors.request.handlers[0].fulfilled({ headers: {} });
 
-    expect(getCookie).toBeCalledTimes(1);
+    expect(getCookie).toHaveBeenCalledTimes(1);
     expect(result.headers).toHaveProperty('Authorization', 'token');
   });
 
@@ -26,7 +26,7 @@ describe('request interceptor', () => {
 
     const result = client.interceptors.request.handlers[0].fulfilled({ headers: {} });
 
-    expect(getCookie).toBeCalledTimes(1);
+    expect(getCookie).toHaveBeenCalledTimes(1);
     expect(result.headers).toHaveProperty('Authorization', '');
   });
 });

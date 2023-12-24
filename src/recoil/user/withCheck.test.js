@@ -19,7 +19,7 @@ describe('authWithLogin', () => {
     const response = await initialSnapshot.getPromise(userWithCheck('token'));
 
     expect(response).toBe(data);
-    expect(mockAxios.get).toBeCalledWith('/api/auth/check', {
+    expect(mockAxios.get).toHaveBeenCalledWith('/api/auth/check', {
       headers: { Authorization: 'token' },
     });
   });

@@ -19,6 +19,6 @@ describe('todoWithRemove', () => {
     const response = await initialSnapshot.getPromise(todoWithWrite('task'));
 
     expect(response).toBe(data);
-    expect(mockAxios.post).toBeCalledWith('/api/todos', { task: 'task' });
+    expect(mockAxios.post).toHaveBeenCalledWith('/api/todos', { task: 'task' });
   });
 });

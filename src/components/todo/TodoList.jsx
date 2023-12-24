@@ -14,7 +14,7 @@ import EmptyStatus from './EmptyStatus';
 import EmptyMessage from '../../styles/EmptyMessage';
 import useLoadCallback from '../../hooks/useLoadCallback';
 
-const TodoList = () => {
+function TodoList() {
   const loadTodos = useLoadCallback();
 
   const { user } = useRecoilValue(userAtom);
@@ -49,6 +49,6 @@ const TodoList = () => {
       ))}
     </div>
   );
-};
+}
 
 export default TodoList;

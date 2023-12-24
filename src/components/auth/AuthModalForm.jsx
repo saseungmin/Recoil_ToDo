@@ -98,7 +98,7 @@ const SubmitButton = styled.button`
   }
 `;
 
-const AuthModalForm = ({ onSubmit }) => {
+function AuthModalForm({ onSubmit }) {
   const { register, handleSubmit } = useForm();
 
   const { type, visible } = useRecoilValue(authFormStatusAtom);
@@ -145,6 +145,6 @@ const AuthModalForm = ({ onSubmit }) => {
       </AuthModalBoxWrapper>
     </AuthModalFormWrapper>
   );
-};
+}
 
 export default AuthModalForm;

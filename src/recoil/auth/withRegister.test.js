@@ -22,7 +22,7 @@ describe('authWithRegister', () => {
     }));
 
     expect(response).toBe(data);
-    expect(mockAxios.post).toBeCalledWith('/api/auth/register', {
+    expect(mockAxios.post).toHaveBeenCalledWith('/api/auth/register', {
       id: 'test',
       password: 'test',
     });

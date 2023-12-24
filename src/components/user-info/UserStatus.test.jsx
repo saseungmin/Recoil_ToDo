@@ -4,7 +4,7 @@ import { RecoilRoot } from 'recoil';
 
 import { SnackbarProvider } from 'notistack';
 
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, screen } from '@testing-library/react';
 
 import UserStatus from './UserStatus';
 import InjectTestingRecoilState from '../common/InjectTestingRecoilState';
@@ -35,11 +35,11 @@ describe('UserStatus', () => {
 
     describe('When click Sign out button, call event', () => {
       it('when sign out is successful, renders success message', async () => {
-        const { container, getByTestId } = renderUserStatus();
+        const { container } = renderUserStatus();
 
         expect(container).toHaveTextContent('Sign out');
 
-        fireEvent.click(getByTestId('sign-out-button'));
+        fireEvent.click(screen.getByTestId('sign-out-button'));
 
         expect(container).toHaveTextContent('Sign in');
         expect(container).toHaveTextContent('Sign up');
@@ -54,10 +54,10 @@ describe('UserStatus', () => {
     }));
 
     it('render Sing in and Sign up buttons', () => {
-      const { getByText } = renderUserStatus();
+      renderUserStatus();
 
-      expect(getByText('Sign in')).not.toBeNull();
-      expect(getByText('Sign up')).not.toBeNull();
+      expect(screen.getByText('Sign in')).not.toBeNull();
+      expect(screen.getByText('Sign up')).not.toBeNull();
     });
   });
 });

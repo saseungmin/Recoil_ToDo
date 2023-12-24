@@ -5,7 +5,7 @@ import mockAxios from 'axios';
 import { RecoilRoot } from 'recoil';
 
 import { act } from 'react-dom/test-utils';
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, screen } from '@testing-library/react';
 
 import { todoResultState } from '../../../fixtures/recoil-atom-state';
 
@@ -48,15 +48,15 @@ describe('TodoClearButton', () => {
       it("When todo delete failure, Doesn't have disabled attribute", async () => {
         mockAxios.delete.mockRejectedValueOnce(error);
 
-        const { getByText } = renderTodoClearButton();
+        renderTodoClearButton();
 
-        const clearButton = getByText('CLEAR COMPLETED');
+        const clearButton = screen.getByText('CLEAR COMPLETED');
 
         await act(async () => {
           fireEvent.click(clearButton);
         });
 
-        expect(mockAxios.delete).toBeCalledTimes(1);
+        expect(mockAxios.delete).toHaveBeenCalledTimes(1);
         expect(clearButton).not.toHaveAttribute('disabled');
       });
     });
@@ -72,9 +72,9 @@ describe('TodoClearButton', () => {
       todos,
     }));
     it('render disabled clear button', () => {
-      const { getByText } = renderTodoClearButton();
+      renderTodoClearButton();
 
-      expect(getByText('CLEAR COMPLETED')).toHaveAttribute('disabled');
+      expect(screen.getByText('CLEAR COMPLETED')).toHaveAttribute('disabled');
     });
   });
 });

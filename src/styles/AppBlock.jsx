@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 
 import styled from '@emotion/styled';
@@ -19,10 +18,13 @@ const AppWrapper = styled.div`
   flex-direction: column;
 `;
 
-const AppBlock = ({ children, ...rest }) => (
-  <AppWrapper {...rest}>
-    {children}
-  </AppWrapper>
-);
+function AppBlock({ children, ...rest }) {
+  return (
+    // eslint-disable-next-line react/jsx-props-no-spreading
+    <AppWrapper {...rest}>
+      {children}
+    </AppWrapper>
+  );
+}
 
 export default AppBlock;

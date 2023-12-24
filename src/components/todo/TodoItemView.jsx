@@ -69,9 +69,9 @@ const DeleteIcon = styled(DeleteSvg)`
   cursor: pointer;
 `;
 
-const TodoItemView = ({
+function TodoItemView({
   item, onShowEdit, onRemove, onToggle,
-}) => {
+}) {
   const isMobileScreen = useMediaQuery({ query: '(max-width: 450px)' });
 
   const { task, isComplete, _id } = item;
@@ -104,6 +104,6 @@ const TodoItemView = ({
       />
     </TodoItemViewWrapper>
   );
-};
+}
 
 export default TodoItemView;

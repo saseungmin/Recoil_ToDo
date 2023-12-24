@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, screen } from '@testing-library/react';
 
 import AuthButton from './AuthButton';
 
@@ -25,10 +25,10 @@ describe('AuthButton', () => {
   });
 
   it('click button listen event', () => {
-    const { getByText } = renderAuthButton('Sign in');
+    renderAuthButton('Sign in');
 
-    fireEvent.click(getByText('Sign in'));
+    fireEvent.click(screen.getByText('Sign in'));
 
-    expect(handleClick).toBeCalled();
+    expect(handleClick).toHaveBeenCalled();
   });
 });

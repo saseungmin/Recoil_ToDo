@@ -2,7 +2,7 @@ import React from 'react';
 
 import { RecoilRoot } from 'recoil';
 
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, screen } from '@testing-library/react';
 
 import ToggleThemeButton from './ToggleThemeButton';
 import InjectTestingRecoilState from './InjectTestingRecoilState';
@@ -19,35 +19,35 @@ describe('ToggleThemeButton', () => {
 
   context('When theme is Light', () => {
     it('renders Light theme button', () => {
-      const { getByTestId } = renderToggleThemeButton(false);
+      renderToggleThemeButton(false);
 
-      expect(getByTestId('theme-toggle')).toHaveAttribute('title', 'light');
+      expect(screen.getByTestId('theme-toggle')).toHaveAttribute('title', 'light');
     });
 
     it('Change to dark button when clicking theme button', () => {
-      const { getByTestId } = renderToggleThemeButton(false);
+      renderToggleThemeButton(false);
 
-      expect(getByTestId('theme-toggle')).toHaveAttribute('title', 'light');
+      expect(screen.getByTestId('theme-toggle')).toHaveAttribute('title', 'light');
 
-      fireEvent.click(getByTestId('theme-toggle'));
+      fireEvent.click(screen.getByTestId('theme-toggle'));
 
-      expect(getByTestId('theme-toggle')).toHaveAttribute('title', 'dark');
+      expect(screen.getByTestId('theme-toggle')).toHaveAttribute('title', 'dark');
     });
   });
 
   context('When theme is Dark', () => {
     it('renders Dark theme button', () => {
-      const { getByTestId } = renderToggleThemeButton(true);
+      renderToggleThemeButton(true);
 
-      expect(getByTestId('theme-toggle')).toHaveAttribute('title', 'dark');
+      expect(screen.getByTestId('theme-toggle')).toHaveAttribute('title', 'dark');
     });
 
     it('Change to Light button when clicking theme button', () => {
-      const { getByTestId } = renderToggleThemeButton(true);
+      renderToggleThemeButton(true);
 
-      fireEvent.click(getByTestId('theme-toggle'));
+      fireEvent.click(screen.getByTestId('theme-toggle'));
 
-      expect(getByTestId('theme-toggle')).toHaveAttribute('title', 'light');
+      expect(screen.getByTestId('theme-toggle')).toHaveAttribute('title', 'light');
     });
   });
 });

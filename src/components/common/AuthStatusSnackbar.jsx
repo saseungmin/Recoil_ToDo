@@ -7,7 +7,7 @@ import { useSnackbar } from 'notistack';
 import authResultAtom from '../../recoil/auth';
 import userAtom from '../../recoil/user';
 
-const AuthStatusSnackbar = () => {
+function AuthStatusSnackbar() {
   const [{ authSuccess, authError }, setAuthState] = useRecoilState(authResultAtom);
   const { checkError } = useRecoilValue(userAtom);
   const resetUserState = useResetRecoilState(userAtom);
@@ -50,6 +50,6 @@ const AuthStatusSnackbar = () => {
   }, [checkError]);
 
   return null;
-};
+}
 
 export default AuthStatusSnackbar;

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { RecoilRoot } from 'recoil';
 
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, screen } from '@testing-library/react';
 
 import { todoResultState } from '../../../fixtures/recoil-atom-state';
 
@@ -37,8 +37,10 @@ describe('TodoSubInfo', () => {
   });
 
   it('Click filter buttons call event set value', () => {
-    const { getByText } = renderTodoSubInfo(initialState);
+    const { container } = renderTodoSubInfo(initialState);
 
-    fireEvent.click(getByText('ACTIVE'));
+    fireEvent.click(screen.getByText('ACTIVE'));
+
+    expect(container).toHaveTextContent('ACTIVE');
   });
 });

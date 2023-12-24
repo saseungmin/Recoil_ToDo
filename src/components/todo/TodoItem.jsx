@@ -43,7 +43,7 @@ const EditItemWrapper = styled.input`
   background: ${({ theme }) => theme.edit};
 `;
 
-const TodoItem = ({ item }) => {
+function TodoItem({ item }) {
   const { _id, task, isComplete } = item;
 
   const onRemoveTodo = useRemoveCallback();
@@ -114,6 +114,6 @@ const TodoItem = ({ item }) => {
       />
     </EditWrapper>
   );
-};
+}
 
 export default TodoItem;

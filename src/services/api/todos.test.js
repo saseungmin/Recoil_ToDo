@@ -18,7 +18,7 @@ describe('todos api', () => {
     const result = await write(task);
 
     expect(result).toBe(task);
-    expect(mockAxios.post).toBeCalledWith('/api/todos', {
+    expect(mockAxios.post).toHaveBeenCalledWith('/api/todos', {
       task,
     });
   });
@@ -27,7 +27,7 @@ describe('todos api', () => {
     const result = await list('token');
 
     expect(result).toBe(data);
-    expect(mockAxios.get).toBeCalledWith('/api/todos', {
+    expect(mockAxios.get).toHaveBeenCalledWith('/api/todos', {
       headers: {
         Authorization: 'token',
       },
@@ -40,7 +40,7 @@ describe('todos api', () => {
     const result = await multipleRemove(ids);
 
     expect(result).toBe(data);
-    expect(mockAxios.delete).toBeCalledWith('/api/todos', {
+    expect(mockAxios.delete).toHaveBeenCalledWith('/api/todos', {
       data: { ids },
     });
   });
@@ -51,7 +51,7 @@ describe('todos api', () => {
     const result = await remove(id);
 
     expect(result).toBe(data);
-    expect(mockAxios.delete).toBeCalledWith('/api/todos/1');
+    expect(mockAxios.delete).toHaveBeenCalledWith('/api/todos/1');
   });
 
   it('PATCH /api/todos/:id', async () => {
@@ -64,6 +64,6 @@ describe('todos api', () => {
     const result = await update('1', todo);
 
     expect(result).toBe(data);
-    expect(mockAxios.patch).toBeCalledWith('/api/todos/1', todo);
+    expect(mockAxios.patch).toHaveBeenCalledWith('/api/todos/1', todo);
   });
 });

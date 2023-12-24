@@ -45,7 +45,7 @@ const FilterButtonWrapper = styled.button`
   `};
 `;
 
-const TodoFilterButton = ({ type }) => {
+function TodoFilterButton({ type }) {
   const [filter, setFilter] = useRecoilState(filterAtom);
 
   const handleClick = (e) => {
@@ -64,6 +64,6 @@ const TodoFilterButton = ({ type }) => {
       {type}
     </FilterButtonWrapper>
   );
-};
+}
 
 export default TodoFilterButton;

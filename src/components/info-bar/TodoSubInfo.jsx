@@ -35,16 +35,18 @@ const TodoFilterButtonsWrapper = styled.div`
   align-items: center;
 `;
 
-const TodoSubInfo = () => (
-  <TodoSubInfoWrapper>
-    <TodoClearButton />
-    <TodoFilterButtonsWrapper>
-      <TodoFilterButton type={ALL} />
-      <TodoFilterButton type={ACTIVE} />
-      <TodoFilterButton type={COMPLETED} />
-    </TodoFilterButtonsWrapper>
-    <TodoStats />
-  </TodoSubInfoWrapper>
-);
+function TodoSubInfo() {
+  return (
+    <TodoSubInfoWrapper>
+      <TodoClearButton />
+      <TodoFilterButtonsWrapper>
+        <TodoFilterButton type={ALL} />
+        <TodoFilterButton type={ACTIVE} />
+        <TodoFilterButton type={COMPLETED} />
+      </TodoFilterButtonsWrapper>
+      <TodoStats />
+    </TodoSubInfoWrapper>
+  );
+}
 
 export default TodoSubInfo;

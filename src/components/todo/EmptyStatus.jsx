@@ -12,7 +12,7 @@ import EmptyMessage from '../../styles/EmptyMessage';
 const { ACTIVE } = FILTER_TYPE_BUTTON;
 const { NOTHING_ACTIVE, NOTHING_COMPLETED } = EMPTY_TODO_MESSAGE;
 
-const EmptyStatus = () => {
+function EmptyStatus() {
   const filterStatus = useRecoilValue(filterAtom);
 
   if (filterStatus === ACTIVE) {
@@ -28,6 +28,6 @@ const EmptyStatus = () => {
       {NOTHING_COMPLETED}
     </EmptyMessage>
   );
-};
+}
 
 export default EmptyStatus;

@@ -16,7 +16,7 @@ import useCheckCallback from '../../hooks/useCheckCallback';
 
 import AuthModalForm from './AuthModalForm';
 
-const LoginForm = () => {
+function LoginForm() {
   const { enqueueSnackbar } = useSnackbar();
 
   const loginCallback = useAuthCallback(FORM_TYPE.login);
@@ -59,6 +59,6 @@ const LoginForm = () => {
       onSubmit={onSubmit}
     />
   );
-};
+}
 
 export default LoginForm;

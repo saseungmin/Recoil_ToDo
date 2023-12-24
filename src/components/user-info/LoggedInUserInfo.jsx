@@ -43,18 +43,20 @@ const UserIcon = styled(UserSvg)`
   margin-right: 0.5rem;
 `;
 
-const LoggedInUserInfo = ({ user, onLogout }) => (
-  <LoggedInUserInfoWrapper>
-    <UserProfile>
-      <UserIcon />
-      {user.id}
-    </UserProfile>
-    <div>
-      <AuthButton
-        type={logout}
-        onClick={onLogout}
-      />
-    </div>
-  </LoggedInUserInfoWrapper>
-);
+function LoggedInUserInfo({ user, onLogout }) {
+  return (
+    <LoggedInUserInfoWrapper>
+      <UserProfile>
+        <UserIcon />
+        {user.id}
+      </UserProfile>
+      <div>
+        <AuthButton
+          type={logout}
+          onClick={onLogout}
+        />
+      </div>
+    </LoggedInUserInfoWrapper>
+  );
+}
 export default LoggedInUserInfo;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, screen } from '@testing-library/react';
 
 import LoggedInUserInfo from './LoggedInUserInfo';
 
@@ -19,9 +19,9 @@ describe('LoggedInUserInfo', () => {
       id: 'test',
     };
 
-    const { container, getByText } = renderLoggedInUserInfo(user);
+    const { container } = renderLoggedInUserInfo(user);
 
-    expect(getByText('Sign out')).not.toBeNull();
+    expect(screen.getByText('Sign out')).not.toBeNull();
     expect(container).toHaveTextContent('test');
   });
 
@@ -30,10 +30,10 @@ describe('LoggedInUserInfo', () => {
       id: 'test',
     };
 
-    const { getByText } = renderLoggedInUserInfo(user);
+    renderLoggedInUserInfo(user);
 
-    fireEvent.click(getByText('Sign out'));
+    fireEvent.click(screen.getByText('Sign out'));
 
-    expect(handleClick).toBeCalled();
+    expect(handleClick).toHaveBeenCalled();
   });
 });

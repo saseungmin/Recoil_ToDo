@@ -22,7 +22,7 @@ describe('authWithLogin', () => {
     }));
 
     expect(response).toBe(data);
-    expect(mockAxios.post).toBeCalledWith('/api/auth/login', {
+    expect(mockAxios.post).toHaveBeenCalledWith('/api/auth/login', {
       id: 'test',
       password: 'test',
     });

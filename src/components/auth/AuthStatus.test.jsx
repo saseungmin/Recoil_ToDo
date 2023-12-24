@@ -7,7 +7,7 @@ import { RecoilRoot } from 'recoil';
 import { SnackbarProvider } from 'notistack';
 
 import { act } from 'react-dom/test-utils';
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, screen } from '@testing-library/react';
 
 import mockToken from '../../../fixtures/token';
 
@@ -40,9 +40,9 @@ describe('AuthStatus', () => {
 
       describe('When Click close button', () => {
         it('close auth modal', () => {
-          const { container, getByTestId } = renderAuthStatus();
+          const { container } = renderAuthStatus();
 
-          fireEvent.click(getByTestId('close-button'));
+          fireEvent.click(screen.getByTestId('close-button'));
 
           expect(container).toBeEmptyDOMElement();
         });
@@ -59,16 +59,16 @@ describe('AuthStatus', () => {
           mockAxios.post.mockResolvedValueOnce({ data: { access_token: mockToken } });
           mockAxios.get.mockRejectedValueOnce({ response: { status: 403 } });
 
-          const { container, getByPlaceholderText, getByTestId } = renderAuthStatus();
+          const { container } = renderAuthStatus();
 
           await act(async () => {
             input.forEach(async ({ placeholder, value }) => {
-              await fireEvent.change(getByPlaceholderText(placeholder), { target: { value } });
+              await fireEvent.change(screen.getByPlaceholderText(placeholder), {
+                target: { value },
+              });
             });
-          });
 
-          await act(async () => {
-            fireEvent.submit(getByTestId('auth-submit-button'));
+            fireEvent.submit(screen.getByTestId('auth-submit-button'));
           });
 
           expect(container).toHaveTextContent('Sign in');
@@ -97,20 +97,20 @@ describe('AuthStatus', () => {
           mockAxios.post.mockResolvedValueOnce({ data: { access_token: mockToken } });
           mockAxios.get.mockRejectedValueOnce({ response: { status: 403 } });
 
-          const { container, getByPlaceholderText, getByTestId } = renderAuthStatus();
+          const { container } = renderAuthStatus();
 
           await act(async () => {
             input.forEach(async ({ placeholder, value }) => {
-              await fireEvent.change(getByPlaceholderText(placeholder), { target: { value } });
+              await fireEvent.change(screen.getByPlaceholderText(placeholder), {
+                target: { value },
+              });
             });
-          });
 
-          await act(async () => {
-            fireEvent.submit(getByTestId('auth-submit-button'));
+            fireEvent.submit(screen.getByTestId('auth-submit-button'));
           });
 
           expect(container).toHaveTextContent('Sign in');
-          expect(mockAxios.get).toBeCalledTimes(1);
+          expect(mockAxios.get).toHaveBeenCalledTimes(1);
         });
       });
     });

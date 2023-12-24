@@ -27,12 +27,12 @@ const setGlobalStyles = (theme) => css`
   }
 `;
 
-const GlobalStyles = () => {
+function GlobalStyles() {
   const theme = useTheme();
 
   return (
     <Global styles={setGlobalStyles(theme)} />
   );
-};
+}
 
 export default GlobalStyles;

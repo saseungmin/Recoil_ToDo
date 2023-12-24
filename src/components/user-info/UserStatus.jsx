@@ -31,7 +31,7 @@ const AuthButtonsWrapper = styled.div`
   })}
 `;
 
-const UserStatus = () => {
+function UserStatus() {
   const { user } = useRecoilValue(userAtom);
 
   const setAuthStatus = useSetRecoilState(authFormStatusAtom);
@@ -72,6 +72,6 @@ const UserStatus = () => {
       />
     </AuthButtonsWrapper>
   );
-};
+}
 
 export default UserStatus;

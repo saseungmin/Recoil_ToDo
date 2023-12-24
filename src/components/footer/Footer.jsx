@@ -54,26 +54,28 @@ const IconWrapper = styled.div`
 
 `;
 
-const Footer = () => (
-  <FooterWrapper>
-    <CopyrightWrapper>
-      <span>© Created by </span>
-      <ExternalLink link={E_MAIL}>
-        Seungmin Sa
-      </ExternalLink>
-    </CopyrightWrapper>
-    <IconWrapper>
-      <ExternalLink link={GITHUB}>
-        <GithubIcon />
-      </ExternalLink>
-      <ExternalLink link={FACEBOOK}>
-        <FacebookIcon />
-      </ExternalLink>
-      <ExternalLink link={BLOG}>
-        <BlogIcon />
-      </ExternalLink>
-    </IconWrapper>
-  </FooterWrapper>
-);
+function Footer() {
+  return (
+    <FooterWrapper>
+      <CopyrightWrapper>
+        <span>© Created by </span>
+        <ExternalLink link={E_MAIL}>
+          Seungmin Sa
+        </ExternalLink>
+      </CopyrightWrapper>
+      <IconWrapper>
+        <ExternalLink link={GITHUB}>
+          <GithubIcon />
+        </ExternalLink>
+        <ExternalLink link={FACEBOOK}>
+          <FacebookIcon />
+        </ExternalLink>
+        <ExternalLink link={BLOG}>
+          <BlogIcon />
+        </ExternalLink>
+      </IconWrapper>
+    </FooterWrapper>
+  );
+}
 
 export default Footer;

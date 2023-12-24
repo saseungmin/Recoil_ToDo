@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, screen } from '@testing-library/react';
 
 import EditShowTool from './EditShowTool';
 
@@ -29,11 +29,11 @@ describe('EditShowTool', () => {
 
   context('When mobile', () => {
     it('Click pencil icon calls the function', () => {
-      const { getByTestId } = renderEditShowTool({ isMobile: true });
+      renderEditShowTool({ isMobile: true });
 
-      fireEvent.click(getByTestId('todo-edit-icon'));
+      fireEvent.click(screen.getByTestId('todo-edit-icon'));
 
-      expect(handleClick).toBeCalledTimes(1);
+      expect(handleClick).toHaveBeenCalledTimes(1);
     });
   });
 });

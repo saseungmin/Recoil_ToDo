@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, screen } from '@testing-library/react';
 
 import { Context as ResponsiveContext } from 'react-responsive';
 
@@ -46,43 +46,43 @@ describe('TodoItemView', () => {
   });
 
   it('click remove button', () => {
-    const { getByTestId } = renderTodoItemView(isDesktopState);
+    renderTodoItemView(isDesktopState);
 
-    fireEvent.click(getByTestId('todo-delete'));
+    fireEvent.click(screen.getByTestId('todo-delete'));
 
-    expect(handleRemove).toBeCalled();
+    expect(handleRemove).toHaveBeenCalled();
   });
 
   it('Click to checkbox', () => {
-    const { getByTestId } = renderTodoItemView(isDesktopState);
+    renderTodoItemView(isDesktopState);
 
-    fireEvent.click(getByTestId('todo-item'));
+    fireEvent.click(screen.getByTestId('todo-item'));
 
-    expect(handleToggle).toBeCalled();
+    expect(handleToggle).toHaveBeenCalled();
   });
 
   describe('renders edit input', () => {
     context('is desktop', () => {
       it('When double-clicked, the function is call.', () => {
-        const { getByText } = renderTodoItemView(isDesktopState);
+        renderTodoItemView(isDesktopState);
 
-        fireEvent.doubleClick(getByText('some task'));
+        fireEvent.doubleClick(screen.getByText('some task'));
 
-        expect(handleShowEdit).toBeCalled();
+        expect(handleShowEdit).toHaveBeenCalled();
       });
     });
 
     context('is mobile', () => {
       it('When Click the pencil icon calls the function.', () => {
-        const { getByTestId, getByText } = renderTodoItemView(isMobileState);
+        renderTodoItemView(isMobileState);
 
-        fireEvent.doubleClick(getByText('some task'));
+        fireEvent.doubleClick(screen.getByText('some task'));
 
-        expect(handleShowEdit).not.toBeCalled();
+        expect(handleShowEdit).not.toHaveBeenCalled();
 
-        fireEvent.click(getByTestId('todo-edit-icon'));
+        fireEvent.click(screen.getByTestId('todo-edit-icon'));
 
-        expect(handleShowEdit).toBeCalled();
+        expect(handleShowEdit).toHaveBeenCalled();
       });
     });
   });

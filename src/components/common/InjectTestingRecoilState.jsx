@@ -11,7 +11,7 @@ import {
   todoResultState, userState, authState, authResultState,
 } from '../../../fixtures/recoil-atom-state';
 
-const InjectTestingRecoilState = ({
+function InjectTestingRecoilState({
   todos = todoResultState,
   filter = 'ALL',
   user = userState,
@@ -19,7 +19,7 @@ const InjectTestingRecoilState = ({
   authResult = authResultState,
   isLoading = false,
   theme = false,
-}) => {
+}) {
   const setTodosState = useSetRecoilState(todosResultAtom);
   const setFilterState = useSetRecoilState(filterAtom);
   const setUserState = useSetRecoilState(userAtom);
@@ -39,6 +39,6 @@ const InjectTestingRecoilState = ({
   }, []);
 
   return null;
-};
+}
 
 export default InjectTestingRecoilState;

@@ -34,7 +34,7 @@ const loaderSpinners = css`
   })}
 `;
 
-const LoadingSpinner = () => {
+function LoadingSpinner() {
   const isLoading = useRecoilValue(isLoadingAtom);
 
   if (!isLoading) {
@@ -53,6 +53,6 @@ const LoadingSpinner = () => {
       />
     </LoadingSpinnerWrapper>
   );
-};
+}
 
 export default LoadingSpinner;

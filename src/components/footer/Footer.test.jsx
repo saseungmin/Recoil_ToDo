@@ -2,7 +2,7 @@ import React from 'react';
 
 import { ThemeProvider } from '@emotion/react';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import { lightTheme } from '../../styles/theme';
 
@@ -16,9 +16,9 @@ describe('footer', () => {
   ));
 
   it('renders footer contents', () => {
-    const { container, getByText } = renderFooter();
+    const { container } = renderFooter();
 
     expect(container).toHaveTextContent('Created by');
-    expect(getByText('Seungmin Sa')).toHaveAttribute('href', 'mailto:dbd02169@naver.com');
+    expect(screen.getByText('Seungmin Sa')).toHaveAttribute('href', 'mailto:dbd02169@naver.com');
   });
 });

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { RecoilRoot } from 'recoil';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import { SnackbarProvider } from 'notistack';
 
@@ -31,11 +31,11 @@ describe('AuthModalForm', () => {
       visible: true,
     }));
     it('renders register contents', () => {
-      const { getByPlaceholderText } = renderAuthModalForm();
+      renderAuthModalForm();
 
-      expect(getByPlaceholderText('아이디')).not.toBeNull();
-      expect(getByPlaceholderText('비밀번호')).not.toBeNull();
-      expect(getByPlaceholderText('비밀번호 확인')).not.toBeNull();
+      expect(screen.getByPlaceholderText('아이디')).not.toBeNull();
+      expect(screen.getByPlaceholderText('비밀번호')).not.toBeNull();
+      expect(screen.getByPlaceholderText('비밀번호 확인')).not.toBeNull();
     });
   });
 
@@ -45,10 +45,10 @@ describe('AuthModalForm', () => {
       visible: true,
     }));
     it('renders register contents', () => {
-      const { getByPlaceholderText } = renderAuthModalForm();
+      renderAuthModalForm();
 
-      expect(getByPlaceholderText('아이디')).not.toBeNull();
-      expect(getByPlaceholderText('비밀번호')).not.toBeNull();
+      expect(screen.getByPlaceholderText('아이디')).not.toBeNull();
+      expect(screen.getByPlaceholderText('비밀번호')).not.toBeNull();
     });
   });
 });

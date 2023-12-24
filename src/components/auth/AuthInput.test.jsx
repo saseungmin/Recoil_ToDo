@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import AuthInput from './AuthInput';
 
@@ -13,8 +13,8 @@ describe('AuthInput', () => {
   ));
 
   it('renders auth input', () => {
-    const { getByPlaceholderText } = renderAuthInput();
+    renderAuthInput();
 
-    expect(getByPlaceholderText('아이디')).not.toBeNull();
+    expect(screen.getByPlaceholderText('아이디')).not.toBeNull();
   });
 });

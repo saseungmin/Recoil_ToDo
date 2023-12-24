@@ -14,7 +14,7 @@ import { EMPTY_AUTH_INPUT, NOT_MATCH_PASSWORD } from '../../utils/constants/mess
 
 import AuthModalForm from './AuthModalForm';
 
-const RegisterForm = () => {
+function RegisterForm() {
   const { enqueueSnackbar } = useSnackbar();
 
   const registerCallback = useAuthCallback(FORM_TYPE.register);
@@ -54,6 +54,6 @@ const RegisterForm = () => {
     />
 
   );
-};
+}
 
 export default RegisterForm;

@@ -46,7 +46,7 @@ const EditTooltipWrapper = styled.div`
   align-items: center;
 `;
 
-const EditShowTool = ({ isMobile, onShowEdit, id }) => {
+function EditShowTool({ isMobile, onShowEdit, id }) {
   if (isMobile) {
     return (
       <div>
@@ -71,6 +71,6 @@ const EditShowTool = ({ isMobile, onShowEdit, id }) => {
       </EditTooltipWrapper>
     </EditTooltip>
   );
-};
+}
 
 export default EditShowTool;

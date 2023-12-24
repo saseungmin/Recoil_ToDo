@@ -18,7 +18,7 @@ const ThemeButtonWrapper = styled.div`
   justify-content: flex-end;  
 `;
 
-const ToggleThemeButton = () => {
+function ToggleThemeButton() {
   const [theme, setTheme] = useRecoilState(themeWithChange);
 
   const handleToggle = useCallback(() => setTheme(), [setTheme]);
@@ -31,6 +31,6 @@ const ToggleThemeButton = () => {
       />
     </ThemeButtonWrapper>
   );
-};
+}
 
 export default ToggleThemeButton;

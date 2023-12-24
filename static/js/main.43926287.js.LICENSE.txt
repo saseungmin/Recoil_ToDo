@@ -1,9 +1,0 @@
-/*!
- * 
- *         Build Date: 12/23/2023, 11:48:57 AM
- *         Commit Version: 81aece3
- * 
- *         Author: seungmin sa
- *         Author-Email: dbd02169@naver.com
- *       
- */

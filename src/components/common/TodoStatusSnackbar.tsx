@@ -4,14 +4,14 @@ import { useRecoilState } from 'recoil';
 
 import { useSnackbar } from 'notistack';
 
-import todosResultAtom from '../../recoil/todos/atom';
+import todosResultAtom, { TodosResultAtomType } from '../../recoil/todos/atom';
 
 function TodoStatusSnackbar() {
   const [{ todoError, todoSuccess }, setTodoState] = useRecoilState(todosResultAtom);
 
   const { enqueueSnackbar } = useSnackbar();
 
-  const resetState = (state) => setTodoState((prevState) => ({
+  const resetState = (state: Partial<TodosResultAtomType>) => setTodoState((prevState) => ({
     ...prevState,
     ...state,
   }));

@@ -20,7 +20,7 @@ export const lightTheme = {
     '#868e96',
     '#495057',
   ],
-};
+} as const;
 
 export const darkTheme = {
   baseTone: '#6A7BA2',
@@ -44,4 +44,4 @@ export const darkTheme = {
     '#495057',
     '#868e96',
   ],
-};
+} as const;

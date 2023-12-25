@@ -15,13 +15,13 @@ const ThemeButtonWrapper = styled.div`
   })};
 
   display: flex;
-  justify-content: flex-end;  
+  justify-content: flex-end;
 `;
 
 function ToggleThemeButton() {
   const [theme, setTheme] = useRecoilState(themeWithChange);
 
-  const handleToggle = useCallback(() => setTheme(), [setTheme]);
+  const handleToggle = useCallback(() => setTheme(), []);
 
   return (
     <ThemeButtonWrapper>

@@ -2,6 +2,12 @@ import { atom } from 'recoil';
 
 import { AUTH_FORM_STATUS_ATOM_KEY, AUTH_RESULT_ATOM_KEY } from '../../utils/constants/atomKey';
 
+export type AuthResultAtomType = {
+  auth: any;
+  authError: null | string;
+  authSuccess: null | string;
+};
+
 export const authFormStatusAtom = atom({
   key: AUTH_FORM_STATUS_ATOM_KEY,
   default: {
@@ -10,7 +16,7 @@ export const authFormStatusAtom = atom({
   },
 });
 
-const authResultAtom = atom({
+const authResultAtom = atom<AuthResultAtomType>({
   key: AUTH_RESULT_ATOM_KEY,
   default: {
     auth: null,

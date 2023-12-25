@@ -5,7 +5,7 @@ import { render } from '@testing-library/react';
 import ExternalLink from './ExternalLink';
 
 describe('Link', () => {
-  const renderLink = (url) => render((
+  const renderLink = (url: string) => render((
     <ExternalLink
       link={url}
     >

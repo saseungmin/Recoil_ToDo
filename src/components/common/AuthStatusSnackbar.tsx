@@ -6,6 +6,7 @@ import { useSnackbar } from 'notistack';
 
 import authResultAtom from '../../recoil/auth';
 import userAtom from '../../recoil/user';
+import { AuthResultAtomType } from 'src/recoil/auth/atom';
 
 function AuthStatusSnackbar() {
   const [{ authSuccess, authError }, setAuthState] = useRecoilState(authResultAtom);
@@ -14,7 +15,7 @@ function AuthStatusSnackbar() {
 
   const { enqueueSnackbar } = useSnackbar();
 
-  const resetState = (state) => setAuthState((prevState) => ({
+  const resetState = (state: Partial<AuthResultAtomType>) => setAuthState((prevState) => ({
     ...prevState,
     ...state,
   }));

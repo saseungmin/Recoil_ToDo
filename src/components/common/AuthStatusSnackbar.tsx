@@ -4,9 +4,9 @@ import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
 
 import { useSnackbar } from 'notistack';
 
+import { AuthResultAtomType } from 'src/recoil/auth/atom';
 import authResultAtom from '../../recoil/auth';
 import userAtom from '../../recoil/user';
-import { AuthResultAtomType } from 'src/recoil/auth/atom';
 
 function AuthStatusSnackbar() {
   const [{ authSuccess, authError }, setAuthState] = useRecoilState(authResultAtom);

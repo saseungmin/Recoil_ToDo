@@ -4,6 +4,7 @@ import { useSetRecoilState, useRecoilValue } from 'recoil';
 
 import { useSnackbar } from 'notistack';
 
+import { AuthForm } from 'src/types/auth';
 import authResultAtom, { authFormStatusAtom, authWithRegister } from '../../recoil/auth';
 
 import useAuthCallback from '../../hooks/useAuthCallback';
@@ -22,11 +23,11 @@ function RegisterForm() {
   const setLoginVisible = useSetRecoilState(authFormStatusAtom);
   const { authSuccess } = useRecoilValue(authResultAtom);
 
-  const errorSnackbar = (message) => enqueueSnackbar(message, {
+  const errorSnackbar = (message: string) => enqueueSnackbar(message, {
     variant: 'error',
   });
 
-  const onSubmit = (formData) => {
+  const onSubmit = (formData: AuthForm) => {
     if (!isCheckValidate(formData)) {
       errorSnackbar(EMPTY_AUTH_INPUT);
 

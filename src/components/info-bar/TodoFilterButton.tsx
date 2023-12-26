@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { ChangeEvent, MouseEvent } from 'react';
 
 import { useRecoilState } from 'recoil';
 
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
+import { FilterType } from 'src/recoil/todos/atom';
 import mq from '../../styles/responsive';
 import palette from '../../styles/palette';
 
@@ -14,7 +15,7 @@ import { filterAtom } from '../../recoil/todos';
 
 const { COMPLETED } = FILTER_TYPE_BUTTON;
 
-const FilterButtonWrapper = styled.button`
+const FilterButtonWrapper = styled.button<{ value: FilterType; status: FilterType; }>`
   ${mq({
     fontSize: ['0.9rem', '1.2rem'],
   })};
@@ -45,13 +46,15 @@ const FilterButtonWrapper = styled.button`
   `};
 `;
 
-function TodoFilterButton({ type }) {
+type Props = {
+  type: FilterType;
+};
+
+function TodoFilterButton({ type }: Props) {
   const [filter, setFilter] = useRecoilState(filterAtom);
 
-  const handleClick = (e) => {
-    const { value } = e.target;
-
-    setFilter(value);
+  const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
+    setFilter((e.target as any).value);
   };
 
   return (

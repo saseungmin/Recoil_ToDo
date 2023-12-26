@@ -7,6 +7,7 @@ import { css } from '@emotion/react';
 
 import { useForm } from 'react-hook-form';
 
+import { AuthForm } from 'src/types/auth';
 import mq from '../../styles/responsive';
 import palette from '../../styles/palette';
 
@@ -17,7 +18,7 @@ import { authFormStatusAtom } from '../../recoil/auth';
 import CloseIcon from '../../assets/icons/close.svg';
 import AuthInput from './AuthInput';
 
-const AuthModalFormWrapper = styled.div`
+const AuthModalFormWrapper = styled.div<{ visible: boolean; }>`
   top: 0;
   left: 0;
   position: fixed;
@@ -98,8 +99,12 @@ const SubmitButton = styled.button`
   }
 `;
 
-function AuthModalForm({ onSubmit }) {
-  const { register, handleSubmit } = useForm();
+type Props = {
+  onSubmit: (form: AuthForm) => void;
+};
+
+function AuthModalForm({ onSubmit }: Props) {
+  const { register, handleSubmit } = useForm<AuthForm>();
 
   const { type, visible } = useRecoilValue(authFormStatusAtom);
 

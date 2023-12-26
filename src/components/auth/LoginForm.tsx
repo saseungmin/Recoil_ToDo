@@ -2,8 +2,9 @@ import React, { useEffect } from 'react';
 
 import { useResetRecoilState, useRecoilValue } from 'recoil';
 
-import { useSnackbar } from 'notistack';
+import { VariantType, useSnackbar } from 'notistack';
 
+import { AuthForm } from 'src/types/auth';
 import { isCheckValidate } from '../../utils/utils';
 import { FORM_TYPE } from '../../utils/constants/constants';
 import { EMPTY_AUTH_INPUT } from '../../utils/constants/messages';
@@ -27,11 +28,14 @@ function LoginForm() {
 
   const resetAuthFormState = useResetRecoilState(authFormStatusAtom);
 
-  const snackbar = (variant) => (message) => enqueueSnackbar(message, { variant });
+  const snackbar = (
+    variant: VariantType,
+  ) => (message: string) => enqueueSnackbar(message, { variant });
+
   const errorSnackbar = snackbar('error');
   const successSnackbar = snackbar('success');
 
-  const onSubmit = (formData) => {
+  const onSubmit = (formData: AuthForm) => {
     if (!isCheckValidate(formData)) {
       errorSnackbar(EMPTY_AUTH_INPUT);
 

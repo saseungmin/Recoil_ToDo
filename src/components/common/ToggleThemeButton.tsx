@@ -21,7 +21,7 @@ const ThemeButtonWrapper = styled.div`
 function ToggleThemeButton() {
   const [theme, setTheme] = useRecoilState(themeWithChange);
 
-  const handleToggle = useCallback(() => setTheme(), []);
+  const handleToggle = useCallback(() => setTheme(!theme), [theme]);
 
   return (
     <ThemeButtonWrapper>

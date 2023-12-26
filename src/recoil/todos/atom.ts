@@ -2,7 +2,7 @@ import { atom } from 'recoil';
 
 import { FILTER_ATOM_KEY, TODOS_RESULT_ATOM_KEY } from '../../utils/constants/atomKey';
 
-type Todo = {
+export type Todo = {
   _id: string;
   task: string;
   isComplete: boolean;
@@ -14,7 +14,9 @@ export type TodosResultAtomType = {
   todoSuccess: null | string;
 };
 
-export const filterAtom = atom({
+export type FilterType = 'ALL' | 'ACTIVE' | 'COMPLETED';
+
+export const filterAtom = atom<FilterType>({
   key: FILTER_ATOM_KEY,
   default: 'ALL',
 });

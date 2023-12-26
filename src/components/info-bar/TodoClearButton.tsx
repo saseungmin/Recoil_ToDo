@@ -7,6 +7,7 @@ import _ from 'lodash';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
+import { Todo } from 'src/recoil/todos/atom';
 import mq from '../../styles/responsive';
 import palette from '../../styles/palette';
 
@@ -43,7 +44,7 @@ const ClearButtonWrapper = styled.button`
   `};
 `;
 
-const separateObjectId = (todos) => todos
+const separateObjectId = (todos: Todo[]) => todos
   .filter(isCompleted)
   .map(({ _id }) => _id);
 

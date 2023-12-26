@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { KeyboardEvent, useState } from 'react';
 
 import { useRecoilValue } from 'recoil';
 
@@ -37,7 +37,7 @@ const TodoInputFormWrapper = styled.form`
   ${TodoInputWrapper}
 `;
 
-const NewTodoInputWrapper = styled.input`
+const NewTodoInputWrapper = styled.input<{ error: boolean; }>`
   ${mq({
     width: ['100%', '80vw', '700px'],
     height: ['60%', '45px', '50px'],
@@ -116,7 +116,7 @@ function TodoInput() {
 
   const { user } = useRecoilValue(userAtom);
 
-  const onSubmit = ({ task }) => {
+  const onSubmit = ({ task }: { task: string; }) => {
     if (!_.trim(task)) {
       setError(true);
       return;
@@ -131,7 +131,7 @@ function TodoInput() {
     setError(false);
   };
 
-  const handleKeyPress = (e) => {
+  const handleKeyPress = (e: KeyboardEvent) => {
     if (error && e.key === 'Enter') {
       handleResetError();
     }

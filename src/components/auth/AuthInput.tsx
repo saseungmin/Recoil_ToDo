@@ -1,6 +1,7 @@
 import React from 'react';
 
 import styled from '@emotion/styled';
+import { RegisterOptions } from 'react-hook-form';
 import palette from '../../styles/palette';
 
 const AuthInputWrapper = styled.input`
@@ -48,7 +49,12 @@ const authFieldsProperty = {
   },
 };
 
-function AuthInput({ inputRef, inputName }) {
+type Props = {
+  inputRef: any;
+  inputName: 'userId' | 'password' | 'passwordConfirm';
+};
+
+function AuthInput({ inputRef, inputName }: Props) {
   const { inputType, placeholder, autoComplete } = authFieldsProperty[inputName];
 
   return (

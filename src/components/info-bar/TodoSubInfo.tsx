@@ -4,13 +4,9 @@ import styled from '@emotion/styled';
 
 import facepaint from 'facepaint';
 
-import { FILTER_TYPE_BUTTON } from '../../utils/constants/constants';
-
 import TodoStats from './TodoStats';
 import TodoClearButton from './TodoClearButton';
 import TodoFilterButton from './TodoFilterButton';
-
-const { ALL, ACTIVE, COMPLETED } = FILTER_TYPE_BUTTON;
 
 const mq = facepaint([
   '@media(min-width: 383px)',
@@ -40,9 +36,9 @@ function TodoSubInfo() {
     <TodoSubInfoWrapper>
       <TodoClearButton />
       <TodoFilterButtonsWrapper>
-        <TodoFilterButton type={ALL} />
-        <TodoFilterButton type={ACTIVE} />
-        <TodoFilterButton type={COMPLETED} />
+        <TodoFilterButton type="ALL" />
+        <TodoFilterButton type="ACTIVE" />
+        <TodoFilterButton type="COMPLETED" />
       </TodoFilterButtonsWrapper>
       <TodoStats />
     </TodoSubInfoWrapper>

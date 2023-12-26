@@ -8,10 +8,15 @@ export type AuthResultAtomType = {
   authSuccess: null | string;
 };
 
-export const authFormStatusAtom = atom({
+export type AuthFormATomType = {
+  type: 'login' | 'register' | 'logout';
+  visible: boolean;
+};
+
+export const authFormStatusAtom = atom<AuthFormATomType>({
   key: AUTH_FORM_STATUS_ATOM_KEY,
   default: {
-    type: '',
+    type: 'login',
     visible: false,
   },
 });

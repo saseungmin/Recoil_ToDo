@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 
 import styled from '@emotion/styled';
 
@@ -15,7 +15,7 @@ const EmptyMessageWrapper = styled.div`
   color: ${({ theme }) => theme.emptyText};
 `;
 
-function EmptyMessage({ children }) {
+function EmptyMessage({ children }: PropsWithChildren) {
   return (
     <EmptyMessageWrapper>
       {children}

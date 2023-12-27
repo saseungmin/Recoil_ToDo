@@ -22,7 +22,12 @@ const Button = styled.button`
   }
 `;
 
-function AuthButton({ type, onClick }) {
+type Props = {
+  type: string;
+  onClick: () => void;
+};
+
+function AuthButton({ type, onClick }: Props) {
   return (
     <Button
       type="button"

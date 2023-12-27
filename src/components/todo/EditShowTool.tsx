@@ -7,13 +7,13 @@ import ReactTooltip from 'react-tooltip';
 
 import PencilSvg from '../../assets/icons/pencil.svg';
 
-const PencilIcon = styled(PencilSvg)`
+const PencilIcon = styled(PencilSvg)<{ isMobile?: boolean; }>`
   width: 20px;
   height: 20px;
   margin-right: 5px;
   margin-bottom: 3px;
 
-  ${({ ismobile }) => ismobile && css`
+  ${({ isMobile }) => isMobile && css`
     top: 0;
     right: 45px;
     position: absolute;
@@ -46,14 +46,20 @@ const EditTooltipWrapper = styled.div`
   align-items: center;
 `;
 
-function EditShowTool({ isMobile, onShowEdit, id }) {
+type Props = {
+  isMobile: boolean;
+  onShowEdit: () => void;
+  id: string;
+};
+
+function EditShowTool({ isMobile, onShowEdit, id }: Props) {
   if (isMobile) {
     return (
       <div>
         <PencilIcon
           data-testid="todo-edit-icon"
           onClick={onShowEdit}
-          ismobile={isMobile && 1}
+          isMobile={isMobile && !!1}
         />
       </div>
     );

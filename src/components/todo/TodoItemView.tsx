@@ -5,6 +5,7 @@ import { useMediaQuery } from 'react-responsive';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
+import { Todo } from 'src/recoil/todos/atom';
 import DeleteSvg from '../../assets/icons/delete.svg';
 
 import mq from '../../styles/responsive';
@@ -31,7 +32,7 @@ const TodoItemViewWrapper = styled.div`
   }
 `;
 
-const TodoItemTextWrapper = styled.div`
+const TodoItemTextWrapper = styled.div<{ isComplete: boolean; }>`
   ${mq({
     width: ['73%', '87%', '90%'],
     fontSize: ['1rem', '1.3rem'],
@@ -69,12 +70,19 @@ const DeleteIcon = styled(DeleteSvg)`
   cursor: pointer;
 `;
 
+type Props = {
+  item: Todo;
+  onShowEdit: () => void;
+  onRemove: () => void;
+  onToggle: () => void;
+};
+
 function TodoItemView({
   item, onShowEdit, onRemove, onToggle,
-}) {
+}: Props) {
   const isMobileScreen = useMediaQuery({ query: '(max-width: 450px)' });
 
-  const { task, isComplete, _id } = item;
+  const { task, isComplete } = item;
 
   return (
     <TodoItemViewWrapper>
@@ -87,14 +95,14 @@ function TodoItemView({
       <TodoItemTextWrapper
         isComplete={isComplete}
         data-tip
-        data-for={_id}
+        data-for={item._id}
         data-testid="todo-text"
         onDoubleClick={isMobileScreen ? undefined : onShowEdit}
       >
         {task}
       </TodoItemTextWrapper>
       <EditShowTool
-        id={_id}
+        id={item._id}
         isMobile={isMobileScreen}
         onShowEdit={onShowEdit}
       />

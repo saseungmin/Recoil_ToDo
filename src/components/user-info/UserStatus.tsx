@@ -39,13 +39,13 @@ function UserStatus() {
 
   const { enqueueSnackbar } = useSnackbar();
 
-  const onClickOpenModal = (formType) => setAuthStatus({
+  const onClickOpenModal = (formType: 'login' | 'register') => setAuthStatus({
     type: formType,
     visible: true,
   });
 
   const onLogout = () => {
-    setLogout();
+    setLogout(undefined);
     enqueueSnackbar('Successful Sign out!', {
       variant: 'success',
     });

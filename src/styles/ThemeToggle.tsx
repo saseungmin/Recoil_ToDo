@@ -79,7 +79,12 @@ const ToggleWrapper = styled(Toggle)`
   }
 `;
 
-function ThemeToggle({ onChange, theme }) {
+type Props = {
+  onChange: () => void;
+  theme: boolean;
+};
+
+function ThemeToggle({ onChange, theme }: Props) {
   return (
     <ToggleWrapper
       defaultChecked={theme}

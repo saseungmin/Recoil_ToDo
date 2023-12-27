@@ -2798,6 +2798,33 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/react-dom@npm:18.2.18":
+  version: 18.2.18
+  resolution: "@types/react-dom@npm:18.2.18"
+  dependencies:
+    "@types/react": "npm:*"
+  checksum: 4ef7725b4cebd4a32e049097ddfdfd855a178e63ead97ab6d3084872e7d6c1acd71aa923488123cd1015f0e0b11489d2b44f674a1df8fe82d7827eabbec6dbf1
+  languageName: node
+  linkType: hard
+
+"@types/react-responsive@npm:8.0.8":
+  version: 8.0.8
+  resolution: "@types/react-responsive@npm:8.0.8"
+  dependencies:
+    "@types/react": "npm:*"
+  checksum: 18c097f6fb55f1c53d22f83cf218dae64df9ea43c1311d29044a8101ebeb9df5a605522c5c02fe9b44b8e781a424e98111f6385861f70ff9612c9c78a236efb6
+  languageName: node
+  linkType: hard
+
+"@types/react-toggle@npm:4.0.5":
+  version: 4.0.5
+  resolution: "@types/react-toggle@npm:4.0.5"
+  dependencies:
+    "@types/react": "npm:*"
+  checksum: 3e1f386883e4012b36b85988207537e4066b7726371bc4617a7cc763b350d271e3ed7020f20f603e4d1754b5ed66abf506dc74f6201b652e69b9235ae78605bf
+  languageName: node
+  linkType: hard
+
 "@types/react-transition-group@npm:^4.2.0":
   version: 4.4.10
   resolution: "@types/react-transition-group@npm:4.4.10"
@@ -12966,6 +12993,9 @@ __metadata:
     "@types/facepaint": "npm:1.2.5"
     "@types/jest": "npm:^26.0.20"
     "@types/lodash": "npm:4.14.202"
+    "@types/react-dom": "npm:18.2.18"
+    "@types/react-responsive": "npm:8.0.8"
+    "@types/react-toggle": "npm:4.0.5"
     "@typescript-eslint/eslint-plugin": "npm:5.51.0"
     "@typescript-eslint/parser": "npm:5.51.0"
     axios: "npm:^0.21.1"

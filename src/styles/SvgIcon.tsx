@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { css } from '@emotion/react';
+import { Theme, css } from '@emotion/react';
 
 import BlogSvg from '../assets/icons/blog.svg';
 import GithubSvg from '../assets/icons/github.svg';
@@ -7,7 +7,7 @@ import FacebookSvg from '../assets/icons/facebook.svg';
 
 import mq from './responsive';
 
-const SvgIconWrapper = ({ theme }) => css`
+const SvgIconWrapper = ({ theme }: { theme: Theme }) => css`
   ${mq({
     width: ['18px', '20px'],
     height: ['18px', '20px'],

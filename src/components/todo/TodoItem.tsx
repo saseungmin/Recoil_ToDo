@@ -1,9 +1,12 @@
-import React, { useState, createRef, useEffect } from 'react';
+import React, {
+  useState, createRef, useEffect, FocusEvent, KeyboardEvent,
+} from 'react';
 
 import _ from 'lodash';
 
 import styled from '@emotion/styled';
 
+import { Todo } from 'src/recoil/todos/atom';
 import mq from '../../styles/responsive';
 import palette from '../../styles/palette';
 
@@ -43,24 +46,28 @@ const EditItemWrapper = styled.input`
   background: ${({ theme }) => theme.edit};
 `;
 
-function TodoItem({ item }) {
-  const { _id, task, isComplete } = item;
+type Props = {
+  item: Todo;
+};
+
+function TodoItem({ item }: Props) {
+  const { task, isComplete } = item;
 
   const onRemoveTodo = useRemoveCallback();
   const onUpdateTodo = useUpdateCallback();
 
-  const editInput = createRef();
+  const editInput = createRef<HTMLInputElement>();
   const [editToggleState, setEditToggleState] = useState(false);
 
-  const checkKeyPress = (key) => (key === 'Enter' || key === 'Escape');
+  const checkKeyPress = (key: string) => (key === 'Enter' || key === 'Escape');
 
-  const handleToggle = (id, toggle) => onUpdateTodo(id, {
+  const handleToggle = (id: string, toggle: boolean) => onUpdateTodo(id, {
     isComplete: !toggle,
   });
 
   const handleShowEdit = () => setEditToggleState(true);
 
-  const handleBlurEdit = (e, id) => {
+  const handleBlurEdit = (e: FocusEvent<HTMLInputElement>, id: string) => {
     const { value } = e.currentTarget;
 
     if (isCheckInputTrim(value)) {
@@ -71,7 +78,7 @@ function TodoItem({ item }) {
     onRemoveTodo(id);
   };
 
-  const handleSubmitEdit = (e, id) => {
+  const handleSubmitEdit = (e: KeyboardEvent<HTMLInputElement>, id: string) => {
     const { key, currentTarget: { value } } = e;
 
     if (checkKeyPress(key) && isCheckInputTrim(value)) {
@@ -96,8 +103,8 @@ function TodoItem({ item }) {
       <TodoItemView
         item={item}
         onShowEdit={handleShowEdit}
-        onRemove={() => onRemoveTodo(_id)}
-        onToggle={() => handleToggle(_id, isComplete)}
+        onRemove={() => onRemoveTodo(item._id)}
+        onToggle={() => handleToggle(item._id, isComplete)}
       />
     );
   }
@@ -109,8 +116,8 @@ function TodoItem({ item }) {
         ref={editInput}
         defaultValue={task}
         data-testid="todo-edit-input"
-        onBlur={(e) => handleBlurEdit(e, _id)}
-        onKeyPress={(e) => handleSubmitEdit(e, _id)}
+        onBlur={(e) => handleBlurEdit(e, item._id)}
+        onKeyPress={(e) => handleSubmitEdit(e, item._id)}
       />
     </EditWrapper>
   );

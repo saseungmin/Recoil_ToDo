@@ -2,6 +2,7 @@ import React from 'react';
 
 import styled from '@emotion/styled';
 
+import { User } from 'src/recoil/user/atom';
 import mq from '../../styles/responsive';
 
 import { FORM_TYPE } from '../../utils/constants/constants';
@@ -43,7 +44,12 @@ const UserIcon = styled(UserSvg)`
   margin-right: 0.5rem;
 `;
 
-function LoggedInUserInfo({ user, onLogout }) {
+type Props = {
+  user: User;
+  onLogout: () => void;
+};
+
+function LoggedInUserInfo({ user, onLogout }: Props) {
   return (
     <LoggedInUserInfoWrapper>
       <UserProfile>

@@ -2,9 +2,11 @@ import React from 'react';
 
 import emotionReset from 'emotion-reset';
 
-import { Global, useTheme, css } from '@emotion/react';
+import {
+  Global, useTheme, css, Theme,
+} from '@emotion/react';
 
-const setGlobalStyles = (theme) => css`
+const setGlobalStyles = (theme: Theme) => css`
   ${emotionReset}
 
   * {

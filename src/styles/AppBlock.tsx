@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 
 import styled from '@emotion/styled';
 
@@ -18,7 +18,7 @@ const AppWrapper = styled.div`
   flex-direction: column;
 `;
 
-function AppBlock({ children, ...rest }) {
+function AppBlock({ children, ...rest }: PropsWithChildren) {
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
     <AppWrapper {...rest}>

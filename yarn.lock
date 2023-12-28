@@ -2634,6 +2634,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/facepaint@npm:1.2.5":
+  version: 1.2.5
+  resolution: "@types/facepaint@npm:1.2.5"
+  checksum: da5e0a7959f2cc3e73b7668568777c72868710ab3f201e18dccb22081e8c9d9b7f1c24dc153bd659470f78a37281b9b5e305846a484c7b18e96819e86df2488d
+  languageName: node
+  linkType: hard
+
 "@types/glob@npm:^7.1.1":
   version: 7.2.0
   resolution: "@types/glob@npm:7.2.0"
@@ -2685,6 +2692,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/jest-plugin-context@npm:2.9.7":
+  version: 2.9.7
+  resolution: "@types/jest-plugin-context@npm:2.9.7"
+  dependencies:
+    "@types/jest": "npm:*"
+  checksum: 8b265088b146589b73249d7c5e92d5494732b049aeca88da9134bce8e3a91e638d956f2df00d8e0f0235bf8d1ac29412fae513ea63134715f4bf047d0aa78545
+  languageName: node
+  linkType: hard
+
 "@types/jest@npm:*":
   version: 29.5.11
   resolution: "@types/jest@npm:29.5.11"
@@ -2723,6 +2739,13 @@ __metadata:
   version: 0.0.29
   resolution: "@types/json5@npm:0.0.29"
   checksum: 4e5aed58cabb2bbf6f725da13421aa50a49abb6bc17bfab6c31b8774b073fa7b50d557c61f961a09a85f6056151190f8ac95f13f5b48136ba5841f7d4484ec56
+  languageName: node
+  linkType: hard
+
+"@types/lodash@npm:4.14.202":
+  version: 4.14.202
+  resolution: "@types/lodash@npm:4.14.202"
+  checksum: 1bb9760a5b1dda120132c4b987330d67979c95dbc22612678682cd61b00302e190f4207228f3728580059cdab5582362262e3819aea59960c1017bd2b9fb26f6
   languageName: node
   linkType: hard
 
@@ -2781,6 +2804,33 @@ __metadata:
   version: 1.5.8
   resolution: "@types/q@npm:1.5.8"
   checksum: eaa21cd2cf562956433937e728301ee8c63fe6dd91718cd4a1005744ec5a70c4ebe8e45e26af83ecbe45aa12ef0bf1646e42dac868780d1f3a99044547035706
+  languageName: node
+  linkType: hard
+
+"@types/react-dom@npm:18.2.18":
+  version: 18.2.18
+  resolution: "@types/react-dom@npm:18.2.18"
+  dependencies:
+    "@types/react": "npm:*"
+  checksum: 4ef7725b4cebd4a32e049097ddfdfd855a178e63ead97ab6d3084872e7d6c1acd71aa923488123cd1015f0e0b11489d2b44f674a1df8fe82d7827eabbec6dbf1
+  languageName: node
+  linkType: hard
+
+"@types/react-responsive@npm:8.0.8":
+  version: 8.0.8
+  resolution: "@types/react-responsive@npm:8.0.8"
+  dependencies:
+    "@types/react": "npm:*"
+  checksum: 18c097f6fb55f1c53d22f83cf218dae64df9ea43c1311d29044a8101ebeb9df5a605522c5c02fe9b44b8e781a424e98111f6385861f70ff9612c9c78a236efb6
+  languageName: node
+  linkType: hard
+
+"@types/react-toggle@npm:4.0.5":
+  version: 4.0.5
+  resolution: "@types/react-toggle@npm:4.0.5"
+  dependencies:
+    "@types/react": "npm:*"
+  checksum: 3e1f386883e4012b36b85988207537e4066b7726371bc4617a7cc763b350d271e3ed7020f20f603e4d1754b5ed66abf506dc74f6201b652e69b9235ae78605bf
   languageName: node
   linkType: hard
 
@@ -12919,9 +12969,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"recoil@npm:^0.3.1":
-  version: 0.3.1
-  resolution: "recoil@npm:0.3.1"
+"recoil@npm:0.7.7":
+  version: 0.7.7
+  resolution: "recoil@npm:0.7.7"
   dependencies:
     hamt_plus: "npm:1.0.2"
   peerDependencies:
@@ -12931,7 +12981,7 @@ __metadata:
       optional: true
     react-native:
       optional: true
-  checksum: a520146a4577a05b869c7a03b4babf0b7168c8f64d851ae310bf01ef8d345b078d45a755384a2471afef6f4170ddb66ae790f4dd0e3044a17592acba7bf018cf
+  checksum: 4ac9dfeddda2795f213b14290de09767b04fb98f1a760bcabe796c53830229f51de63a02cf54c18991c557f25cfeb9571a129ae0a19d734bd98cfc45eebbc82d
   languageName: node
   linkType: hard
 
@@ -12949,7 +12999,13 @@ __metadata:
     "@svgr/webpack": "npm:^5.5.0"
     "@testing-library/jest-dom": "npm:^5.11.9"
     "@testing-library/react": "npm:^11.2.3"
+    "@types/facepaint": "npm:1.2.5"
     "@types/jest": "npm:^26.0.20"
+    "@types/jest-plugin-context": "npm:2.9.7"
+    "@types/lodash": "npm:4.14.202"
+    "@types/react-dom": "npm:18.2.18"
+    "@types/react-responsive": "npm:8.0.8"
+    "@types/react-toggle": "npm:4.0.5"
     "@typescript-eslint/eslint-plugin": "npm:5.51.0"
     "@typescript-eslint/parser": "npm:5.51.0"
     axios: "npm:^0.21.1"
@@ -12998,7 +13054,7 @@ __metadata:
     react-toggle: "npm:^4.1.2"
     react-tooltip: "npm:^4.2.13"
     react-use: "npm:^17.1.1"
-    recoil: "npm:^0.3.1"
+    recoil: "npm:0.7.7"
     start-server-and-test: "npm:^1.14.0"
     style-loader: "npm:^2.0.0"
     terser-webpack-plugin: "npm:^4.2.3"

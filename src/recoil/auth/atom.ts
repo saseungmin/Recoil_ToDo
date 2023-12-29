@@ -4,7 +4,7 @@ import { AUTH_FORM_STATUS_ATOM_KEY, AUTH_RESULT_ATOM_KEY } from '../../utils/con
 
 export type AuthResultAtomType = {
   auth: any;
-  authError: null | string;
+  authError: any;
   authSuccess: null | string;
 };
 

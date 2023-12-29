@@ -1,6 +1,6 @@
 import { selector } from 'recoil';
 
-import todosResultAtom, { Todo, filterAtom } from './atom';
+import todosResultAtom, { filterAtom } from './atom';
 
 import { filteredTodos } from '../../utils/utils';
 
@@ -10,7 +10,7 @@ const todosWithFilter = selector({
     const filter = get(filterAtom);
     const { todos } = get(todosResultAtom);
 
-    return filteredTodos[filter](todos) as Todo[];
+    return filteredTodos[filter](todos);
   },
 });
 

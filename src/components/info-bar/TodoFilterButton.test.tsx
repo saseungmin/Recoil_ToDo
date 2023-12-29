@@ -4,8 +4,8 @@ import { RecoilRoot } from 'recoil';
 
 import { render } from '@testing-library/react';
 
-import TodoFilterButton from './TodoFilterButton';
 import { FilterType } from 'src/recoil/todos/atom';
+import TodoFilterButton from './TodoFilterButton';
 
 describe('TodoFilterButton', () => {
   const renderTodoFilterButton = (type: FilterType) => render((

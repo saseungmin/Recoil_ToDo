@@ -15,7 +15,7 @@ const EmptyMessageWrapper = styled.div`
   color: ${({ theme }) => theme.emptyText};
 `;
 
-function EmptyMessage({ children }: PropsWithChildren) {
+function EmptyMessage({ children }: PropsWithChildren<undefined>) {
   return (
     <EmptyMessageWrapper>
       {children}

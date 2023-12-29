@@ -5,7 +5,6 @@ import { render, fireEvent, screen } from '@testing-library/react';
 import { Context as ResponsiveContext } from 'react-responsive';
 
 import TodoItemView from './TodoItemView';
-import { Todo } from 'src/recoil/todos/atom';
 
 describe('TodoItemView', () => {
   const handleRemove = jest.fn();
@@ -16,7 +15,7 @@ describe('TodoItemView', () => {
     jest.clearAllMocks();
   });
 
-  const renderTodoItemView = ({ item, width }: { item: any; width?: string | number}) => render((
+  const renderTodoItemView = ({ item, width }: { item: any; width?: string | number }) => render((
     <ResponsiveContext.Provider value={{ width }}>
       <TodoItemView
         item={item}

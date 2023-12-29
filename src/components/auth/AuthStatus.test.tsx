@@ -56,7 +56,9 @@ describe('AuthStatus', () => {
         ];
 
         it('when sign up is successful, renders Sign in modal', async () => {
-          (mockAxios.post as jest.Mock).mockResolvedValueOnce({ data: { access_token: mockToken } });
+          (mockAxios.post as jest.Mock).mockResolvedValueOnce({
+            data: { access_token: mockToken },
+          });
           (mockAxios.get as jest.Mock).mockRejectedValueOnce({ response: { status: 403 } });
 
           const { container } = renderAuthStatus();
@@ -94,7 +96,9 @@ describe('AuthStatus', () => {
         ];
 
         it('when login is successful, renders success message', async () => {
-          (mockAxios.post as jest.Mock).mockResolvedValueOnce({ data: { access_token: mockToken } });
+          (mockAxios.post as jest.Mock).mockResolvedValueOnce({
+            data: { access_token: mockToken },
+          });
           (mockAxios.get as jest.Mock).mockRejectedValueOnce({ response: { status: 403 } });
 
           const { container } = renderAuthStatus();

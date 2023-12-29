@@ -1,7 +1,6 @@
 import React from 'react';
 
 import styled from '@emotion/styled';
-import { RegisterOptions } from 'react-hook-form';
 import palette from '../../styles/palette';
 
 const AuthInputWrapper = styled.input`

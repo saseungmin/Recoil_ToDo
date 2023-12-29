@@ -17,7 +17,7 @@ const mode = process.env.NODE_ENV || DEVELOPMENT;
 
 const appBuild = path.resolve(__dirname, 'build');
 const appSrc = path.resolve(__dirname, 'src');
-const appIndex = path.resolve(__dirname, 'src', 'index.jsx');
+const appIndex = path.resolve(__dirname, 'src', 'index.tsx');
 const appHtml = path.resolve(__dirname, 'public', 'index.html');
 const favicon = path.resolve(__dirname, 'public', 'favicon.ico');
 
@@ -34,6 +34,41 @@ module.exports = {
   },
   module: {
     rules: [
+      // {
+      //   test: /\.[jt]s$/,
+      //   exclude: /(node_modules)/,
+      //   use: [
+      //     {
+      //       loader: 'babel-loader',
+      //       options: {
+      //         presets: ['@babel/preset-env'],
+      //       },
+      //     },
+      //     {
+      //       loader: 'ts-loader',
+      //       options: {
+      //         compilerOptions: {
+      //           noEmit: false,
+      //         },
+      //       },
+      //     },
+      //   ],
+      // },
+      {
+        test: /\.ts(x?)$/,
+        exclude: /(node_modules)/,
+        include: appSrc,
+        use: [
+          {
+            loader: 'ts-loader',
+            options: {
+              compilerOptions: {
+                noEmit: false,
+              },
+            },
+          },
+        ],
+      },
       {
         test: /\.css$/,
         use: [
@@ -42,6 +77,11 @@ module.exports = {
             : 'style-loader', 'css-loader',
         ],
       },
+      // {
+      //   enforce: 'pre',
+      //   test: /\.js$/,
+      //   loader: 'source-map-loader',
+      // },
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
@@ -55,10 +95,12 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['.ts', '.tsx'],
   },
   externals: {
     axios: 'axios',
+    react: 'React',
+    'react-dom': 'ReactDOM',
   },
   devServer: {
     hot: true,

@@ -5,7 +5,7 @@ import { Todo } from './atom';
 
 const todoWithUpdate = selectorFamily({
   key: 'todoWithUpdate',
-  get: ({ id, value }: { id: string; value: Todo; }) => async () => {
+  get: ({ id, value }: { id: string; value: Partial<Todo>; }) => async () => {
     const response = await update(id, value);
 
     return response;

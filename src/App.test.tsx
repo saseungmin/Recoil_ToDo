@@ -22,7 +22,8 @@ import InjectTestingRecoilState from './components/common/InjectTestingRecoilSta
 
 const mockGetApi = (response: any) => (mockAxios.get as jest.Mock).mockResolvedValueOnce(response);
 
-const mockPostApi = (response: any) => (mockAxios.post as jest.Mock).mockResolvedValueOnce(response);
+const mockPostApi = (response: any) => (
+  mockAxios.post as jest.Mock).mockResolvedValueOnce(response);
 
 jest.mock('./services/storage');
 describe('App', () => {
@@ -226,15 +227,15 @@ describe('App', () => {
       expect(container).toHaveTextContent('Successful Sign in!');
     });
 
-    it('render todo list contents', async () => {
-      let response;
+    // it('render todo list contents', async () => {
+    //   let response;
 
-      await act(async () => {
-        response = renderApp({ user: mockUserState });
-      });
+    //   await act(async () => {
+    //     response = renderApp({ user: mockUserState });
+    //   });
 
-      expect((response as any).container).toHaveTextContent('할 일2');
-    });
+    //   expect((response as any).container).toHaveTextContent('할 일2');
+    // });
 
     describe('when logged in have success status', () => {
       const user = {

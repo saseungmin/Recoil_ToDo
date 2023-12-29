@@ -46,7 +46,7 @@ module.exports = {
         '@typescript-eslint',
       ],
       rules: {
-        // set your typescript rules
+        '@typescript-eslint/naming-convention': 'off',
       },
       parser: '@typescript-eslint/parser',
       parserOptions: {

@@ -4,7 +4,7 @@ import { list } from '../../services/api/todos';
 
 const todosWithLoad = selectorFamily({
   key: 'todosWithLoad',
-  get: (token) => async () => {
+  get: (token: string) => async () => {
     const response = await list(token);
 
     return response;

@@ -19,7 +19,9 @@ describe('todoWithUpdate', () => {
   it('Should Call api patch', async () => {
     const initialSnapshot = snapshot_UNSTABLE();
 
-    const response = await initialSnapshot.getPromise(todoWithUpdate({ id: todo._id, value: todo}));
+    const response = await initialSnapshot.getPromise(todoWithUpdate({
+      id: todo._id, value: todo,
+    }));
 
     expect(response).toBe(todo);
   });

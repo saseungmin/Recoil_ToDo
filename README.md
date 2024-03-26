@@ -1,5 +1,7 @@
 ## 🦄 ToDo Application created using Recoil and React
 
+### WIP!! [TS기반으로 마이그레이션 중](https://github.com/saseungmin/Recoil_ToDo/issues/91)
+
 <a href="https://github.com/saseungmin/Recoil_ToDo/actions/workflows/ci.yml">
   <img src="https://img.shields.io/github/actions/workflow/status/saseungmin/Recoil_ToDo/ci.yml?branch=main&label=CI&logo=GitHub&style=flat-square" />
 </a>
